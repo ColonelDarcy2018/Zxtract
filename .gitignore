@@ -1,0 +1,17 @@
+# Visual Studio / .NET build outputs
+.vs/
+**/bin/
+**/obj/
+*.user
+*.suo
+
+# Local build and extraction work directories
+.build-check/
+**/.extractutil_work/
+_direct_entry_test_*/
+_recursive_fixture_*/
+_smoke_fixture_*/
+
+# Runtime artifacts
+*.log
+*.tmp
