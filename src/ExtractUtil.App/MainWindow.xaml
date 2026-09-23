@@ -295,6 +295,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -310,6 +311,7 @@
                 <Separator />
                 <MenuItem Header="仅扫描文件夹" Command="{Binding ScanOnlyCommand}" InputGestureText="Ctrl+S" />
                 <Separator />
+                <MenuItem Header="密码助手..." Click="OnOpenPasswordAssistant" />
                 <MenuItem Header="导出日志..." Command="{Binding ExportLogCommand}" InputGestureText="Ctrl+Shift+E" />
             </MenuItem>
             <MenuItem Header="资源管理器(_E)">
@@ -370,7 +372,57 @@
             </Grid>
         </Border>
 
-        <Grid Grid.Row="2" Margin="16,0,16,16">
+        <Border Grid.Row="2"
+                Margin="16,0,16,10"
+                Padding="14,10"
+                Background="#FFFFFF"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Width="116" Margin="0,0,12,0" VerticalAlignment="Center">
+                    <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontWeight="SemiBold" Text="本次密码候选" />
+                    <TextBlock Margin="0,3,0,0" Style="{StaticResource HintTextStyle}" Text="两种解压方式通用" />
+                </StackPanel>
+
+                <TextBox Grid.Column="1"
+                         Height="46"
+                         Margin="0,0,12,0"
+                         AcceptsReturn="True"
+                         VerticalContentAlignment="Top"
+                         VerticalScrollBarVisibility="Auto"
+                         Text="{Binding PasswordCandidatesText, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="每行输入一个候选密码，排在前面的优先尝试" />
+
+                <CheckBox Grid.Column="2"
+                          Margin="0,0,14,0"
+                          VerticalAlignment="Center"
+                          IsChecked="{Binding InferPasswordsFromPath}"
+                          Content="自动从路径推断" />
+                <Button Grid.Column="3"
+                        MinWidth="102"
+                        Margin="0,0,8,0"
+                        Command="{Binding SaveCandidatePasswordsCommand}"
+                        Content="保存本次密码"
+                        Style="{StaticResource BaseButtonStyle}" />
+                <Button Grid.Column="4"
+                        MinWidth="104"
+                        Click="OnOpenPasswordAssistant"
+                        Content="密码助手..."
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        ToolTip="管理本地密码库和自定义推断规则" />
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="3" Margin="16,0,16,16">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" MinHeight="300" />
                 <RowDefinition Height="8" />
@@ -480,121 +532,6 @@
                                 </StackPanel>
                             </TabItem>
                         </TabControl>
-                    </Border>
-
-                    <Border Margin="0,0,0,10" Style="{StaticResource CardStyle}">
-                        <StackPanel>
-                            <TextBlock Style="{StaticResource SectionTitleStyle}" Text="通用设置 · 密码候选" />
-                            <CheckBox Margin="0,0,0,7" IsChecked="{Binding InferPasswordsFromPath}" Content="从文件夹和文件名自动推断密码" />
-                            <TextBox MinHeight="78"
-                                     MaxHeight="130"
-                                     AcceptsReturn="True"
-                                     VerticalContentAlignment="Top"
-                                     VerticalScrollBarVisibility="Auto"
-                                     Text="{Binding PasswordCandidatesText, UpdateSourceTrigger=PropertyChanged}"
-                                     ToolTip="每行输入一个候选密码，排在前面的优先尝试" />
-                            <Grid Margin="0,7,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0"
-                                           Margin="0,0,8,0"
-                                           VerticalAlignment="Center"
-                                           Style="{StaticResource HintTextStyle}"
-                                           Text="每行一个，按顺序尝试；密码内容不会写入日志。" />
-                                <Button Grid.Column="1"
-                                        MinHeight="30"
-                                        Padding="10,4"
-                                        Command="{Binding SaveCandidatePasswordsCommand}"
-                                        Content="保存候选到密码库"
-                                        Style="{StaticResource BaseButtonStyle}" />
-                            </Grid>
-
-                            <Separator Margin="0,12,0,8" Background="#E8EDF4" />
-
-                            <Expander Header="自定义推断规则">
-                                <StackPanel Margin="0,8,0,2">
-                                    <TextBlock Margin="0,0,0,7"
-                                               Style="{StaticResource HintTextStyle}"
-                                               Text="内置的“解压密码 / 密码 / p / pass / pwd”规则始终保留。每行可追加一个模板，必须包含 {password}，例如：提取码：{password}" />
-                                    <TextBox MinHeight="66"
-                                             MaxHeight="120"
-                                             AcceptsReturn="True"
-                                             VerticalContentAlignment="Top"
-                                             VerticalScrollBarVisibility="Auto"
-                                             Text="{Binding CustomPasswordRulesText, UpdateSourceTrigger=PropertyChanged}"
-                                             ToolTip="每行一条，例如：口令={password}" />
-                                    <Button Margin="0,8,0,0"
-                                            MinHeight="32"
-                                            Command="{Binding SavePasswordRulesCommand}"
-                                            Content="保存推断规则到本机"
-                                            Style="{StaticResource BaseButtonStyle}" />
-                                </StackPanel>
-                            </Expander>
-
-                            <Expander Margin="0,8,0,0" Header="本地密码库">
-                                <StackPanel Margin="0,8,0,2">
-                                    <ListBox MaxHeight="150"
-                                             Margin="0,0,0,8"
-                                             ItemsSource="{Binding SavedPasswords}"
-                                             BorderBrush="{StaticResource BorderBrush}"
-                                             BorderThickness="1">
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <Grid Margin="4,3">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <TextBlock VerticalAlignment="Center" Foreground="{StaticResource TextSecondaryBrush}" Text="{Binding MaskedValue}" />
-                                                    <Button Grid.Column="1"
-                                                            MinHeight="28"
-                                                            Margin="6,0,5,0"
-                                                            Padding="9,3"
-                                                            Command="{Binding DataContext.UseSavedPasswordCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                            CommandParameter="{Binding}"
-                                                            Content="使用"
-                                                            Style="{StaticResource BaseButtonStyle}" />
-                                                    <Button Grid.Column="2"
-                                                            MinHeight="28"
-                                                            Padding="9,3"
-                                                            Command="{Binding DataContext.DeleteSavedPasswordCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                            CommandParameter="{Binding}"
-                                                            Content="删除"
-                                                            Style="{StaticResource DangerButtonStyle}" />
-                                                </Grid>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
-
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBox Grid.Column="0"
-                                                 Text="{Binding NewSavedPassword, UpdateSourceTrigger=PropertyChanged}"
-                                                 ToolTip="输入一个要保存到本机密码库的密码" />
-                                        <Button Grid.Column="1"
-                                                MinWidth="68"
-                                                Margin="7,0,0,0"
-                                                Command="{Binding AddSavedPasswordCommand}"
-                                                Content="保存"
-                                                Style="{StaticResource BaseButtonStyle}" />
-                                    </Grid>
-                                    <TextBlock Margin="0,7,0,0"
-                                               Style="{StaticResource HintTextStyle}"
-                                               Text="密码使用 Windows 当前用户加密后保存在本机，仅显示掩码。" />
-                                </StackPanel>
-                            </Expander>
-
-                            <TextBlock Margin="0,9,0,0"
-                                       Foreground="{StaticResource PrimaryBrush}"
-                                       FontSize="11"
-                                       Text="{Binding PasswordSettingsStatus}" />
-                        </StackPanel>
                     </Border>
 
                     <Border Style="{StaticResource CardStyle}">

@@ -22,14 +22,17 @@ needs. Password, output, task-list, and log settings remain shared:
   **复制路径** to copy one source path, or every source-volume path for a grouped
   split archive.
 - Password candidates and output/conflict settings are shared by both
-  workflows. Enter one password per line; candidates are tried in order.
+  workflows. The current candidate list stays in the common bar at the top of
+  the main window; enter one password per line and candidates are tried in
+  order.
 - Built-in path inference still recognizes `解压密码`, `密码`, `p`, `pass`,
-  `password`, and `pwd`. Add custom templates under **自定义推断规则**, one per
-  line, using `{password}` as the captured value (for example
-  `提取码：{password}`). Custom templates are saved locally.
-- Frequently used passwords can be saved to **本地密码库** and added back to
-  the current candidate list with one click. Stored values are protected with
-  Windows DPAPI for the current user and are never written to the run log.
+  `password`, and `pwd`. Open **密码助手...** to add custom templates under
+  **路径推断规则**, one per line, using `{password}` as the captured value (for
+  example `提取码：{password}`). Custom templates are saved locally.
+- Open **密码助手...** to manage the local password library. Frequently used
+  passwords can be added back to the current candidate list with one click.
+  Stored values are protected with Windows DPAPI for the current user and are
+  never written to the run log.
 - `.7z.001/.7z.002/...` split archives are supported by extracting from the
   first volume. If a later volume is selected or dropped, the app resolves it
   back to `.001` when that first volume exists in the same folder.

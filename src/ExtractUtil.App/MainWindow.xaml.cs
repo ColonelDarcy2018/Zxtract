@@ -32,4 +32,14 @@ public partial class MainWindow : Window
         viewModel.AddPathsFromDrop(paths);
         e.Handled = true;
     }
+
+    private void OnOpenPasswordAssistant(object sender, RoutedEventArgs e)
+    {
+        var window = new PasswordAssistantWindow
+        {
+            Owner = this,
+            DataContext = DataContext
+        };
+        window.ShowDialog();
+    }
 }
