@@ -15,3 +15,6 @@ _smoke_fixture_*/
 # Runtime artifacts
 *.log
 *.tmp
+
+# Local Release packages
+artifacts/

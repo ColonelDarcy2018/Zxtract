@@ -1,95 +1,129 @@
 # Zxtract
 
-Windows GUI extraction utility with batch support, 7-Zip split archive support,
-drag-and-drop input, password handling, and an optional safe delete-after-success
-workflow.
+Zxtract 是一款面向 Windows 的现代化压缩文件工作台：把单文件解压、整目录扫描、分卷归并、密码管理和嵌套压缩递归处理放进一个清晰的界面。
 
-## GUI workflow
+Zxtract is a focused Windows archive workbench that combines one-off extraction, folder scanning, split-volume recovery, password management, and recursive nested-archive processing in one calm, practical UI.
 
-The fixed top toolbar provides two workflow tabs, the current status, and run
-controls. Tabs stay visible while settings or tasks scroll. Each mode shows
-only its relevant input controls; passwords and output settings are shared.
-Task counts use a compact status strip and the run log expands on demand.
+## 软件简介 · Product overview
 
-- To extract one or more individual archives, choose **添加压缩文件...**, then
-  choose **开始文件解压** (or press **F5**). The status beside the section title
-  shows how many files are waiting.
-- To process a whole directory, select a root directory and choose **仅扫描** or
-  **扫描并解压**. Recursive nested-archive detection and distributed-volume
-  grouping apply to this folder workflow.
-- Files and folders can also be dragged into the window. Dropped files join the
-  ordinary-file queue; a dropped folder becomes the folder-scan root.
-- Select a failed or canceled ordinary-file task and choose **重试选中** to run
-  it again from the original path with the current password candidates. Choose
-  **复制路径** to copy one source path, or every source-volume path for a grouped
-  split archive.
-- Password candidates and output/conflict settings are shared by both
-  workflows. The current candidate list stays in the common bar at the top of
-  the main window; enter one password per line and candidates are tried in
-  order.
-- Built-in path inference still recognizes `解压密码`, `密码`, `p`, `pass`,
-  `password`, and `pwd`. Open **密码助手...** to add custom templates under
-  **路径推断规则**, one per line, using `{password}` as the captured value (for
-  example `提取码：{password}`). Custom templates are saved locally.
-- Open **密码助手...** to manage the local password library. Frequently used
-  passwords can be added back to the current candidate list with one click.
-  Stored values are protected with Windows DPAPI for the current user and are
-  never written to the run log.
-- `.7z.001/.7z.002/...` split archives are supported by extracting from the
-  first volume. If a later volume is selected or dropped, the app resolves it
-  back to `.001` when that first volume exists in the same folder.
-- The password box is read when extraction starts, so you can add files first
-  and type or change the password afterward.
-- Enable **Delete source after success** only when you want source archives
-  removed. The GUI deletes only after 7-Zip exits with code `0`; warning results
-  keep the source archives.
+**为“压缩包很多、目录很深、密码不统一”的真实场景设计。**
 
-Password-helper settings are stored at:
+Zxtract 的核心优势：
+
+- **双模式工作流**：单独解压文件，或扫描整个文件夹；两种模式互不干扰。
+- **智能分卷处理**：识别 `.7z.001/.002`、多卷 RAR，并可将分散目录中的同名分卷归并后再解压。
+- **递归解压**：解压结果中发现新的压缩包后自动继续处理，并用轮次和循环检测避免重复工作。
+- **密码助手**：支持多个候选密码、路径推断、自定义规则和本地密码库；密码库使用当前 Windows 用户的 DPAPI 保护。
+- **可恢复任务**：失败、取消、密码错误和缺少分卷的任务保留来源路径，可快速重试，不必重新选择文件。
+- **安全默认值**：默认保留源文件；只有成功完成的任务才允许删除源压缩包。
+- **轻量且可移植**：Release 包自带 7-Zip 引擎，适合直接解压后使用。
+
+**Built for messy archive collections.** Zxtract is designed for folders full of mixed formats, split archives stored in different places, inconsistent passwords, and archives nested inside extracted results.
+
+Highlights:
+
+- Two focused workflows: individual archives and whole-folder processing.
+- Automatic split-volume grouping for 7z and multi-volume RAR archives.
+- Recursive extraction with pass limits and cycle protection.
+- Candidate passwords, path inference, custom rules, and a DPAPI-protected local vault.
+- Retry failed or canceled jobs from their preserved source paths.
+- Safe-by-default source handling: deletion is opt-in and only happens after success.
+- Portable Windows Release package with the 7-Zip engine included.
+
+## 界面预览 · UI preview
+
+主界面将模式页签、共享密码栏、任务列表和底部状态区固定在清晰的层级中；任务区域支持等待、处理中、已完成、暂停和需处理等状态。
+
+The main window keeps mode tabs, shared password controls, the task list, and status actions in a predictable hierarchy. The design covers ready, running, completed, paused, and attention states.
+
+![Zxtract 主界面与任务状态](docs/previews/zxtract-openpencil-main.png)
+
+共享密码面板支持逐行候选密码、密码库快速复用和路径规则推断。
+
+The shared password panel supports one-password-per-line candidates, quick reuse from the vault, and path-based inference rules.
+
+![Zxtract 密码助手面板](docs/previews/zxtract-openpencil-password.png)
+
+可编辑的 OpenPencil 设计源文件位于 [design/openpencil/Zxtract.fig](design/openpencil/Zxtract.fig)，重建脚本位于 [tools/Sync-ZxtractOpenPencil.ps1](tools/Sync-ZxtractOpenPencil.ps1)。
+
+The editable OpenPencil source is [design/openpencil/Zxtract.fig](design/openpencil/Zxtract.fig); the reproducible rebuild script is [tools/Sync-ZxtractOpenPencil.ps1](tools/Sync-ZxtractOpenPencil.ps1).
+
+## 使用方式 · Usage
+
+### 图形界面 · GUI
+
+1. 点击 **添加压缩文件...**，选择一个或多个压缩包，然后点击 **开始文件解压**（`F5`）。
+2. 处理整个目录时，选择根目录，再点击 **仅扫描** 或 **扫描并解压**。
+3. 密码在顶部共享栏中配置；每行一个候选密码，按顺序尝试。
+4. 失败或取消的任务可选择后点击 **重试选中**；**复制路径** 可快速复用来源路径。
+5. 文件和文件夹也可以直接拖入窗口。
+
+1. Choose **Add archives...**, then click **Start file extraction** (`F5`).
+2. For folder mode, choose a root directory and click **Scan only** or **Scan and extract**.
+3. Configure candidate passwords in the shared password bar, one candidate per line.
+4. Select a failed or canceled task and click **Retry selected**; **Copy path** reuses its source quickly.
+5. Files and folders can also be dropped onto the window.
+
+### 递归命令行 · Recursive command line
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\Expand-ArchiveTree.ps1 `
+  -Root "D:\archive-root\解压密码：示例密码" -DeleteArchives
+```
+
+或者将文件夹拖到 `tools\Extract-ArchiveTree.cmd`。
+
+Or drop a folder onto `tools\Extract-ArchiveTree.cmd`.
+
+## 密码与数据安全 · Password and data safety
+
+密码助手支持内置规则 `解压密码`、`密码`、`p`、`pass`、`password`、`pwd`，也支持自定义模板，例如 `提取码：{password}`。自定义规则和密码库保存在：
+
+The password assistant includes built-in rules for `解压密码`, `密码`, `p`, `pass`, `password`, and `pwd`, and accepts custom templates such as `提取码：{password}`. Settings are stored at:
 
 ```text
 %LOCALAPPDATA%\Zxtract\password-settings.json
 ```
 
-The JSON file contains custom rule text and DPAPI-protected password blobs, not
-plain-text password values.
+仅保存规则文本和 DPAPI 保护后的密码数据，不会把明文密码写入运行日志。
 
-## UI design source
+Only rule text and DPAPI-protected password blobs are stored; plaintext passwords are not written to the run log.
 
-The editable OpenPencil design is stored at `design/openpencil/Zxtract.fig`.
-Its reproducible JSX construction script is
-`tools/Sync-ZxtractOpenPencil.ps1`, with rendered previews under
-`docs/previews`. Keeping both the binary design and the text-based rebuild
-script makes the design easy to open while preserving a reviewable recovery
-path.
+## 构建与正式版 · Build and Release
 
-## Recursive one-click workflow
+需要 .NET 8 SDK 和 Windows。开发构建：
 
-For a reusable recursive workflow, use:
+Requires the .NET 8 SDK on Windows. Development build:
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\Expand-ArchiveTree.ps1 -Root "D:\archive-root\解压密码：示例密码" -DeleteArchives
+dotnet build .\src\ExtractUtil.App\ExtractUtil.App.csproj -c Release
 ```
 
-Or drag a folder onto:
+生成可分发的 Windows x64 独立版本：
 
-```text
-tools\Extract-ArchiveTree.cmd
+Create a self-contained Windows x64 package:
+
+```powershell
+pwsh .\tools\Publish-Zxtract.ps1 -Version 1.0.0
 ```
 
-The recursive script:
+The equivalent direct command is:
 
-- scans folders repeatedly, so archives produced by extracting earlier archives
-  are processed in later passes;
-- reads passwords from path text such as `解压密码：xxx`, `密码: xxx`, `p=0317`,
-  `pass=xxx`, `password=xxx`, and `pwd=xxx`;
-- supports normal archives, multipart RAR, and `.7z.001/.7z.002/...`;
-- can stage split 7z volumes that were placed in sibling folders like
-  `name-1`, `name-2` by using hard links under `.extractutil_work\staging`;
-- skips empty archive files and logs them as warnings;
-- deletes source archives only after a successful 7-Zip extraction;
-- writes logs under `.extractutil_work\logs`.
+```powershell
+dotnet publish .\src\ExtractUtil.App\ExtractUtil.App.csproj `
+  -c Release -r win-x64 --self-contained true `
+  -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true `
+  -o .\artifacts\Zxtract-1.0.0-win-x64
+```
 
-See:
-- docs/requirements.md
-- docs/technical.md
-- docs/modules.md
+正式版本当前为 **1.0.0**。发布说明见 [docs/release-notes/v1.0.0.md](docs/release-notes/v1.0.0.md)。
+
+The current formal version is **1.0.0**. See [docs/release-notes/v1.0.0.md](docs/release-notes/v1.0.0.md) for release notes.
+
+## 文档 · Documentation
+
+- [需求说明 · Requirements](docs/requirements.md)
+- [技术说明 · Technical notes](docs/technical.md)
+- [模块说明 · Modules](docs/modules.md)
+- [界面重设计方案 · UI redesign proposal](docs/ui-redesign-proposal.md)
+- [OpenPencil 原型状态 · Prototype status](docs/figma-prototype-status.md)
