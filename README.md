@@ -53,6 +53,15 @@ Password-helper settings are stored at:
 The JSON file contains custom rule text and DPAPI-protected password blobs, not
 plain-text password values.
 
+## UI design source
+
+The editable OpenPencil design is stored at `design/openpencil/Zxtract.fig`.
+Its reproducible JSX construction script is
+`tools/Sync-ZxtractOpenPencil.ps1`, with rendered previews under
+`docs/previews`. Keeping both the binary design and the text-based rebuild
+script makes the design easy to open while preserving a reviewable recovery
+path.
+
 ## Recursive one-click workflow
 
 For a reusable recursive workflow, use:

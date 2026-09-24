@@ -39,11 +39,14 @@
 
 2026-09-24 已将原型结构与 WPF 最终修正同步到本地 OpenPencil 文档：
 
-- 文件：`C:\Users\excel\Documents\Zxtract.fig`
+- 项目内设计源文件：`design/openpencil/Zxtract.fig`
+- 本地工作副本：`C:\Users\excel\Documents\Zxtract.fig`
 - 页面：`Zxtract · UI 原型`
 - 内容：1 个使用说明画板、8 个主界面状态画板、4 个面板/详情画板，共13 个顶层画板
 - 重建脚本：`tools/Sync-ZxtractOpenPencil.ps1`
 - 校验：683 个节点已完成边界检查，严重溢出为 0；整页预览见 `docs/previews/zxtract-openpencil-main.png`
+
+项目内 `.fig` 文件是便于直接打开和协作的设计源文件；重建脚本继续作为可审查、可重复生成的文本来源。修改本地工作副本后，应将确认保存的版本同步覆盖到 `design/openpencil/Zxtract.fig` 再提交。
 
 OpenPencil 0.15.1 Windows 版存在桌面端鉴权握手问题；当服务仅监听 `127.0.0.1`
 时，需以空的 `OPENPENCIL_MCP_AUTH_TOKEN` 启动 HTTP MCP 服务，否则桌面端可能持续
