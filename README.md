@@ -1,5 +1,8 @@
 # Zxtract
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/ColonelDarcy2018/Zxtract)](https://github.com/ColonelDarcy2018/Zxtract/releases/latest)
+
 Zxtract 是一款面向 Windows 的现代化压缩文件工作台：把单文件解压、整目录扫描、分卷归并、密码管理和嵌套压缩递归处理放进一个清晰的界面。
 
 Zxtract is a focused Windows archive workbench that combines one-off extraction, folder scanning, split-volume recovery, password management, and recursive nested-archive processing in one calm, practical UI.
@@ -104,7 +107,7 @@ dotnet build .\src\ExtractUtil.App\ExtractUtil.App.csproj -c Release
 Create a self-contained Windows x64 package:
 
 ```powershell
-pwsh .\tools\Publish-Zxtract.ps1 -Version 1.0.0
+pwsh .\tools\Publish-Zxtract.ps1 -Version 1.0.1
 ```
 
 The equivalent direct command is:
@@ -113,12 +116,18 @@ The equivalent direct command is:
 dotnet publish .\src\ExtractUtil.App\ExtractUtil.App.csproj `
   -c Release -r win-x64 --self-contained true `
   -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true `
-  -o .\artifacts\Zxtract-1.0.0-win-x64
+  -o .\artifacts\Zxtract-1.0.1-win-x64
 ```
 
-正式版本当前为 **1.0.0**。发布说明见 [docs/release-notes/v1.0.0.md](docs/release-notes/v1.0.0.md)。
+正式版本当前为 **1.0.1**。发布说明见 [docs/release-notes/v1.0.1.md](docs/release-notes/v1.0.1.md)。
 
-The current formal version is **1.0.0**. See [docs/release-notes/v1.0.0.md](docs/release-notes/v1.0.0.md) for release notes.
+The current formal version is **1.0.1**. See [docs/release-notes/v1.0.1.md](docs/release-notes/v1.0.1.md) for release notes.
+
+## 开源协议 · License
+
+Zxtract 自有代码和资源采用 [MIT License](LICENSE)。发布包包含未修改的官方 7-Zip 二进制文件，它们继续遵循各自的 LGPL、BSD 和 unRAR 限制条款；完整信息见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) 和 [7-Zip 官方许可](licenses/7-Zip-License.txt)。
+
+Zxtract's original code and assets are licensed under the [MIT License](LICENSE). The distributable package includes unmodified official 7-Zip binaries under their own LGPL, BSD, and unRAR restriction terms. See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) and the [full upstream 7-Zip license](licenses/7-Zip-License.txt).
 
 ## 文档 · Documentation
 
