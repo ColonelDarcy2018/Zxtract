@@ -19,25 +19,28 @@ public sealed class LocalPasswordSettingsStore
 {
     private static readonly byte[] Entropy = Encoding.UTF8.GetBytes("ExtractUtil.PasswordLibrary.v1");
     private readonly JsonSerializerOptions _jsonOptions = new() { WriteIndented = true };
+    private readonly string _legacySettingsPath;
 
     public LocalPasswordSettingsStore()
     {
         var appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        SettingsPath = Path.Combine(appData, "ExtractUtil", "password-settings.json");
+        SettingsPath = Path.Combine(appData, "Zxtract", "password-settings.json");
+        _legacySettingsPath = Path.Combine(appData, "ExtractUtil", "password-settings.json");
     }
 
     public string SettingsPath { get; }
 
     public LocalPasswordSettings Load()
     {
-        if (!File.Exists(SettingsPath))
+        var sourcePath = File.Exists(SettingsPath) ? SettingsPath : _legacySettingsPath;
+        if (!File.Exists(sourcePath))
         {
             return new LocalPasswordSettings();
         }
 
         try
         {
-            var json = File.ReadAllText(SettingsPath, Encoding.UTF8);
+            var json = File.ReadAllText(sourcePath, Encoding.UTF8);
             var document = JsonSerializer.Deserialize<StoredSettings>(json, _jsonOptions) ?? new StoredSettings();
             var passwords = new List<string>();
             foreach (var protectedValue in document.ProtectedPasswords)

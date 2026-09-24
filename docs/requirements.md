@@ -1,4 +1,4 @@
-# ExtractUtil Requirements
+# Zxtract Requirements
 
 ## Goals
 - Provide a Windows 10/11 GUI extraction tool with batch support.
@@ -32,7 +32,7 @@
 9. Explorer context menu:
    - Extract Here
    - Extract To Folder
-   - Extract With ExtractUtil (open app)
+   - 用 Zxtract 打开
 10. Support 7z split archives by using the first volume (`.7z.001`) as the extraction entry.
 11. Allow users to add files/folders by drag-and-drop.
 12. Password input is evaluated when extraction starts, not only when jobs are added.

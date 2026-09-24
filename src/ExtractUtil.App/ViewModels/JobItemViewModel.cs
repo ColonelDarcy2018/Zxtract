@@ -70,13 +70,25 @@ public sealed class JobItemViewModel : ObservableObject
     public ArchiveTreePhase Phase
     {
         get => _phase;
-        private set => SetProperty(ref _phase, value);
+        private set
+        {
+            if (SetProperty(ref _phase, value))
+            {
+                NotifyPresentationProperties();
+            }
+        }
     }
 
     public ExtractJobStatus Status
     {
         get => _status;
-        private set => SetProperty(ref _status, value);
+        private set
+        {
+            if (SetProperty(ref _status, value))
+            {
+                NotifyPresentationProperties();
+            }
+        }
     }
 
     public int ProgressPercent
@@ -94,7 +106,78 @@ public sealed class JobItemViewModel : ObservableObject
     public string Message
     {
         get => _message;
-        private set => SetProperty(ref _message, value);
+        private set
+        {
+            if (SetProperty(ref _message, value))
+            {
+                OnPropertyChanged(nameof(StatusDetail));
+                OnPropertyChanged(nameof(RetryRequiresPassword));
+                OnPropertyChanged(nameof(RetryActionText));
+            }
+        }
+    }
+
+    public bool IsRunning => Status == ExtractJobStatus.Running;
+    public bool IsCompleted => Status == ExtractJobStatus.Completed;
+    public bool NeedsAttention => !CanExtract || Phase == ArchiveTreePhase.Blocked ||
+                                  Status is ExtractJobStatus.Failed or ExtractJobStatus.Canceled;
+    public bool CanRetry => Status is ExtractJobStatus.Failed or ExtractJobStatus.Canceled ||
+                            Phase == ArchiveTreePhase.Blocked;
+    public bool RetryRequiresPassword => Status == ExtractJobStatus.Failed &&
+        (Message.Contains("密码", StringComparison.OrdinalIgnoreCase) ||
+         Message.Contains("password", StringComparison.OrdinalIgnoreCase));
+
+    public string StatusText => Phase switch
+    {
+        ArchiveTreePhase.TryingPassword => "正在尝试密码",
+        ArchiveTreePhase.Staging => "正在整理分卷",
+        ArchiveTreePhase.Extracting => Status == ExtractJobStatus.Running ? "正在解压" : Status.ToString(),
+        ArchiveTreePhase.Committing => "正在写入文件",
+        ArchiveTreePhase.Completed => "已完成",
+        ArchiveTreePhase.Canceled => "已取消",
+        ArchiveTreePhase.Blocked => "需处理",
+        ArchiveTreePhase.SkippedCycle => "已跳过循环",
+        ArchiveTreePhase.SkippedLimit => "已达到上限",
+        ArchiveTreePhase.Failed => "解压失败",
+        _ => Status switch
+        {
+            ExtractJobStatus.Queued => "等待开始",
+            ExtractJobStatus.Running => "处理中",
+            ExtractJobStatus.Completed => "已完成",
+            ExtractJobStatus.Failed => "解压失败",
+            ExtractJobStatus.Canceled => "已取消",
+            _ => Status.ToString()
+        }
+    };
+
+    public string SourceSummary => WorkItem is null
+        ? ArchivePath
+        : WorkItem.SourceParts.Count > 1
+            ? $"{VolumeSummary} · {RelativeDirectory}"
+            : ArchivePath;
+
+    public string StatusDetail => string.IsNullOrWhiteSpace(Message)
+        ? ProgressPercent > 0 && ProgressPercent < 100 ? $"{ProgressPercent}%" : string.Empty
+        : Message;
+
+    public string RetryActionText => Phase == ArchiveTreePhase.Blocked
+        ? "重新扫描并解压"
+        : Status == ExtractJobStatus.Canceled
+            ? "重试"
+            : RetryRequiresPassword
+                ? "修改密码并重试"
+                : "重试";
+
+    private void NotifyPresentationProperties()
+    {
+        OnPropertyChanged(nameof(IsRunning));
+        OnPropertyChanged(nameof(IsCompleted));
+        OnPropertyChanged(nameof(NeedsAttention));
+        OnPropertyChanged(nameof(CanRetry));
+        OnPropertyChanged(nameof(RetryRequiresPassword));
+        OnPropertyChanged(nameof(StatusText));
+        OnPropertyChanged(nameof(StatusDetail));
+        OnPropertyChanged(nameof(RetryActionText));
     }
 
     public int PasswordAttempt

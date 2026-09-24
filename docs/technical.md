@@ -1,4 +1,4 @@
-# ExtractUtil Technical Design
+# Zxtract Technical Design
 
 ## Stack
 - .NET 8, WPF (GUI)
@@ -6,6 +6,7 @@
 - 7-Zip CLI (7z.exe) as the extraction engine
 
 ## Architecture
+- Zxtract: user-facing product and executable name
 - ExtractUtil.Core: domain models, extractor interface, 7-Zip integration, job queue, logging
 - ExtractUtil.App: WPF UI, view models, shell integration, log export
 - tools/7zip: optional local 7z.exe for portable distribution

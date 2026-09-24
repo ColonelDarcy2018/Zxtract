@@ -21,7 +21,7 @@ public static class ContextMenuRegistration
         ".tar.xz"
     };
 
-    // 注册菜单项：Extract Here / Extract To Folder / Open In App。
+    // 注册菜单项：解压到此处 / 解压到同名文件夹 / 在应用中打开。
     public static void Register(string exePath)
     {
         if (string.IsNullOrWhiteSpace(exePath))
@@ -33,9 +33,12 @@ public static class ContextMenuRegistration
         {
             var shellRoot = $@"Software\Classes\SystemFileAssociations\{extension}\shell";
 
-            CreateMenuItem(shellRoot, "ExtractUtil.ExtractHere", "Extract Here", exePath, "--shell-extract-here");
-            CreateMenuItem(shellRoot, "ExtractUtil.ExtractToFolder", "Extract To Folder", exePath, "--shell-extract-to-folder");
-            CreateMenuItem(shellRoot, "ExtractUtil.OpenInApp", "Extract With ExtractUtil", exePath, "--shell-open");
+            DeleteMenuItem(shellRoot, "ExtractUtil.ExtractHere");
+            DeleteMenuItem(shellRoot, "ExtractUtil.ExtractToFolder");
+            DeleteMenuItem(shellRoot, "ExtractUtil.OpenInApp");
+            CreateMenuItem(shellRoot, "Zxtract.ExtractHere", "Zxtract：解压到此处", exePath, "--shell-extract-here");
+            CreateMenuItem(shellRoot, "Zxtract.ExtractToFolder", "Zxtract：解压到同名文件夹", exePath, "--shell-extract-to-folder");
+            CreateMenuItem(shellRoot, "Zxtract.OpenInApp", "使用 Zxtract 打开", exePath, "--shell-open");
         }
     }
 
@@ -49,6 +52,9 @@ public static class ContextMenuRegistration
             DeleteMenuItem(shellRoot, "ExtractUtil.ExtractHere");
             DeleteMenuItem(shellRoot, "ExtractUtil.ExtractToFolder");
             DeleteMenuItem(shellRoot, "ExtractUtil.OpenInApp");
+            DeleteMenuItem(shellRoot, "Zxtract.ExtractHere");
+            DeleteMenuItem(shellRoot, "Zxtract.ExtractToFolder");
+            DeleteMenuItem(shellRoot, "Zxtract.OpenInApp");
         }
     }
 

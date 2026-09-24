@@ -1,7 +1,11 @@
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using ExtractUtil.App.Services;
 using ExtractUtil.Core.Enums;
@@ -56,6 +60,10 @@ public sealed class MainViewModel : ObservableObject
     private int _failedCount;
     private int _incompleteCount;
     private int _selectedWorkflowIndex;
+    private int _selectedTaskFilterIndex;
+    private string _jobSearchText = string.Empty;
+    private bool _isPasswordPanelOpen;
+    private JobItemViewModel? _pendingPasswordRetryJob;
     private JobItemViewModel? _selectedJob;
 
     public MainViewModel()
@@ -74,6 +82,9 @@ public sealed class MainViewModel : ObservableObject
         _passwordSettingsStore = new LocalPasswordSettingsStore();
 
         Jobs = new ObservableCollection<JobItemViewModel>();
+        Jobs.CollectionChanged += OnJobsCollectionChanged;
+        FilteredJobs = CollectionViewSource.GetDefaultView(Jobs);
+        FilteredJobs.Filter = FilterJob;
         LogLines = new ObservableCollection<string>();
         SavedPasswords = new ObservableCollection<SavedPasswordViewModel>();
         ConflictPolicies = Enum.GetValues<ConflictPolicy>();
@@ -100,6 +111,11 @@ public sealed class MainViewModel : ObservableObject
         StartCommand = Register(new RelayCommand(_ => StartExtraction(), _ => !IsBusy && QueuedFileCount > 0));
         RetrySelectedCommand = Register(new RelayCommand(_ => RetrySelectedJob(), _ => CanRetrySelectedJob));
         CopySelectedPathCommand = Register(new RelayCommand(_ => CopySelectedPath(), _ => SelectedJob is not null));
+        RetryJobCommand = Register(new RelayCommand(RetryJob, CanRetryJob));
+        ApplyPasswordAndRetryCommand = Register(new RelayCommand(_ => ApplyPasswordAndRetry(), _ => CanApplyPasswordRetry));
+        CopyJobPathCommand = Register(new RelayCommand(CopyJobPath, parameter => parameter is JobItemViewModel));
+        OpenJobLocationCommand = Register(new RelayCommand(OpenJobLocation, parameter => parameter is JobItemViewModel));
+        SetTaskFilterCommand = Register(new RelayCommand(SetTaskFilter));
         SavePasswordRulesCommand = Register(new RelayCommand(_ => SavePasswordSettings()));
         SaveCandidatePasswordsCommand = Register(new RelayCommand(_ => SaveCandidatePasswords(), _ => PasswordCandidateResolver.ParseMultiline(PasswordCandidatesText).Count > 0));
         AddSavedPasswordCommand = Register(new RelayCommand(_ => AddSavedPassword(), _ => !string.IsNullOrWhiteSpace(NewSavedPassword)));
@@ -113,6 +129,7 @@ public sealed class MainViewModel : ObservableObject
     }
 
     public ObservableCollection<JobItemViewModel> Jobs { get; }
+    public ICollectionView FilteredJobs { get; }
     public ObservableCollection<string> LogLines { get; }
     public ObservableCollection<SavedPasswordViewModel> SavedPasswords { get; }
     public Array ConflictPolicies { get; }
@@ -121,8 +138,50 @@ public sealed class MainViewModel : ObservableObject
     public int SelectedWorkflowIndex
     {
         get => _selectedWorkflowIndex;
-        set => SetProperty(ref _selectedWorkflowIndex, Math.Clamp(value, 0, 1));
+        set
+        {
+            if (SetProperty(ref _selectedWorkflowIndex, Math.Clamp(value, 0, 1)))
+            {
+                SelectedJob = null;
+                RefreshJobView();
+            }
+        }
     }
+
+    public int SelectedTaskFilterIndex
+    {
+        get => _selectedTaskFilterIndex;
+        set
+        {
+            if (SetProperty(ref _selectedTaskFilterIndex, Math.Clamp(value, 0, 3)))
+            {
+                RefreshJobView();
+            }
+        }
+    }
+
+    public string JobSearchText
+    {
+        get => _jobSearchText;
+        set
+        {
+            value ??= string.Empty;
+            if (SetProperty(ref _jobSearchText, value))
+            {
+                RefreshJobView();
+            }
+        }
+    }
+
+    public int FilteredJobCount => FilteredJobs.Cast<object>().Count();
+
+    public string AllFilterText => $"全部 {CurrentModeJobs.Count()}";
+    public string RunningFilterText => $"处理中 {CurrentModeJobs.Count(job => job.IsRunning)}";
+    public string AttentionFilterText => $"需处理 {CurrentModeJobs.Count(job => job.NeedsAttention)}";
+    public string CompletedFilterText => $"已完成 {CurrentModeJobs.Count(job => job.IsCompleted)}";
+
+    private IEnumerable<JobItemViewModel> CurrentModeJobs =>
+        Jobs.Where(job => job.IsTreeItem == (SelectedWorkflowIndex == 1));
 
     public JobItemViewModel? SelectedJob
     {
@@ -140,8 +199,30 @@ public sealed class MainViewModel : ObservableObject
     public string ScanRootDirectory
     {
         get => _scanRootDirectory;
-        set => SetProperty(ref _scanRootDirectory, value);
+        set
+        {
+            if (SetProperty(ref _scanRootDirectory, value))
+            {
+                OnPropertyChanged(nameof(ScanRootDisplay));
+            }
+        }
     }
+
+    public string ScanRootDisplay => string.IsNullOrWhiteSpace(ScanRootDirectory)
+        ? "尚未选择文件夹"
+        : ScanRootDirectory;
+
+    public bool IsPasswordPanelOpen
+    {
+        get => _isPasswordPanelOpen;
+        set => SetProperty(ref _isPasswordPanelOpen, value);
+    }
+
+    public string PasswordPanelTitle => _pendingPasswordRetryJob is null
+        ? "本次解压密码"
+        : $"修改密码并重试 · {_pendingPasswordRetryJob.DisplayName}";
+
+    public bool CanApplyPasswordRetry => _pendingPasswordRetryJob is not null && !IsBusy;
 
     public bool RecursiveExtractionEnabled
     {
@@ -169,8 +250,18 @@ public sealed class MainViewModel : ObservableObject
             value ??= string.Empty;
             if (SetProperty(ref _passwordCandidatesText, value))
             {
+                OnPropertyChanged(nameof(PasswordSummary));
                 RaiseCommandStates();
             }
+        }
+    }
+
+    public string PasswordSummary
+    {
+        get
+        {
+            var count = PasswordCandidateResolver.ParseMultiline(PasswordCandidatesText).Count;
+            return count == 0 ? "未设置" : $"已设 {count} 个";
         }
     }
 
@@ -261,9 +352,39 @@ public sealed class MainViewModel : ObservableObject
             if (SetProperty(ref _selectedOutputMode, value))
             {
                 OnPropertyChanged(nameof(UseCustomOutputDirectory));
+                OnPropertyChanged(nameof(OutputModeDisplay));
+                OnPropertyChanged(nameof(OutputToArchiveDirectory));
+                OnPropertyChanged(nameof(OutputToSubdirectory));
+                OnPropertyChanged(nameof(OutputToCustomRoot));
             }
         }
     }
+
+    public bool OutputToArchiveDirectory
+    {
+        get => SelectedOutputMode == ArchiveOutputMode.ArchiveDirectory;
+        set { if (value) SelectedOutputMode = ArchiveOutputMode.ArchiveDirectory; }
+    }
+
+    public bool OutputToSubdirectory
+    {
+        get => SelectedOutputMode == ArchiveOutputMode.ArchiveSubdirectory;
+        set { if (value) SelectedOutputMode = ArchiveOutputMode.ArchiveSubdirectory; }
+    }
+
+    public bool OutputToCustomRoot
+    {
+        get => SelectedOutputMode == ArchiveOutputMode.CustomRoot;
+        set { if (value) SelectedOutputMode = ArchiveOutputMode.CustomRoot; }
+    }
+
+    public string OutputModeDisplay => SelectedOutputMode switch
+    {
+        ArchiveOutputMode.ArchiveDirectory => "压缩包所在目录",
+        ArchiveOutputMode.ArchiveSubdirectory => "同名子文件夹",
+        ArchiveOutputMode.CustomRoot => "指定目录",
+        _ => SelectedOutputMode.ToString()
+    };
 
     public ConflictPolicy SelectedConflictPolicy
     {
@@ -336,6 +457,7 @@ public sealed class MainViewModel : ObservableObject
             {
                 RaiseCommandStates();
                 OnPropertyChanged(nameof(PauseButtonText));
+                OnPropertyChanged(nameof(CanApplyPasswordRetry));
             }
         }
     }
@@ -425,6 +547,11 @@ public sealed class MainViewModel : ObservableObject
     public ICommand StartCommand { get; }
     public ICommand RetrySelectedCommand { get; }
     public ICommand CopySelectedPathCommand { get; }
+    public ICommand RetryJobCommand { get; }
+    public ICommand ApplyPasswordAndRetryCommand { get; }
+    public ICommand CopyJobPathCommand { get; }
+    public ICommand OpenJobLocationCommand { get; }
+    public ICommand SetTaskFilterCommand { get; }
     public ICommand SavePasswordRulesCommand { get; }
     public ICommand SaveCandidatePasswordsCommand { get; }
     public ICommand AddSavedPasswordCommand { get; }
@@ -480,8 +607,71 @@ public sealed class MainViewModel : ObservableObject
 
     private void RetrySelectedJob()
     {
-        var item = SelectedJob;
-        if (item?.Job is null ||
+        RetryJob(SelectedJob);
+    }
+
+    private bool CanRetryJob(object? parameter)
+    {
+        if (IsBusy || parameter is not JobItemViewModel item || !item.CanRetry)
+        {
+            return false;
+        }
+
+        return item.IsTreeItem
+            ? Directory.Exists(ScanRootDirectory)
+            : File.Exists(item.ArchivePath);
+    }
+
+    private void RetryJob(object? parameter)
+    {
+        var item = parameter as JobItemViewModel;
+        if (item is null)
+        {
+            return;
+        }
+
+        SelectedJob = item;
+        if (item.RetryRequiresPassword)
+        {
+            _pendingPasswordRetryJob = item;
+            IsPasswordPanelOpen = true;
+            OverallStatus = $"请修改密码后重试：{item.DisplayName}";
+            OnPropertyChanged(nameof(PasswordPanelTitle));
+            OnPropertyChanged(nameof(CanApplyPasswordRetry));
+            RaiseCommandStates();
+            return;
+        }
+
+        ExecuteRetry(item);
+    }
+
+    private void ApplyPasswordAndRetry()
+    {
+        var item = _pendingPasswordRetryJob;
+        if (item is null)
+        {
+            return;
+        }
+
+        _pendingPasswordRetryJob = null;
+        IsPasswordPanelOpen = false;
+        OnPropertyChanged(nameof(PasswordPanelTitle));
+        OnPropertyChanged(nameof(CanApplyPasswordRetry));
+        RaiseCommandStates();
+        ExecuteRetry(item);
+    }
+
+    private void ExecuteRetry(JobItemViewModel item)
+    {
+        if (item.IsTreeItem)
+        {
+            OverallStatus = $"重新扫描并解压：{item.DisplayName}";
+            Log(LogLevel.Info, $"从原扫描目录重试文件夹任务：{ScanRootDirectory}");
+            _ = ScanAndExtractAsync();
+            return;
+        }
+
+        if (item.Job is null ||
             item.Status is not (ExtractJobStatus.Failed or ExtractJobStatus.Canceled))
         {
             return;
@@ -503,7 +693,12 @@ public sealed class MainViewModel : ObservableObject
 
     private void CopySelectedPath()
     {
-        if (SelectedJob is not { } item)
+        CopyJobPath(SelectedJob);
+    }
+
+    private void CopyJobPath(object? parameter)
+    {
+        if (parameter is not JobItemViewModel item)
         {
             return;
         }
@@ -527,6 +722,112 @@ public sealed class MainViewModel : ObservableObject
         {
             Log(LogLevel.Error, $"复制路径失败：{ex.Message}");
         }
+    }
+
+    private void OpenJobLocation(object? parameter)
+    {
+        if (parameter is not JobItemViewModel item)
+        {
+            return;
+        }
+
+        var output = item.OutputDirectory;
+        var source = item.ArchivePath;
+        try
+        {
+            if (item.Status == ExtractJobStatus.Completed && Directory.Exists(output))
+            {
+                Process.Start(new ProcessStartInfo(output) { UseShellExecute = true });
+                return;
+            }
+
+            if (File.Exists(source))
+            {
+                Process.Start(new ProcessStartInfo("explorer.exe", $"/select,\"{source}\"") { UseShellExecute = true });
+                return;
+            }
+
+            var directory = Path.GetDirectoryName(source);
+            if (!string.IsNullOrWhiteSpace(directory) && Directory.Exists(directory))
+            {
+                Process.Start(new ProcessStartInfo(directory) { UseShellExecute = true });
+            }
+        }
+        catch (Exception ex)
+        {
+            Log(LogLevel.Error, $"打开位置失败：{ex.Message}");
+        }
+    }
+
+    private void SetTaskFilter(object? parameter)
+    {
+        if (int.TryParse(parameter?.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var index))
+        {
+            SelectedTaskFilterIndex = index;
+        }
+    }
+
+    private bool FilterJob(object value)
+    {
+        if (value is not JobItemViewModel item || item.IsTreeItem != (SelectedWorkflowIndex == 1))
+        {
+            return false;
+        }
+
+        var matchesState = SelectedTaskFilterIndex switch
+        {
+            1 => item.IsRunning,
+            2 => item.NeedsAttention,
+            3 => item.IsCompleted,
+            _ => true
+        };
+        if (!matchesState || string.IsNullOrWhiteSpace(JobSearchText))
+        {
+            return matchesState;
+        }
+
+        return item.DisplayName.Contains(JobSearchText, StringComparison.OrdinalIgnoreCase) ||
+               item.ArchivePath.Contains(JobSearchText, StringComparison.OrdinalIgnoreCase) ||
+               item.RelativeDirectory.Contains(JobSearchText, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private void OnJobsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.OldItems is not null)
+        {
+            foreach (JobItemViewModel item in e.OldItems)
+            {
+                item.PropertyChanged -= OnJobPropertyChanged;
+            }
+        }
+
+        if (e.NewItems is not null)
+        {
+            foreach (JobItemViewModel item in e.NewItems)
+            {
+                item.PropertyChanged += OnJobPropertyChanged;
+            }
+        }
+
+        RefreshJobView();
+    }
+
+    private void OnJobPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName is nameof(JobItemViewModel.Status) or nameof(JobItemViewModel.Phase) or nameof(JobItemViewModel.Message))
+        {
+            RefreshJobView();
+        }
+    }
+
+    private void RefreshJobView()
+    {
+        FilteredJobs.Refresh();
+        OnPropertyChanged(nameof(FilteredJobCount));
+        OnPropertyChanged(nameof(AllFilterText));
+        OnPropertyChanged(nameof(RunningFilterText));
+        OnPropertyChanged(nameof(AttentionFilterText));
+        OnPropertyChanged(nameof(CompletedFilterText));
     }
 
     private void SavePasswordSettings()
@@ -1004,6 +1305,7 @@ public sealed class MainViewModel : ObservableObject
         IncompleteCount = Jobs.Count(job => !job.CanExtract || job.Phase == ArchiveTreePhase.Blocked);
         OnPropertyChanged(nameof(QueuedFileCount));
         OnPropertyChanged(nameof(DirectFileStatus));
+        RefreshJobView();
         RaiseCommandStates();
     }
 
@@ -1370,7 +1672,7 @@ public sealed class MainViewModel : ObservableObject
         var dialog = new WpfDialogs.SaveFileDialog
         {
             Filter = "文本文件 (*.txt)|*.txt|所有文件 (*.*)|*.*",
-            FileName = $"extractutil-log-{DateTime.Now:yyyyMMdd-HHmmss}.txt"
+            FileName = $"zxtract-log-{DateTime.Now:yyyyMMdd-HHmmss}.txt"
         };
 
         if (dialog.ShowDialog() != true)
@@ -1392,11 +1694,11 @@ public sealed class MainViewModel : ObservableObject
         try
         {
             ContextMenuRegistration.Register(Environment.ProcessPath ?? string.Empty);
-            System.Windows.MessageBox.Show("已为当前用户注册资源管理器右键菜单。", "ExtractUtil");
+            System.Windows.MessageBox.Show("已为当前用户注册资源管理器右键菜单。", "Zxtract");
         }
         catch (Exception ex)
         {
-            System.Windows.MessageBox.Show($"注册失败：{ex.Message}", "ExtractUtil");
+            System.Windows.MessageBox.Show($"注册失败：{ex.Message}", "Zxtract");
         }
     }
 
@@ -1405,11 +1707,11 @@ public sealed class MainViewModel : ObservableObject
         try
         {
             ContextMenuRegistration.Unregister();
-            System.Windows.MessageBox.Show("已卸载资源管理器右键菜单。", "ExtractUtil");
+            System.Windows.MessageBox.Show("已卸载资源管理器右键菜单。", "Zxtract");
         }
         catch (Exception ex)
         {
-            System.Windows.MessageBox.Show($"卸载失败：{ex.Message}", "ExtractUtil");
+            System.Windows.MessageBox.Show($"卸载失败：{ex.Message}", "Zxtract");
         }
     }
 

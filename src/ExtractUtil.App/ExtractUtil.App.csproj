@@ -2,11 +2,21 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
+    <AssemblyName>Zxtract</AssemblyName>
+    <Product>Zxtract</Product>
+    <Title>Zxtract</Title>
+    <Description>A focused Windows archive extraction workbench.</Description>
+    <ApplicationIcon>Resources\Zxtract.ico</ApplicationIcon>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Zxtract.ico" />
+    <Resource Include="Resources\Zxtract.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ExtractUtil.Core\ExtractUtil.Core.csproj" />

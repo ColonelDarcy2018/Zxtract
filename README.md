@@ -1,4 +1,4 @@
-# ExtractUtil
+# Zxtract
 
 Windows GUI extraction utility with batch support, 7-Zip split archive support,
 drag-and-drop input, password handling, and an optional safe delete-after-success
@@ -6,8 +6,10 @@ workflow.
 
 ## GUI workflow
 
-The workflow card uses two visible tabs so each mode shows only the controls it
-needs. Password, output, task-list, and log settings remain shared:
+The fixed top toolbar provides two workflow tabs, the current status, and run
+controls. Tabs stay visible while settings or tasks scroll. Each mode shows
+only its relevant input controls; passwords and output settings are shared.
+Task counts use a compact status strip and the run log expands on demand.
 
 - To extract one or more individual archives, choose **添加压缩文件...**, then
   choose **开始文件解压** (or press **F5**). The status beside the section title
@@ -45,7 +47,7 @@ needs. Password, output, task-list, and log settings remain shared:
 Password-helper settings are stored at:
 
 ```text
-%LOCALAPPDATA%\ExtractUtil\password-settings.json
+%LOCALAPPDATA%\Zxtract\password-settings.json
 ```
 
 The JSON file contains custom rule text and DPAPI-protected password blobs, not

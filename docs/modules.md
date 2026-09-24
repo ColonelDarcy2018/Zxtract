@@ -1,4 +1,7 @@
-# ExtractUtil Modules
+# Zxtract Modules
+
+`ExtractUtil.Core` and `ExtractUtil.App` remain as internal project and namespace
+names for source compatibility; the user-facing product name is Zxtract.
 
 ## ExtractUtil.Core
 - Models: ExtractJob, ExtractOptions, ExtractProgress, ExtractResult, LogEntry

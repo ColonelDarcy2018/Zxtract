@@ -1,0 +1,1990 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="3812" height="3458" viewBox="0 0 3812 3458">
+  <defs>
+    <filter id="fx0">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.09"/>
+    </filter>
+    <clipPath id="clip1">
+      <rect width="1200" height="760"/>
+    </clipPath>
+    <filter id="fx2">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.09"/>
+    </filter>
+    <clipPath id="clip3">
+      <rect width="1200" height="760"/>
+    </clipPath>
+    <filter id="fx4">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.09"/>
+    </filter>
+    <clipPath id="clip5">
+      <rect width="1200" height="760"/>
+    </clipPath>
+    <filter id="fx6">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.09"/>
+    </filter>
+    <clipPath id="clip7">
+      <rect width="1200" height="760"/>
+    </clipPath>
+    <filter id="fx8">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.09"/>
+    </filter>
+    <clipPath id="clip9">
+      <rect width="1200" height="760"/>
+    </clipPath>
+    <filter id="fx10">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.09"/>
+    </filter>
+    <clipPath id="clip11">
+      <rect width="1200" height="760"/>
+    </clipPath>
+    <filter id="fx12">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.09"/>
+    </filter>
+    <clipPath id="clip13">
+      <rect width="1200" height="760"/>
+    </clipPath>
+    <filter id="fx14">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.09"/>
+    </filter>
+    <clipPath id="clip15">
+      <rect width="1024" height="640"/>
+    </clipPath>
+    <filter id="fx16">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.13"/>
+    </filter>
+    <filter id="fx17">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.13"/>
+    </filter>
+    <filter id="fx18">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.13"/>
+    </filter>
+    <filter id="fx19">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.13"/>
+    </filter>
+  </defs>
+  <g transform="translate(28, 0)">
+    <rect width="1200" height="240" rx="10" ry="10" fill="#F7F8FA"/>
+    <g transform="translate(32, 32)">
+      <text x="0" y="28" font-family="Inter" font-size="28" font-weight="700" fill="#172033">Zxtract UI 原型</text>
+    </g>
+    <g transform="translate(32, 83)">
+      <text x="0" y="14" font-family="Inter" font-size="14" fill="#5F6877">轻量、可靠的 Windows 解压工作台 · 主操作固定，复杂设置按需展开</text>
+    </g>
+    <g transform="translate(32, 115)">
+      <g>
+        <rect width="370.67" height="67" rx="6" ry="6" fill="#FFFFFF" stroke="#E1E5EA" stroke-width="1"/>
+        <g transform="translate(14, 14)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#172033">直接开始</text>
+        </g>
+        <g transform="translate(14, 37)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">文件与文件夹入口始终可见</text>
+        </g>
+      </g>
+      <g transform="translate(382.67, 0)">
+        <rect width="370.67" height="67" rx="6" ry="6" fill="#FFFFFF" stroke="#E1E5EA" stroke-width="1"/>
+        <g transform="translate(14, 14)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#172033">上下文清楚</text>
+        </g>
+        <g transform="translate(14, 37)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">两种工作流独立保留状态</text>
+        </g>
+      </g>
+      <g transform="translate(765.33, 0)">
+        <rect width="370.67" height="67" rx="6" ry="6" fill="#FFFFFF" stroke="#E1E5EA" stroke-width="1"/>
+        <g transform="translate(14, 14)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#172033">失败可恢复</text>
+        </g>
+        <g transform="translate(14, 37)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">修改密码或重试不必重新选择</text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(28, 320)" filter="url(#fx0)">
+    <rect width="1200" height="760" rx="8" ry="8" fill="#F7F8FA" stroke="#D8DDE4" stroke-width="1"/>
+    <g clip-path="url(#clip1)">
+      <g>
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 14)">
+          <g>
+            <rect width="84" height="36" rx="5" ry="5" fill="#EAF1FF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">文件解压</text>
+            </g>
+          </g>
+          <g transform="translate(88, 0)">
+            <rect width="97" height="36" rx="5" ry="5" fill="#FFFFFF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#687384">文件夹解压</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(217, 24)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">3 项等待开始</text>
+        </g>
+        <g transform="translate(960, 15)">
+          <g>
+            <rect width="104" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+            <g transform="translate(17.5, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">＋ 添加文件</text>
+            </g>
+          </g>
+          <g transform="translate(112, 0)">
+            <rect width="104" height="34" rx="5" ry="5" fill="#2F6FED"/>
+            <g transform="translate(26, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#FFFFFF">开始解压</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 64)">
+        <rect width="1200" height="52" fill="#F7F8FA"/>
+        <g transform="translate(24, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">密码</text>
+        </g>
+        <g transform="translate(60, 11)">
+          <rect width="95" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">已设 2 个候选</text>
+          </g>
+        </g>
+        <g transform="translate(167, 16)">
+          <rect width="1" height="20" fill="#D8DDE4"/>
+        </g>
+        <g transform="translate(180, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">输出</text>
+        </g>
+        <g transform="translate(216, 17.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">压缩包同名文件夹</text>
+        </g>
+        <g transform="translate(1108, 11)">
+          <rect width="68" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">更多选项</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 116)">
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">全部 3</text>
+        </g>
+        <g transform="translate(82, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">处理中 0</text>
+        </g>
+        <g transform="translate(153, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">需处理 0</text>
+        </g>
+        <g transform="translate(224, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">已完成 0</text>
+        </g>
+        <g transform="translate(295, 31.5)"/>
+        <g transform="translate(956, 16)">
+          <rect width="220" height="32" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 8)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#929AA7">搜索文件</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 180)">
+        <rect width="1200" height="540" fill="#FFFFFF"/>
+        <g>
+          <rect width="1200" height="38" fill="#FAFBFC" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">文件</text>
+          </g>
+          <g transform="translate(666, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">状态 / 进度</text>
+          </g>
+          <g transform="translate(946, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">操作</text>
+          </g>
+        </g>
+        <g transform="translate(0, 38)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">资料合集.7z</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">D:\资料\下载</text>
+            </g>
+          </g>
+          <g transform="translate(666, 15)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#5F6877">等待开始</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">342 MB</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">移出</text>
+            </g>
+            <g transform="translate(38, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 102)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">课程.part01.rar</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">4 个分卷 · 跨目录</text>
+            </g>
+          </g>
+          <g transform="translate(666, 15)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#5F6877">等待开始</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">1.8 GB</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">移出</text>
+            </g>
+            <g transform="translate(38, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 166)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">图片.zip</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">D:\图片\归档</text>
+            </g>
+          </g>
+          <g transform="translate(666, 15)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#5F6877">等待开始</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">86 MB</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">移出</text>
+            </g>
+            <g transform="translate(38, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 720)">
+        <rect width="1200" height="40" fill="#F7F8FA" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#5F6877">3 项等待开始</text>
+        </g>
+        <g transform="translate(1116, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" font-weight="600" fill="#2F6FED">查看日志</text>
+        </g>
+        <g transform="translate(1176, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">导出</text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(1308, 320)" filter="url(#fx2)">
+    <rect width="1200" height="760" rx="8" ry="8" fill="#F7F8FA" stroke="#D8DDE4" stroke-width="1"/>
+    <g clip-path="url(#clip3)">
+      <g>
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 14)">
+          <g>
+            <rect width="84" height="36" rx="5" ry="5" fill="#EAF1FF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">文件解压</text>
+            </g>
+          </g>
+          <g transform="translate(88, 0)">
+            <rect width="97" height="36" rx="5" ry="5" fill="#FFFFFF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#687384">文件夹解压</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(217, 24)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">正在处理 1 / 3</text>
+        </g>
+        <g transform="translate(1024, 15)">
+          <g>
+            <rect width="72" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+            <g transform="translate(23, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">暂停</text>
+            </g>
+          </g>
+          <g transform="translate(80, 0)">
+            <rect width="72" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+            <g transform="translate(23, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">取消</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 64)">
+        <rect width="1200" height="52" fill="#F7F8FA"/>
+        <g transform="translate(24, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">密码</text>
+        </g>
+        <g transform="translate(60, 11)">
+          <rect width="95" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">已设 2 个候选</text>
+          </g>
+        </g>
+        <g transform="translate(167, 16)">
+          <rect width="1" height="20" fill="#D8DDE4"/>
+        </g>
+        <g transform="translate(180, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">输出</text>
+        </g>
+        <g transform="translate(216, 17.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">压缩包同名文件夹</text>
+        </g>
+        <g transform="translate(1108, 11)">
+          <rect width="68" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">更多选项</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 116)">
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">全部 3</text>
+        </g>
+        <g transform="translate(82, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">处理中 1</text>
+        </g>
+        <g transform="translate(150, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">需处理 0</text>
+        </g>
+        <g transform="translate(221, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">已完成 0</text>
+        </g>
+        <g transform="translate(292, 31.5)"/>
+        <g transform="translate(956, 16)">
+          <rect width="220" height="32" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 8)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#929AA7">搜索文件</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 180)">
+        <rect width="1200" height="540" fill="#FFFFFF"/>
+        <g>
+          <rect width="1200" height="38" fill="#FAFBFC" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">文件</text>
+          </g>
+          <g transform="translate(666, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">状态 / 进度</text>
+          </g>
+          <g transform="translate(946, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">操作</text>
+          </g>
+        </g>
+        <g transform="translate(0, 38)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">资料合集.7z</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">D:\资料\下载</text>
+            </g>
+          </g>
+          <g transform="translate(666, 10.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">正在解压 46%</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">已处理 158 MB</text>
+            </g>
+            <g transform="translate(0, 40)">
+              <rect width="220" height="3" rx="2" ry="2" fill="#E4E8ED"/>
+              <rect width="101" height="3" rx="2" ry="2" fill="#2F6FED"/>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">详情</text>
+            </g>
+            <g transform="translate(38, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 102)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">课程.part01.rar</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">4 个分卷 · 跨目录</text>
+            </g>
+          </g>
+          <g transform="translate(666, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#5F6877">等待中</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">前面还有 1 项</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">详情</text>
+            </g>
+            <g transform="translate(38, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 166)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">图片.zip</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">D:\图片\归档</text>
+            </g>
+          </g>
+          <g transform="translate(666, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#5F6877">等待中</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">前面还有 2 项</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">详情</text>
+            </g>
+            <g transform="translate(38, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 720)">
+        <rect width="1200" height="40" fill="#F7F8FA" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#5F6877">正在处理 1 / 3</text>
+        </g>
+        <g transform="translate(1116, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" font-weight="600" fill="#2F6FED">查看日志</text>
+        </g>
+        <g transform="translate(1176, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">导出</text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(2588, 320)" filter="url(#fx4)">
+    <rect width="1200" height="760" rx="8" ry="8" fill="#F7F8FA" stroke="#D8DDE4" stroke-width="1"/>
+    <g clip-path="url(#clip5)">
+      <g>
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 14)">
+          <g>
+            <rect width="84" height="36" rx="5" ry="5" fill="#EAF1FF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">文件解压</text>
+            </g>
+          </g>
+          <g transform="translate(88, 0)">
+            <rect width="97" height="36" rx="5" ry="5" fill="#FFFFFF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#687384">文件夹解压</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(217, 24)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">已完成 2 / 3 · 1 项需处理</text>
+        </g>
+        <g transform="translate(960, 15)">
+          <g>
+            <rect width="104" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+            <g transform="translate(17.5, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">＋ 添加文件</text>
+            </g>
+          </g>
+          <g transform="translate(112, 0)">
+            <rect width="104" height="34" rx="5" ry="5" fill="#2F6FED"/>
+            <g transform="translate(26, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#FFFFFF">开始解压</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 64)">
+        <rect width="1200" height="52" fill="#F7F8FA"/>
+        <g transform="translate(24, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">密码</text>
+        </g>
+        <g transform="translate(60, 11)">
+          <rect width="95" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">已设 2 个候选</text>
+          </g>
+        </g>
+        <g transform="translate(167, 16)">
+          <rect width="1" height="20" fill="#D8DDE4"/>
+        </g>
+        <g transform="translate(180, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">输出</text>
+        </g>
+        <g transform="translate(216, 17.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">压缩包同名文件夹</text>
+        </g>
+        <g transform="translate(1108, 11)">
+          <rect width="68" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">更多选项</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 116)">
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">全部 3</text>
+        </g>
+        <g transform="translate(82, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">处理中 0</text>
+        </g>
+        <g transform="translate(153, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">需处理 1</text>
+        </g>
+        <g transform="translate(221, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">已完成 2</text>
+        </g>
+        <g transform="translate(292, 31.5)"/>
+        <g transform="translate(956, 16)">
+          <rect width="220" height="32" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 8)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#929AA7">搜索文件</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 180)">
+        <rect width="1200" height="540" fill="#FFFFFF"/>
+        <g>
+          <rect width="1200" height="38" fill="#FAFBFC" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">文件</text>
+          </g>
+          <g transform="translate(666, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">状态 / 进度</text>
+          </g>
+          <g transform="translate(946, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">操作</text>
+          </g>
+        </g>
+        <g transform="translate(0, 38)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">资料合集.7z</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">D:\资料\下载</text>
+            </g>
+          </g>
+          <g transform="translate(666, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#218A54">已完成</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">用时 00:38</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">打开位置</text>
+            </g>
+            <g transform="translate(64, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 102)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">课程.part01.rar</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">4 个分卷 · 跨目录</text>
+            </g>
+          </g>
+          <g transform="translate(666, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#C2413B">密码不匹配</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">已尝试 3 个候选密码</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">修改密码</text>
+            </g>
+            <g transform="translate(64, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 166)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">图片.zip</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">D:\图片\归档</text>
+            </g>
+          </g>
+          <g transform="translate(666, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#218A54">已完成</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">用时 00:12</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">打开位置</text>
+            </g>
+            <g transform="translate(64, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 720)">
+        <rect width="1200" height="40" fill="#F7F8FA" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#5F6877">已完成 2 / 3 · 1 项需处理</text>
+        </g>
+        <g transform="translate(1116, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" font-weight="600" fill="#2F6FED">查看日志</text>
+        </g>
+        <g transform="translate(1176, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">导出</text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(28, 1160)" filter="url(#fx6)">
+    <rect width="1200" height="760" rx="8" ry="8" fill="#F7F8FA" stroke="#D8DDE4" stroke-width="1"/>
+    <g clip-path="url(#clip7)">
+      <g>
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 14)">
+          <g>
+            <rect width="84" height="36" rx="5" ry="5" fill="#FFFFFF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#687384">文件解压</text>
+            </g>
+          </g>
+          <g transform="translate(88, 0)">
+            <rect width="97" height="36" rx="5" ry="5" fill="#EAF1FF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">文件夹解压</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(217, 24)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">尚未扫描</text>
+        </g>
+        <g transform="translate(946, 15)">
+          <g>
+            <rect width="100" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+            <g transform="translate(17.5, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">选择文件夹</text>
+            </g>
+          </g>
+          <g transform="translate(108, 0)">
+            <rect width="122" height="34" rx="5" ry="5" fill="#2F6FED"/>
+            <g transform="translate(28.5, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#FFFFFF">扫描并解压</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 64)">
+        <rect width="1200" height="48" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 16)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">当前目录</text>
+        </g>
+        <g transform="translate(88, 15.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">D:\资料\待整理</text>
+        </g>
+        <g transform="translate(1049, 16)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">包含子文件夹</text>
+        </g>
+        <g transform="translate(1137, 15.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">仅扫描</text>
+        </g>
+      </g>
+      <g transform="translate(0, 112)">
+        <rect width="1200" height="52" fill="#F7F8FA"/>
+        <g transform="translate(24, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">密码</text>
+        </g>
+        <g transform="translate(60, 11)">
+          <rect width="95" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">已设 2 个候选</text>
+          </g>
+        </g>
+        <g transform="translate(167, 16)">
+          <rect width="1" height="20" fill="#D8DDE4"/>
+        </g>
+        <g transform="translate(180, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">输出</text>
+        </g>
+        <g transform="translate(216, 17.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">压缩包同名文件夹</text>
+        </g>
+        <g transform="translate(1108, 11)">
+          <rect width="68" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">更多选项</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 164)">
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">全部 0</text>
+        </g>
+        <g transform="translate(82, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">处理中 0</text>
+        </g>
+        <g transform="translate(153, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">需处理 0</text>
+        </g>
+        <g transform="translate(224, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">已完成 0</text>
+        </g>
+        <g transform="translate(295, 31.5)"/>
+        <g transform="translate(956, 16)">
+          <rect width="220" height="32" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 8)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#929AA7">搜索文件</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 228)">
+        <rect width="1200" height="492" fill="#FFFFFF"/>
+        <g>
+          <rect width="1200" height="38" fill="#FAFBFC" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">文件</text>
+          </g>
+          <g transform="translate(666, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">状态 / 进度</text>
+          </g>
+          <g transform="translate(946, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">操作</text>
+          </g>
+        </g>
+        <g transform="translate(0, 38)">
+          <rect width="1200" height="454" fill="#FFFFFF"/>
+          <g transform="translate(465, 202.5)">
+            <text x="0" y="18" font-family="Inter" font-size="18" font-weight="600" fill="#202938">选择文件夹，扫描其中的压缩文件</text>
+          </g>
+          <g transform="translate(483, 234.5)">
+            <text x="0" y="13" font-family="Inter" font-size="13" fill="#808998">支持递归扫描、嵌套压缩包与跨目录分卷</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 720)">
+        <rect width="1200" height="40" fill="#F7F8FA" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#5F6877">尚未扫描</text>
+        </g>
+        <g transform="translate(1116, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" font-weight="600" fill="#2F6FED">查看日志</text>
+        </g>
+        <g transform="translate(1176, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">导出</text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(1308, 1160)" filter="url(#fx8)">
+    <rect width="1200" height="760" rx="8" ry="8" fill="#F7F8FA" stroke="#D8DDE4" stroke-width="1"/>
+    <g clip-path="url(#clip9)">
+      <g>
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 14)">
+          <g>
+            <rect width="84" height="36" rx="5" ry="5" fill="#FFFFFF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#687384">文件解压</text>
+            </g>
+          </g>
+          <g transform="translate(88, 0)">
+            <rect width="97" height="36" rx="5" ry="5" fill="#EAF1FF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">文件夹解压</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(217, 24)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">扫描到 6 个压缩包 · 正在处理第 1 轮</text>
+        </g>
+        <g transform="translate(1024, 15)">
+          <g>
+            <rect width="72" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+            <g transform="translate(23, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">暂停</text>
+            </g>
+          </g>
+          <g transform="translate(80, 0)">
+            <rect width="72" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+            <g transform="translate(23, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">取消</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 64)">
+        <rect width="1200" height="48" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 16)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">当前目录</text>
+        </g>
+        <g transform="translate(88, 15.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">D:\资料\待整理</text>
+        </g>
+        <g transform="translate(1049, 16)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">包含子文件夹</text>
+        </g>
+        <g transform="translate(1137, 15.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">仅扫描</text>
+        </g>
+      </g>
+      <g transform="translate(0, 112)">
+        <rect width="1200" height="52" fill="#F7F8FA"/>
+        <g transform="translate(24, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">密码</text>
+        </g>
+        <g transform="translate(60, 11)">
+          <rect width="95" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">已设 2 个候选</text>
+          </g>
+        </g>
+        <g transform="translate(167, 16)">
+          <rect width="1" height="20" fill="#D8DDE4"/>
+        </g>
+        <g transform="translate(180, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">输出</text>
+        </g>
+        <g transform="translate(216, 17.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">压缩包同名文件夹</text>
+        </g>
+        <g transform="translate(1108, 11)">
+          <rect width="68" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">更多选项</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 164)">
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">全部 3</text>
+        </g>
+        <g transform="translate(82, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">处理中 1</text>
+        </g>
+        <g transform="translate(150, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">需处理 0</text>
+        </g>
+        <g transform="translate(221, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">已完成 0</text>
+        </g>
+        <g transform="translate(292, 31.5)"/>
+        <g transform="translate(956, 16)">
+          <rect width="220" height="32" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 8)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#929AA7">搜索文件</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 228)">
+        <rect width="1200" height="492" fill="#FFFFFF"/>
+        <g>
+          <rect width="1200" height="38" fill="#FAFBFC" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">文件</text>
+          </g>
+          <g transform="translate(666, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">状态 / 进度</text>
+          </g>
+          <g transform="translate(946, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">操作</text>
+          </g>
+        </g>
+        <g transform="translate(0, 38)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">素材包.7z.001</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">3 个分卷 · 已归并</text>
+            </g>
+          </g>
+          <g transform="translate(666, 10.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">正在解压 63%</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">递归轮次 1 / 5</text>
+            </g>
+            <g transform="translate(0, 40)">
+              <rect width="220" height="3" rx="2" ry="2" fill="#E4E8ED"/>
+              <rect width="139" height="3" rx="2" ry="2" fill="#2F6FED"/>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">详情</text>
+            </g>
+            <g transform="translate(38, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 102)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">内层资源.zip</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">由上一项解压产生</text>
+            </g>
+          </g>
+          <g transform="translate(666, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#5F6877">等待中</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">将在下一轮检测</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">详情</text>
+            </g>
+            <g transform="translate(38, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 166)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">文档.rar</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">D:\资料\待整理\文档</text>
+            </g>
+          </g>
+          <g transform="translate(666, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#5F6877">等待中</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">已识别密码规则</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">详情</text>
+            </g>
+            <g transform="translate(38, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 720)">
+        <rect width="1200" height="40" fill="#F7F8FA" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#5F6877">扫描到 6 个压缩包 · 正在处理第 1 轮</text>
+        </g>
+        <g transform="translate(1116, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" font-weight="600" fill="#2F6FED">查看日志</text>
+        </g>
+        <g transform="translate(1176, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">导出</text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(2588, 1160)" filter="url(#fx10)">
+    <rect width="1200" height="760" rx="8" ry="8" fill="#F7F8FA" stroke="#D8DDE4" stroke-width="1"/>
+    <g clip-path="url(#clip11)">
+      <g>
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 14)">
+          <g>
+            <rect width="84" height="36" rx="5" ry="5" fill="#FFFFFF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#687384">文件解压</text>
+            </g>
+          </g>
+          <g transform="translate(88, 0)">
+            <rect width="97" height="36" rx="5" ry="5" fill="#EAF1FF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">文件夹解压</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(217, 24)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">已暂停 · 当前任务将在继续后恢复</text>
+        </g>
+        <g transform="translate(1024, 15)">
+          <g>
+            <rect width="72" height="34" rx="5" ry="5" fill="#2F6FED"/>
+            <g transform="translate(23, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#FFFFFF">继续</text>
+            </g>
+          </g>
+          <g transform="translate(80, 0)">
+            <rect width="72" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+            <g transform="translate(23, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">取消</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 64)">
+        <rect width="1200" height="48" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 16)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">当前目录</text>
+        </g>
+        <g transform="translate(88, 15.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">D:\资料\待整理</text>
+        </g>
+        <g transform="translate(1049, 16)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">包含子文件夹</text>
+        </g>
+        <g transform="translate(1137, 15.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">仅扫描</text>
+        </g>
+      </g>
+      <g transform="translate(0, 112)">
+        <rect width="1200" height="52" fill="#F7F8FA"/>
+        <g transform="translate(24, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">密码</text>
+        </g>
+        <g transform="translate(60, 11)">
+          <rect width="95" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">已设 2 个候选</text>
+          </g>
+        </g>
+        <g transform="translate(167, 16)">
+          <rect width="1" height="20" fill="#D8DDE4"/>
+        </g>
+        <g transform="translate(180, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">输出</text>
+        </g>
+        <g transform="translate(216, 17.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">压缩包同名文件夹</text>
+        </g>
+        <g transform="translate(1108, 11)">
+          <rect width="68" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">更多选项</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 164)">
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">全部 3</text>
+        </g>
+        <g transform="translate(82, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">处理中 0</text>
+        </g>
+        <g transform="translate(153, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">需处理 0</text>
+        </g>
+        <g transform="translate(224, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">已完成 0</text>
+        </g>
+        <g transform="translate(295, 31.5)"/>
+        <g transform="translate(956, 16)">
+          <rect width="220" height="32" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 8)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#929AA7">搜索文件</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 228)">
+        <rect width="1200" height="492" fill="#FFFFFF"/>
+        <g>
+          <rect width="1200" height="38" fill="#FAFBFC" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">文件</text>
+          </g>
+          <g transform="translate(666, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">状态 / 进度</text>
+          </g>
+          <g transform="translate(946, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">操作</text>
+          </g>
+        </g>
+        <g transform="translate(0, 38)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">素材包.7z.001</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">3 个分卷 · 已归并</text>
+            </g>
+          </g>
+          <g transform="translate(666, 10.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">正在解压 63%</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">递归轮次 1 / 5</text>
+            </g>
+            <g transform="translate(0, 40)">
+              <rect width="220" height="3" rx="2" ry="2" fill="#E4E8ED"/>
+              <rect width="139" height="3" rx="2" ry="2" fill="#2F6FED"/>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">详情</text>
+            </g>
+            <g transform="translate(38, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 102)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">内层资源.zip</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">由上一项解压产生</text>
+            </g>
+          </g>
+          <g transform="translate(666, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#5F6877">等待中</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">将在下一轮检测</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">详情</text>
+            </g>
+            <g transform="translate(38, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 166)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">文档.rar</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">D:\资料\待整理\文档</text>
+            </g>
+          </g>
+          <g transform="translate(666, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#5F6877">等待中</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">已识别密码规则</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">详情</text>
+            </g>
+            <g transform="translate(38, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 720)">
+        <rect width="1200" height="40" fill="#F7F8FA" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#5F6877">已暂停 · 当前任务将在继续后恢复</text>
+        </g>
+        <g transform="translate(1116, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" font-weight="600" fill="#2F6FED">查看日志</text>
+        </g>
+        <g transform="translate(1176, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">导出</text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(28, 2000)" filter="url(#fx12)">
+    <rect width="1200" height="760" rx="8" ry="8" fill="#F7F8FA" stroke="#D8DDE4" stroke-width="1"/>
+    <g clip-path="url(#clip13)">
+      <g>
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 14)">
+          <g>
+            <rect width="84" height="36" rx="5" ry="5" fill="#FFFFFF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#687384">文件解压</text>
+            </g>
+          </g>
+          <g transform="translate(88, 0)">
+            <rect width="97" height="36" rx="5" ry="5" fill="#EAF1FF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">文件夹解压</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(217, 24)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">已完成 3 / 6 · 3 项需处理</text>
+        </g>
+        <g transform="translate(946, 15)">
+          <g>
+            <rect width="100" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+            <g transform="translate(17.5, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">选择文件夹</text>
+            </g>
+          </g>
+          <g transform="translate(108, 0)">
+            <rect width="122" height="34" rx="5" ry="5" fill="#2F6FED"/>
+            <g transform="translate(28.5, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#FFFFFF">扫描并解压</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 64)">
+        <rect width="1200" height="48" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 16)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">当前目录</text>
+        </g>
+        <g transform="translate(88, 15.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">D:\资料\待整理</text>
+        </g>
+        <g transform="translate(1049, 16)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">包含子文件夹</text>
+        </g>
+        <g transform="translate(1137, 15.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">仅扫描</text>
+        </g>
+      </g>
+      <g transform="translate(0, 112)">
+        <rect width="1200" height="52" fill="#F7F8FA"/>
+        <g transform="translate(24, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">密码</text>
+        </g>
+        <g transform="translate(60, 11)">
+          <rect width="95" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">已设 2 个候选</text>
+          </g>
+        </g>
+        <g transform="translate(167, 16)">
+          <rect width="1" height="20" fill="#D8DDE4"/>
+        </g>
+        <g transform="translate(180, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">输出</text>
+        </g>
+        <g transform="translate(216, 17.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">压缩包同名文件夹</text>
+        </g>
+        <g transform="translate(1108, 11)">
+          <rect width="68" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">更多选项</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 164)">
+        <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">全部 6</text>
+        </g>
+        <g transform="translate(82, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">处理中 0</text>
+        </g>
+        <g transform="translate(153, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">需处理 3</text>
+        </g>
+        <g transform="translate(224, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">已完成 3</text>
+        </g>
+        <g transform="translate(295, 31.5)"/>
+        <g transform="translate(956, 16)">
+          <rect width="220" height="32" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 8)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#929AA7">搜索文件</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 228)">
+        <rect width="1200" height="492" fill="#FFFFFF"/>
+        <g>
+          <rect width="1200" height="38" fill="#FAFBFC" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">文件</text>
+          </g>
+          <g transform="translate(666, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">状态 / 进度</text>
+          </g>
+          <g transform="translate(946, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">操作</text>
+          </g>
+        </g>
+        <g transform="translate(0, 38)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">课程资料.rar</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">D:\课程\解压密码：示例</text>
+            </g>
+          </g>
+          <g transform="translate(666, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#C2413B">密码不匹配</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">已尝试 3 个候选密码</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">修改密码</text>
+            </g>
+            <g transform="translate(64, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 102)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">图标合集.7z.001</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">D:\素材\图标</text>
+            </g>
+          </g>
+          <g transform="translate(666, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#B26A00">缺少分卷</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">未找到 .003</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">查看分卷</text>
+            </g>
+            <g transform="translate(64, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 166)">
+          <rect width="1200" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">项目备份.zip</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">D:\备份\旧项目</text>
+            </g>
+          </g>
+          <g transform="translate(666, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#C2413B">解压失败</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">文件尾部数据异常</text>
+            </g>
+          </g>
+          <g transform="translate(946, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">查看原因</text>
+            </g>
+            <g transform="translate(64, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 720)">
+        <rect width="1200" height="40" fill="#F7F8FA" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#5F6877">已完成 3 / 6 · 3 项需处理</text>
+        </g>
+        <g transform="translate(1116, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" font-weight="600" fill="#2F6FED">查看日志</text>
+        </g>
+        <g transform="translate(1176, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">导出</text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(1308, 2000)" filter="url(#fx14)">
+    <rect width="1024" height="640" rx="8" ry="8" fill="#F7F8FA" stroke="#D8DDE4" stroke-width="1"/>
+    <g clip-path="url(#clip15)">
+      <g>
+        <rect width="1024" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 14)">
+          <g>
+            <rect width="84" height="36" rx="5" ry="5" fill="#EAF1FF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">文件解压</text>
+            </g>
+          </g>
+          <g transform="translate(88, 0)">
+            <rect width="97" height="36" rx="5" ry="5" fill="#FFFFFF"/>
+            <g transform="translate(16, 9.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#687384">文件夹解压</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(217, 24)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">已完成 2 / 3 · 1 项需处理</text>
+        </g>
+        <g transform="translate(784, 15)">
+          <g>
+            <rect width="104" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+            <g transform="translate(17.5, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">＋ 添加文件</text>
+            </g>
+          </g>
+          <g transform="translate(112, 0)">
+            <rect width="104" height="34" rx="5" ry="5" fill="#2F6FED"/>
+            <g transform="translate(26, 8.5)">
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#FFFFFF">开始解压</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 64)">
+        <rect width="1024" height="52" fill="#F7F8FA"/>
+        <g transform="translate(24, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">密码</text>
+        </g>
+        <g transform="translate(60, 11)">
+          <rect width="95" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">已设 2 个候选</text>
+          </g>
+        </g>
+        <g transform="translate(167, 16)">
+          <rect width="1" height="20" fill="#D8DDE4"/>
+        </g>
+        <g transform="translate(180, 18)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">输出</text>
+        </g>
+        <g transform="translate(216, 17.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">压缩包同名文件夹</text>
+        </g>
+        <g transform="translate(932, 11)">
+          <rect width="68" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">更多选项</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 116)">
+        <rect width="1024" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#245EC7">全部 3</text>
+        </g>
+        <g transform="translate(82, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">处理中 0</text>
+        </g>
+        <g transform="translate(153, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">需处理 1</text>
+        </g>
+        <g transform="translate(221, 23.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">已完成 2</text>
+        </g>
+        <g transform="translate(292, 31.5)"/>
+        <g transform="translate(780, 16)">
+          <rect width="220" height="32" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(10, 8)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#929AA7">搜索文件</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 180)">
+        <rect width="1024" height="420" fill="#FFFFFF"/>
+        <g>
+          <rect width="1024" height="38" fill="#FAFBFC" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">文件</text>
+          </g>
+          <g transform="translate(610, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">状态 / 进度</text>
+          </g>
+          <g transform="translate(830, 11.5)">
+            <text x="0" y="11" font-family="Inter" font-size="11" font-weight="600" fill="#808998">操作</text>
+          </g>
+        </g>
+        <g transform="translate(0, 38)">
+          <rect width="1024" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">资料合集.7z</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">D:\资料\下载</text>
+            </g>
+          </g>
+          <g transform="translate(610, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#218A54">已完成</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">用时 00:38</text>
+            </g>
+          </g>
+          <g transform="translate(830, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">打开位置</text>
+            </g>
+            <g transform="translate(64, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 102)">
+          <rect width="1024" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">课程.part01.rar</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">4 个分卷 · 跨目录</text>
+            </g>
+          </g>
+          <g transform="translate(610, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#C2413B">密码不匹配</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">已尝试 3 个候选密码</text>
+            </g>
+          </g>
+          <g transform="translate(830, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">修改密码</text>
+            </g>
+            <g transform="translate(64, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 166)">
+          <rect width="1024" height="64" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/>
+          <g transform="translate(24, 14)">
+            <g>
+              <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#202938">图片.zip</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">D:\图片\归档</text>
+            </g>
+          </g>
+          <g transform="translate(610, 14)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#218A54">已完成</text>
+            </g>
+            <g transform="translate(0, 21)">
+              <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">用时 00:12</text>
+            </g>
+          </g>
+          <g transform="translate(830, 23.5)">
+            <g>
+              <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#2F6FED">打开位置</text>
+            </g>
+            <g transform="translate(64, 0)">
+              <text x="0" y="13" font-family="Inter" font-size="13" fill="#697386">复制路径</text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(0, 600)">
+        <rect width="1024" height="40" fill="#F7F8FA" stroke="#E2E6EB" stroke-width="1"/>
+        <g transform="translate(24, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#5F6877">已完成 2 / 3 · 1 项需处理</text>
+        </g>
+        <g transform="translate(940, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" font-weight="600" fill="#2F6FED">查看日志</text>
+        </g>
+        <g transform="translate(1000, 12)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">导出</text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(28, 2860)" filter="url(#fx16)">
+    <rect width="820" height="560" rx="8" ry="8" fill="#FFFFFF" stroke="#D8DDE4" stroke-width="1"/>
+    <g transform="translate(24, 24)">
+      <g>
+        <text x="0" y="18" font-family="Inter" font-size="18" font-weight="700" fill="#202938">本次解压密码</text>
+      </g>
+      <g transform="translate(760, 1)">
+        <text x="0" y="18" font-family="Inter" font-size="18" fill="#808998">×</text>
+      </g>
+    </g>
+    <g transform="translate(24, 66)">
+      <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">所有候选密码按顺序尝试；运行中的任务不会被修改。</text>
+    </g>
+    <g transform="translate(24, 100)">
+      <g>
+        <g>
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">候选密码</text>
+        </g>
+        <g transform="translate(0, 25)">
+          <text x="0" y="11" font-family="Inter" font-size="11" fill="#808998">每行一个，按顺序尝试</text>
+        </g>
+        <g transform="translate(0, 48)">
+          <rect width="438" height="150" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(12, 12)">
+            <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">••••••••
+••••••
+••••••••••</text>
+          </g>
+        </g>
+        <g transform="translate(0, 206)">
+          <g>
+            <rect width="96" height="32" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+            <g transform="translate(12, 8)">
+              <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">保存到密码库</text>
+            </g>
+          </g>
+          <g transform="translate(104, 0)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#808998">仅在明确保存时记忆</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(462, 0)">
+        <g>
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">快速复用</text>
+        </g>
+        <g transform="translate(0, 29)">
+          <rect width="16" height="16" rx="3" ry="3" fill="#2F6FED"/>
+          <g transform="translate(24, 0)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">从文件名和路径推断密码</text>
+          </g>
+        </g>
+        <g transform="translate(0, 57)">
+          <g>
+            <rect width="119" height="30" rx="5" ry="5" fill="#F7F8FA"/>
+            <g transform="translate(10, 7)">
+              <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">课程资料 · ••••••</text>
+            </g>
+          </g>
+          <g transform="translate(127, 0)">
+            <rect width="109" height="30" rx="5" ry="5" fill="#F7F8FA"/>
+            <g transform="translate(10, 7)">
+              <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">常用 · ••••••••</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 99)">
+          <text x="0" y="12" font-family="Inter" font-size="12" font-weight="600" fill="#2F6FED">管理密码与规则</text>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(24, 502)">
+      <g transform="translate(583, 0)">
+        <rect width="58" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+        <g transform="translate(16, 8.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">取消</text>
+        </g>
+      </g>
+      <g transform="translate(649, 0)">
+        <rect width="123" height="34" rx="5" ry="5" fill="#2F6FED"/>
+        <g transform="translate(16, 8.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#FFFFFF">应用到下次任务</text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(928, 2860)" filter="url(#fx17)">
+    <rect width="820" height="560" rx="8" ry="8" fill="#FFFFFF" stroke="#D8DDE4" stroke-width="1"/>
+    <g transform="translate(24, 24)">
+      <g>
+        <text x="0" y="18" font-family="Inter" font-size="18" font-weight="700" fill="#202938">修改密码并重试</text>
+      </g>
+      <g transform="translate(760, 1)">
+        <text x="0" y="18" font-family="Inter" font-size="18" fill="#808998">×</text>
+      </g>
+    </g>
+    <g transform="translate(24, 66)">
+      <rect width="772" height="67" rx="6" ry="6" fill="#FFF6F5" stroke="#F2C9C6" stroke-width="1"/>
+      <g transform="translate(14, 14)">
+        <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#9E332E">课程资料.rar</text>
+      </g>
+      <g transform="translate(14, 37)">
+        <text x="0" y="12" font-family="Inter" font-size="12" fill="#7D5552">上次尝试的 3 个候选密码均不匹配；来源路径和分卷集合已保留。</text>
+      </g>
+    </g>
+    <g transform="translate(24, 151)">
+      <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">为本次重试覆盖候选密码</text>
+    </g>
+    <g transform="translate(24, 186)">
+      <rect width="772" height="150" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+      <g transform="translate(12, 12)">
+        <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">输入新密码，或从密码库选择
+••••••••</text>
+      </g>
+    </g>
+    <g transform="translate(24, 354)">
+      <g>
+        <rect width="119" height="30" rx="5" ry="5" fill="#F7F8FA"/>
+        <g transform="translate(10, 7)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">课程资料 · ••••••</text>
+        </g>
+      </g>
+      <g transform="translate(127, 0)">
+        <rect width="104" height="30" rx="5" ry="5" fill="#F7F8FA"/>
+        <g transform="translate(10, 7)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">从路径重新推断</text>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(24, 402)"/>
+    <g transform="translate(24, 502)">
+      <g transform="translate(609, 0)">
+        <rect width="58" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+        <g transform="translate(16, 8.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">取消</text>
+        </g>
+      </g>
+      <g transform="translate(675, 0)">
+        <rect width="97" height="34" rx="5" ry="5" fill="#2F6FED"/>
+        <g transform="translate(16, 8.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#FFFFFF">应用并重试</text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(1828, 2860)" filter="url(#fx18)">
+    <rect width="820" height="560" rx="8" ry="8" fill="#FFFFFF" stroke="#D8DDE4" stroke-width="1"/>
+    <g transform="translate(24, 24)">
+      <g>
+        <text x="0" y="18" font-family="Inter" font-size="18" font-weight="700" fill="#202938">分卷任务详情</text>
+      </g>
+      <g transform="translate(760, 1)">
+        <text x="0" y="18" font-family="Inter" font-size="18" fill="#808998">×</text>
+      </g>
+    </g>
+    <g transform="translate(24, 64)">
+      <g>
+        <text x="0" y="14" font-family="Inter" font-size="14" font-weight="600" fill="#273142">图标合集.7z.001</text>
+      </g>
+      <g transform="translate(0, 23)">
+        <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">跨目录分卷 · 已发现 2 / 3</text>
+      </g>
+    </g>
+    <g transform="translate(24, 119)">
+      <g>
+        <rect width="772" height="48" rx="5" ry="5" fill="#F7F8FA"/>
+        <g transform="translate(12, 15.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">图标合集.7z.001</text>
+        </g>
+        <g transform="translate(724, 16)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#218A54">已找到</text>
+        </g>
+      </g>
+      <g transform="translate(0, 56)">
+        <rect width="772" height="48" rx="5" ry="5" fill="#F7F8FA"/>
+        <g transform="translate(12, 15.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">图标合集.7z.002</text>
+        </g>
+        <g transform="translate(724, 16)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#218A54">已找到</text>
+        </g>
+      </g>
+      <g transform="translate(0, 112)">
+        <rect width="772" height="48" rx="5" ry="5" fill="#FFF8ED" stroke="#F2D29A" stroke-width="1"/>
+        <g transform="translate(12, 15.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">图标合集.7z.003</text>
+        </g>
+        <g transform="translate(736, 16)">
+          <text x="0" y="12" font-family="Inter" font-size="12" fill="#B26A00">缺失</text>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(24, 295)">
+      <rect width="772" height="44" rx="5" ry="5" fill="#F7F8FA"/>
+      <g transform="translate(12, 12)">
+        <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">将缺失分卷放回扫描目录后，可直接点击“重新检测并重试”，无需重新选择根目录。</text>
+      </g>
+    </g>
+    <g transform="translate(24, 355)"/>
+    <g transform="translate(24, 502)">
+      <g transform="translate(531, 0)">
+        <rect width="110" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+        <g transform="translate(16, 8.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">复制来源路径</text>
+        </g>
+      </g>
+      <g transform="translate(649, 0)">
+        <rect width="123" height="34" rx="5" ry="5" fill="#2F6FED"/>
+        <g transform="translate(16, 8.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#FFFFFF">重新检测并重试</text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(2728, 2860)" filter="url(#fx19)">
+    <rect width="820" height="500" rx="8" ry="8" fill="#FFFFFF" stroke="#D8DDE4" stroke-width="1"/>
+    <g transform="translate(24, 24)">
+      <g>
+        <text x="0" y="18" font-family="Inter" font-size="18" font-weight="700" fill="#202938">更多选项</text>
+      </g>
+      <g transform="translate(760, 1)">
+        <text x="0" y="18" font-family="Inter" font-size="18" fill="#808998">×</text>
+      </g>
+    </g>
+    <g transform="translate(24, 66)">
+      <g>
+        <g>
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">输出位置</text>
+        </g>
+        <g transform="translate(0, 27)">
+          <rect width="96" height="34" rx="5" ry="5" fill="#EAF1FF" stroke="#2F6FED" stroke-width="1"/>
+          <g transform="translate(12, 9)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#245EC7">同名子文件夹</text>
+          </g>
+        </g>
+        <g transform="translate(0, 71)">
+          <rect width="108" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(12, 9)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">压缩包所在目录</text>
+          </g>
+        </g>
+        <g transform="translate(0, 115)">
+          <rect width="72" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+          <g transform="translate(12, 9)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">指定目录</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(266.67, 0)">
+        <g>
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">冲突与并行</text>
+        </g>
+        <g transform="translate(0, 29)">
+          <g>
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">文件冲突</text>
+          </g>
+          <g transform="translate(100, 0)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">自动重命名</text>
+          </g>
+        </g>
+        <g transform="translate(0, 57)">
+          <g transform="translate(0, 7)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">并行任务</text>
+          </g>
+          <g transform="translate(100, 0)">
+            <rect width="54" height="30" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+            <g transform="translate(23, 7.5)">
+              <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">2</text>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(0, 99)">
+          <rect width="16" height="16" rx="3" ry="3" fill="#FFFFFF" stroke="#AAB2BE" stroke-width="1"/>
+          <g transform="translate(24, 0)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#C2413B">成功后删除源压缩文件</text>
+          </g>
+        </g>
+      </g>
+      <g transform="translate(533.33, 0)">
+        <g>
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#273142">文件夹模式</text>
+        </g>
+        <g transform="translate(0, 29)">
+          <rect width="16" height="16" rx="3" ry="3" fill="#2F6FED"/>
+          <g transform="translate(24, 0)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">递归解压嵌套压缩包</text>
+          </g>
+        </g>
+        <g transform="translate(0, 57)">
+          <rect width="16" height="16" rx="3" ry="3" fill="#2F6FED"/>
+          <g transform="translate(24, 0)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">跨目录归并分卷</text>
+          </g>
+        </g>
+        <g transform="translate(0, 85)">
+          <g>
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#697386">最大递归轮次</text>
+          </g>
+          <g transform="translate(100, 0.5)">
+            <text x="0" y="12" font-family="Inter" font-size="12" fill="#273142">5</text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(24, 233)"/>
+    <g transform="translate(24, 442)">
+      <g transform="translate(622, 0)">
+        <rect width="84" height="34" rx="5" ry="5" fill="#FFFFFF" stroke="#CFD5DD" stroke-width="1"/>
+        <g transform="translate(16, 8.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" fill="#273142">恢复默认</text>
+        </g>
+      </g>
+      <g transform="translate(714, 0)">
+        <rect width="58" height="34" rx="5" ry="5" fill="#2F6FED"/>
+        <g transform="translate(16, 8.5)">
+          <text x="0" y="13" font-family="Inter" font-size="13" font-weight="600" fill="#FFFFFF">完成</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
