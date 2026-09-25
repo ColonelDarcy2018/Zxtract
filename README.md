@@ -1,138 +1,183 @@
 # Zxtract
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/ColonelDarcy2018/Zxtract)](https://github.com/ColonelDarcy2018/Zxtract/releases/latest)
+<p align="center">
+  <strong>English</strong> · <a href="README.zh-CN.md">简体中文</a>
+</p>
 
-Zxtract 是一款面向 Windows 的现代化压缩文件工作台：把单文件解压、整目录扫描、分卷归并、密码管理和嵌套压缩递归处理放进一个清晰的界面。
+<p align="center">
+  <a href="https://github.com/ColonelDarcy2018/Zxtract/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/ColonelDarcy2018/Zxtract"></a>
+  <img alt="Windows 10 and 11" src="https://img.shields.io/badge/Windows-10%20%7C%2011-0078D4?logo=windows">
+  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
+</p>
 
-Zxtract is a focused Windows archive workbench that combines one-off extraction, folder scanning, split-volume recovery, password management, and recursive nested-archive processing in one calm, practical UI.
+Zxtract is a Windows desktop tool for extracting archive collections. It is built for folders that contain ordinary archives, split volumes, encrypted files, or archives nested inside other archives.
 
-## 软件简介 · Product overview
+Add individual files or select a root folder. Zxtract groups related volumes, tries password candidates, runs several extraction jobs in parallel, and keeps every result visible in a task list.
 
-**为“压缩包很多、目录很深、密码不统一”的真实场景设计。**
+> Zxtract extracts archives; it does not create or edit them.
 
-Zxtract 的核心优势：
+## Highlights
 
-- **双模式工作流**：单独解压文件，或扫描整个文件夹；两种模式互不干扰。
-- **智能分卷处理**：识别 `.7z.001/.002`、多卷 RAR，并可将分散目录中的同名分卷归并后再解压。
-- **递归解压**：解压结果中发现新的压缩包后自动继续处理，并用轮次和循环检测避免重复工作。
-- **密码助手**：支持多个候选密码、路径推断、自定义规则和本地密码库；密码库使用当前 Windows 用户的 DPAPI 保护。
-- **可恢复任务**：失败、取消、密码错误和缺少分卷的任务保留来源路径，可快速重试，不必重新选择文件。
-- **安全默认值**：默认保留源文件；只有成功完成的任务才允许删除源压缩包。
-- **轻量且可移植**：Release 包自带 7-Zip 引擎，适合直接解压后使用。
+- Separate workflows for individual files and complete directory trees.
+- ZIP, 7Z, RAR, TAR and common compressed TAR inputs through the bundled 7-Zip engine.
+- Grouping and validation for numeric 7Z/ZIP volumes, `partN.rar`, and legacy RAR volume sets.
+- Optional recursive extraction for archives found in extracted output.
+- Ordered password candidates, path-based password inference, custom rules, and a local password vault.
+- Pause, cancel, filter, search, retry, open-location, and log export controls.
+- Safe defaults: keep source files and rename output on conflicts.
 
-**Built for messy archive collections.** Zxtract is designed for folders full of mixed formats, split archives stored in different places, inconsistent passwords, and archives nested inside extracted results.
+## Interface and workflow
 
-Highlights:
+The images below come from the editable UI prototype and document the workflow implemented by the current WPF application. The complete design source is available at [`design/openpencil/Zxtract.fig`](design/openpencil/Zxtract.fig).
 
-- Two focused workflows: individual archives and whole-folder processing.
-- Automatic split-volume grouping for 7z and multi-volume RAR archives.
-- Recursive extraction with pass limits and cycle protection.
-- Candidate passwords, path inference, custom rules, and a DPAPI-protected local vault.
-- Retry failed or canceled jobs from their preserved source paths.
-- Safe-by-default source handling: deletion is opt-in and only happens after success.
-- Portable Windows Release package with the 7-Zip engine included.
+### 1. Add archives directly
 
-## 界面预览 · UI preview
+Use **File extraction** for a small, known set of archives. Add several files, review the output mode and password candidates, then start the queue. Each row keeps its source path, state, progress, and available action together.
 
-主界面将模式页签、共享密码栏、任务列表和底部状态区固定在清晰的层级中；任务区域支持等待、处理中、已完成、暂停和需处理等状态。
+![File extraction queue with three archives ready to start](docs/screenshots/main-window.png)
 
-The main window keeps mode tabs, shared password controls, the task list, and status actions in a predictable hierarchy. The design covers ready, running, completed, paused, and attention states.
+### 2. Scan a directory tree
 
-![Zxtract 主界面与任务状态](docs/previews/zxtract-openpencil-main.png)
+Use **Folder extraction** when archives are spread across subdirectories. **Scan only** builds the task list without extracting anything; **Scan and extract** continues with the detected work items. Folder mode can group volumes stored in sibling directories and repeat the scan for nested archives.
 
-共享密码面板支持逐行候选密码、密码库快速复用和路径规则推断。
+![Folder workflow processing grouped volumes and nested archives](docs/screenshots/folder-workflow.png)
 
-The shared password panel supports one-password-per-line candidates, quick reuse from the vault, and path-based inference rules.
+### 3. Fix only the jobs that need attention
 
-![Zxtract 密码助手面板](docs/previews/zxtract-openpencil-password.png)
+Missing volumes, password failures, and extraction errors remain in the task list. The affected row explains the problem and exposes the relevant recovery action, so a failed batch does not need to be rebuilt from scratch.
 
-可编辑的 OpenPencil 设计源文件位于 [design/openpencil/Zxtract.fig](design/openpencil/Zxtract.fig)，重建脚本位于 [tools/Sync-ZxtractOpenPencil.ps1](tools/Sync-ZxtractOpenPencil.ps1)。
+![Attention list showing password, missing-volume, and extraction errors](docs/screenshots/attention-state.png)
 
-The editable OpenPencil source is [design/openpencil/Zxtract.fig](design/openpencil/Zxtract.fig); the reproducible rebuild script is [tools/Sync-ZxtractOpenPencil.ps1](tools/Sync-ZxtractOpenPencil.ps1).
+### 4. Reuse passwords without putting them in logs
 
-## 使用方式 · Usage
+Password candidates are tried in order. Zxtract can infer candidates from file and folder names, reuse entries from the local vault, and apply a corrected password to a failed task.
 
-### 图形界面 · GUI
+![Password panel with ordered candidates, path inference, and saved entries](docs/previews/zxtract-openpencil-password.png)
 
-1. 点击 **添加压缩文件...**，选择一个或多个压缩包，然后点击 **开始文件解压**（`F5`）。
-2. 处理整个目录时，选择根目录，再点击 **仅扫描** 或 **扫描并解压**。
-3. 密码在顶部共享栏中配置；每行一个候选密码，按顺序尝试。
-4. 失败或取消的任务可选择后点击 **重试选中**；**复制路径** 可快速复用来源路径。
-5. 文件和文件夹也可以直接拖入窗口。
+Saved passwords are protected with Windows DPAPI for the current user. Zxtract stores the encrypted values and rule text in `%LOCALAPPDATA%\Zxtract\password-settings.json`; plaintext passwords are not written to the run log.
 
-1. Choose **Add archives...**, then click **Start file extraction** (`F5`).
-2. For folder mode, choose a root directory and click **Scan only** or **Scan and extract**.
-3. Configure candidate passwords in the shared password bar, one candidate per line.
-4. Select a failed or canceled task and click **Retry selected**; **Copy path** reuses its source quickly.
-5. Files and folders can also be dropped onto the window.
+## Download and requirements
 
-### 递归命令行 · Recursive command line
+The packaged build targets **64-bit Windows 10/11** and includes the .NET runtime plus the 7-Zip extraction engine.
+
+1. Download the latest `Zxtract-<version>-win-x64.zip` from [GitHub Releases](https://github.com/ColonelDarcy2018/Zxtract/releases/latest).
+2. Extract the entire ZIP to a writable folder.
+3. Run `Zxtract.exe`.
+
+Normal use does not require administrator privileges. Explorer context-menu registration, when used, is created for the current user.
+
+The current release is not code-signed, so Windows SmartScreen may identify it as an unknown publisher. Check the release notes and published checksum before running the package.
+
+## Quick start
+
+### Extract selected files
+
+1. Open **File extraction** and choose **Add files** (`Ctrl+O`), or drag archives into the window.
+2. Open the password panel if the archives are encrypted; enter one candidate per line.
+3. Under **More options**, choose the output location, conflict policy, and parallel job count.
+4. Select **Start extraction** (`F5`).
+
+### Process a folder
+
+1. Open **Folder extraction** and choose the root directory.
+2. Use **Scan only** (`Ctrl+S`) to review the detected tasks, or choose **Scan and extract** to run them.
+3. Under **More options**, enable or disable recursive extraction, cross-directory volume grouping, and source deletion.
+4. Review **Needs attention** after the run, then retry only the affected tasks.
+
+### Keyboard shortcuts
+
+| Shortcut | Action |
+| --- | --- |
+| `Ctrl+O` | Add archive files |
+| `F5` | Start file extraction |
+| `Ctrl+S` | Scan the selected folder |
+| `Ctrl+Shift+E` | Export the run log |
+
+## Supported inputs
+
+| Category | Recognized inputs |
+| --- | --- |
+| Regular archives | `.zip`, `.7z`, `.rar`, `.tar`, `.gz`, `.bz2`, `.xz`, `.tgz`, `.tar.gz`, `.tar.bz2`, `.tar.xz` |
+| Numeric volumes | `.7z.001`, `.7z.002`, ... and `.zip.001`, `.zip.002`, ... |
+| RAR volumes | `.part1.rar`, `.part2.rar`, ... and legacy `.rar`, `.r00`, `.r01`, ... |
+
+Extraction support ultimately depends on the bundled 7-Zip engine. For a split set, keep all volumes available and start with the first volume.
+
+## Output and safety behavior
+
+- The default output is a same-named directory next to the archive.
+- Existing output is renamed by default instead of overwritten.
+- Source deletion is disabled by default and is available only as an explicit folder-mode option.
+- The GUI deletes a source archive only after 7-Zip exits cleanly; related split volumes are handled as a set.
+- Recursive processing uses pass, depth, task-count, and cycle checks to avoid unbounded work.
+- Filesystem entries that cannot be read and incomplete volume sets are reported instead of silently skipped.
+
+## Recursive PowerShell workflow
+
+The repository also includes a script for unattended archive-tree processing:
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\Expand-ArchiveTree.ps1 `
-  -Root "D:\archive-root\解压密码：示例密码" -DeleteArchives
+  -Root "D:\archive-root\解压密码：example-password" -DeleteArchives
 ```
 
-或者将文件夹拖到 `tools\Extract-ArchiveTree.cmd`。
+You can also drop a directory onto [`tools/Extract-ArchiveTree.cmd`](tools/Extract-ArchiveTree.cmd). Omit `-DeleteArchives` when the source archives must be retained.
 
-Or drop a folder onto `tools\Extract-ArchiveTree.cmd`.
+## Build from source
 
-## 密码与数据安全 · Password and data safety
-
-密码助手支持内置规则 `解压密码`、`密码`、`p`、`pass`、`password`、`pwd`，也支持自定义模板，例如 `提取码：{password}`。自定义规则和密码库保存在：
-
-The password assistant includes built-in rules for `解压密码`, `密码`, `p`, `pass`, `password`, and `pwd`, and accepts custom templates such as `提取码：{password}`. Settings are stored at:
-
-```text
-%LOCALAPPDATA%\Zxtract\password-settings.json
-```
-
-仅保存规则文本和 DPAPI 保护后的密码数据，不会把明文密码写入运行日志。
-
-Only rule text and DPAPI-protected password blobs are stored; plaintext passwords are not written to the run log.
-
-## 构建与正式版 · Build and Release
-
-需要 .NET 8 SDK 和 Windows。开发构建：
-
-Requires the .NET 8 SDK on Windows. Development build:
+Requirements: Windows and the .NET 8 SDK.
 
 ```powershell
 dotnet build .\src\ExtractUtil.App\ExtractUtil.App.csproj -c Release
 ```
 
-生成可分发的 Windows x64 独立版本：
-
-Create a self-contained Windows x64 package:
+Build the self-contained Windows x64 package:
 
 ```powershell
 pwsh .\tools\Publish-Zxtract.ps1 -Version 1.0.1
 ```
 
-The equivalent direct command is:
+The publish script verifies that the application, 7-Zip binaries, and required license files are present before creating the ZIP.
+
+For a quick scanner check against a local directory:
 
 ```powershell
-dotnet publish .\src\ExtractUtil.App\ExtractUtil.App.csproj `
-  -c Release -r win-x64 --self-contained true `
-  -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true `
-  -o .\artifacts\Zxtract-1.0.1-win-x64
+dotnet run --project .\tools\ExtractUtil.Smoke\ExtractUtil.Smoke.csproj -c Release -- scan "D:\archive-root"
 ```
 
-正式版本当前为 **1.0.1**。发布说明见 [docs/release-notes/v1.0.1.md](docs/release-notes/v1.0.1.md)。
+## FAQ
 
-The current formal version is **1.0.1**. See [docs/release-notes/v1.0.1.md](docs/release-notes/v1.0.1.md) for release notes.
+<details>
+<summary>Does Zxtract upload files or passwords?</summary>
 
-## 开源协议 · License
+No. Extraction and password handling are local. The project has no remote-download or cloud-integration feature.
+</details>
 
-Zxtract 自有代码和资源采用 [MIT License](LICENSE)。发布包包含未修改的官方 7-Zip 二进制文件，它们继续遵循各自的 LGPL、BSD 和 unRAR 限制条款；完整信息见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) 和 [7-Zip 官方许可](licenses/7-Zip-License.txt)。
+<details>
+<summary>Why is a split archive marked as blocked?</summary>
 
-Zxtract's original code and assets are licensed under the [MIT License](LICENSE). The distributable package includes unmodified official 7-Zip binaries under their own LGPL, BSD, and unRAR restriction terms. See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) and the [full upstream 7-Zip license](licenses/7-Zip-License.txt).
+The first volume may be missing, a sequence may contain a gap, or two files may claim the same volume number. Open the task details, restore the missing or ambiguous part, and scan again.
+</details>
 
-## 文档 · Documentation
+<details>
+<summary>Do I need to install 7-Zip separately?</summary>
 
-- [需求说明 · Requirements](docs/requirements.md)
-- [技术说明 · Technical notes](docs/technical.md)
-- [模块说明 · Modules](docs/modules.md)
-- [界面重设计方案 · UI redesign proposal](docs/ui-redesign-proposal.md)
-- [OpenPencil 原型状态 · Prototype status](docs/figma-prototype-status.md)
+No for the official portable package: it includes `7z.exe` and `7z.dll`. A source build can also use a custom executable through the `EXTRACTUTIL_7Z_PATH` environment variable.
+</details>
+
+## Documentation
+
+- [Requirements](docs/requirements.md)
+- [Technical design](docs/technical.md)
+- [Module map](docs/modules.md)
+- [UI redesign notes](docs/ui-redesign-proposal.md)
+- [Prototype status](docs/figma-prototype-status.md)
+- [Release notes: 1.0.1](docs/release-notes/v1.0.1.md)
+
+## Contributing and support
+
+Bug reports and focused pull requests are welcome. For a bug, include the Zxtract version, Windows version, archive layout, expected behavior, actual result, and a log with passwords or private paths removed. For larger changes, open an [issue](https://github.com/ColonelDarcy2018/Zxtract/issues) first so the intended behavior can be agreed on.
+
+## License
+
+Zxtract's original code and assets are released under the [MIT License](LICENSE). Distributed packages include unmodified official 7-Zip binaries under their own LGPL, BSD, and unRAR restriction terms. See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) and the [upstream 7-Zip license](licenses/7-Zip-License.txt).
