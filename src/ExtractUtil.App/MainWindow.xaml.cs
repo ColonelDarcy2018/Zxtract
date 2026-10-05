@@ -42,4 +42,23 @@ public partial class MainWindow : Window
         };
         window.ShowDialog();
     }
+
+    private void OnClearSearch(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainViewModel viewModel)
+        {
+            viewModel.JobSearchText = string.Empty;
+            JobSearchBox.Focus();
+        }
+    }
+
+    private void OnPasswordOpened(object sender, RoutedEventArgs e)
+    {
+        if (OptionsToggle is not null) OptionsToggle.IsChecked = false;
+    }
+
+    private void OnOptionsOpened(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainViewModel viewModel) viewModel.IsPasswordPanelOpen = false;
+    }
 }

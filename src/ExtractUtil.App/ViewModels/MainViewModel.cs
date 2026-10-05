@@ -85,6 +85,7 @@ public sealed class MainViewModel : ObservableObject
         Jobs.CollectionChanged += OnJobsCollectionChanged;
         FilteredJobs = CollectionViewSource.GetDefaultView(Jobs);
         FilteredJobs.Filter = FilterJob;
+        FilteredJobs.CollectionChanged += (_, _) => OnPropertyChanged(nameof(FilteredJobCount));
         LogLines = new ObservableCollection<string>();
         SavedPasswords = new ObservableCollection<SavedPasswordViewModel>();
         ConflictPolicies = Enum.GetValues<ConflictPolicy>();
@@ -180,6 +181,25 @@ public sealed class MainViewModel : ObservableObject
     public string AttentionFilterText => $"需处理 {CurrentModeJobs.Count(job => job.NeedsAttention)}";
     public string CompletedFilterText => $"已完成 {CurrentModeJobs.Count(job => job.IsCompleted)}";
 
+    public string SessionStatusText => IsPaused ? "已暂停"
+        : IsBusy ? _runCts?.IsCancellationRequested == true ? "正在取消"
+            : SelectedWorkflowIndex == 1 && !CurrentModeJobs.Any(job => job.IsRunning) ? "正在扫描" : "正在解压"
+        : CurrentModeJobs.Any(job => job.Status == ExtractJobStatus.Queued && job.CanExtract) ? "等待开始"
+        : CurrentModeJobs.Any() ? "处理结束" : "就绪";
+
+    public string SessionDetailText => IsBusy && !IsPaused && CurrentModeJobs.Any(job => job.IsRunning)
+        ? $"已完成 {CurrentModeJobs.Count(job => job.IsCompleted)} / {CurrentModeJobs.Count()} 项 · " +
+          $"处理中 {CurrentModeJobs.Count(job => job.IsRunning)} 项 · 需处理 {CurrentModeJobs.Count(job => job.NeedsAttention)} 项"
+        : OverallStatus;
+
+    public string EmptyListTitle => !string.IsNullOrWhiteSpace(JobSearchText) ? "没有匹配的文件"
+        : SelectedTaskFilterIndex != 0 ? "此分类下暂无任务"
+        : SelectedWorkflowIndex == 1 ? "选择文件夹，扫描其中的压缩包" : "拖入压缩文件，从这里开始";
+
+    public string EmptyListHint => !string.IsNullOrWhiteSpace(JobSearchText) ? "试试其他关键词，或清除搜索"
+        : SelectedTaskFilterIndex != 0 ? "切换到“全部”查看其他任务"
+        : SelectedWorkflowIndex == 1 ? "可先仅扫描，也可直接扫描并解压" : "支持 ZIP、7Z、RAR 和分卷文件";
+
     private IEnumerable<JobItemViewModel> CurrentModeJobs =>
         Jobs.Where(job => job.IsTreeItem == (SelectedWorkflowIndex == 1));
 
@@ -239,7 +259,10 @@ public sealed class MainViewModel : ObservableObject
     public bool InferPasswordsFromPath
     {
         get => _inferPasswordsFromPath;
-        set => SetProperty(ref _inferPasswordsFromPath, value);
+        set
+        {
+            if (SetProperty(ref _inferPasswordsFromPath, value)) OnPropertyChanged(nameof(PasswordSummary));
+        }
     }
 
     public string PasswordCandidatesText
@@ -261,7 +284,7 @@ public sealed class MainViewModel : ObservableObject
         get
         {
             var count = PasswordCandidateResolver.ParseMultiline(PasswordCandidatesText).Count;
-            return count == 0 ? "未设置" : $"已设 {count} 个";
+            return count == 0 ? InferPasswordsFromPath ? "自动推断" : "未设置" : $"{count} 个候选";
         }
     }
 
@@ -458,6 +481,8 @@ public sealed class MainViewModel : ObservableObject
                 RaiseCommandStates();
                 OnPropertyChanged(nameof(PauseButtonText));
                 OnPropertyChanged(nameof(CanApplyPasswordRetry));
+                OnPropertyChanged(nameof(SessionStatusText));
+                OnPropertyChanged(nameof(SessionDetailText));
             }
         }
     }
@@ -471,6 +496,8 @@ public sealed class MainViewModel : ObservableObject
             {
                 OnPropertyChanged(nameof(PauseButtonText));
                 OnPropertyChanged(nameof(OverallStatus));
+                OnPropertyChanged(nameof(SessionStatusText));
+                OnPropertyChanged(nameof(SessionDetailText));
             }
         }
     }
@@ -493,7 +520,14 @@ public sealed class MainViewModel : ObservableObject
     public string OverallStatus
     {
         get => _overallStatus;
-        private set => SetProperty(ref _overallStatus, value);
+        private set
+        {
+            if (SetProperty(ref _overallStatus, value))
+            {
+                OnPropertyChanged(nameof(SessionStatusText));
+                OnPropertyChanged(nameof(SessionDetailText));
+            }
+        }
     }
 
     public int CurrentPass
@@ -715,6 +749,7 @@ public sealed class MainViewModel : ObservableObject
         try
         {
             System.Windows.Clipboard.SetText(string.Join(Environment.NewLine, paths));
+            _ = item.ShowCopyFeedbackAsync();
             OverallStatus = paths.Length == 1 ? "已复制文件路径" : $"已复制 {paths.Length} 个分卷路径";
             Log(LogLevel.Info, paths.Length == 1 ? "已复制所选任务的文件路径。" : $"已复制所选任务的 {paths.Length} 个源文件路径。");
         }
@@ -809,25 +844,48 @@ public sealed class MainViewModel : ObservableObject
             }
         }
 
-        RefreshJobView();
+        // The collection view receives this same add/remove event next. Refreshing
+        // here processes it twice and can duplicate rows or reset selection.
+        NotifyJobSummary();
     }
 
     private void OnJobPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName is nameof(JobItemViewModel.Status) or nameof(JobItemViewModel.Phase) or nameof(JobItemViewModel.Message))
         {
-            RefreshJobView();
+            // Progress text and state updates do not require rebuilding the view
+            // unless the task has entered or left the current status filter.
+            if (SelectedTaskFilterIndex != 0 && sender is JobItemViewModel job &&
+                FilteredJobs.Contains(job) != FilterJob(job))
+            {
+                RefreshJobView();
+            }
+            else
+            {
+                NotifyJobSummary();
+            }
         }
     }
 
     private void RefreshJobView()
     {
+        var selected = SelectedJob;
         FilteredJobs.Refresh();
+        if (selected is not null && FilteredJobs.Contains(selected)) SelectedJob = selected;
         OnPropertyChanged(nameof(FilteredJobCount));
+        NotifyJobSummary();
+    }
+
+    private void NotifyJobSummary()
+    {
         OnPropertyChanged(nameof(AllFilterText));
         OnPropertyChanged(nameof(RunningFilterText));
         OnPropertyChanged(nameof(AttentionFilterText));
         OnPropertyChanged(nameof(CompletedFilterText));
+        OnPropertyChanged(nameof(SessionStatusText));
+        OnPropertyChanged(nameof(SessionDetailText));
+        OnPropertyChanged(nameof(EmptyListTitle));
+        OnPropertyChanged(nameof(EmptyListHint));
     }
 
     private void SavePasswordSettings()
@@ -1233,11 +1291,6 @@ public sealed class MainViewModel : ObservableObject
                     ? progress.Message
                     : "正在扫描和整理分卷";
             }
-            else if (progress.Phase == ArchiveTreePhase.TryingPassword)
-            {
-                OverallStatus = progress.Message;
-            }
-
             RecalculateCounts();
         });
     }
@@ -1305,7 +1358,7 @@ public sealed class MainViewModel : ObservableObject
         IncompleteCount = Jobs.Count(job => !job.CanExtract || job.Phase == ArchiveTreePhase.Blocked);
         OnPropertyChanged(nameof(QueuedFileCount));
         OnPropertyChanged(nameof(DirectFileStatus));
-        RefreshJobView();
+        NotifyJobSummary();
         RaiseCommandStates();
     }
 

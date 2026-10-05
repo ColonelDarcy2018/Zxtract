@@ -15,6 +15,8 @@ public sealed class JobItemViewModel : ObservableObject
     private int _passwordAttempt;
     private int _passwordAttemptCount;
     private int _discoveryPass;
+    private bool _isPathCopied;
+    private int _copyFeedbackVersion;
 
     public JobItemViewModel(ArchiveWorkItem item, int discoveryPass = 0, int nestingDepth = 0, Guid? parentId = null)
     {
@@ -94,13 +96,22 @@ public sealed class JobItemViewModel : ObservableObject
     public int ProgressPercent
     {
         get => _progressPercent;
-        private set => SetProperty(ref _progressPercent, value);
+        private set
+        {
+            if (SetProperty(ref _progressPercent, value))
+            {
+                OnPropertyChanged(nameof(ProgressText));
+            }
+        }
     }
 
     public string CurrentFile
     {
         get => _currentFile;
-        private set => SetProperty(ref _currentFile, value);
+        private set
+        {
+            if (SetProperty(ref _currentFile, value)) OnPropertyChanged(nameof(StatusDetail));
+        }
     }
 
     public string Message
@@ -119,6 +130,25 @@ public sealed class JobItemViewModel : ObservableObject
 
     public bool IsRunning => Status == ExtractJobStatus.Running;
     public bool IsCompleted => Status == ExtractJobStatus.Completed;
+    public bool ShowProgress => IsRunning && Phase == ArchiveTreePhase.Extracting;
+    public string ProgressText => $"{ProgressPercent}%";
+    public bool IsPathCopied
+    {
+        get => _isPathCopied;
+        private set
+        {
+            if (SetProperty(ref _isPathCopied, value)) OnPropertyChanged(nameof(CopyActionText));
+        }
+    }
+    public string CopyActionText => IsPathCopied ? "已复制 ✓" : "复制路径";
+
+    public async Task ShowCopyFeedbackAsync()
+    {
+        var version = ++_copyFeedbackVersion;
+        IsPathCopied = true;
+        await Task.Delay(1800);
+        if (version == _copyFeedbackVersion) IsPathCopied = false;
+    }
     public bool NeedsAttention => !CanExtract || Phase == ArchiveTreePhase.Blocked ||
                                   Status is ExtractJobStatus.Failed or ExtractJobStatus.Canceled;
     public bool CanRetry => Status is ExtractJobStatus.Failed or ExtractJobStatus.Canceled ||
@@ -156,9 +186,20 @@ public sealed class JobItemViewModel : ObservableObject
             ? $"{VolumeSummary} · {RelativeDirectory}"
             : ArchivePath;
 
-    public string StatusDetail => string.IsNullOrWhiteSpace(Message)
-        ? ProgressPercent > 0 && ProgressPercent < 100 ? $"{ProgressPercent}%" : string.Empty
-        : Message;
+    public string StatusDetail => Phase switch
+    {
+        ArchiveTreePhase.TryingPassword => PasswordAttemptCount > 1
+            ? $"验证第 {PasswordAttempt} 个候选 · 共 {PasswordAttemptCount} 个"
+            : "正在验证候选密码",
+        ArchiveTreePhase.Extracting when IsRunning => string.IsNullOrWhiteSpace(CurrentFile)
+            ? "正在解压文件"
+            : Path.GetFileName(CurrentFile),
+        ArchiveTreePhase.Staging => "整理分卷，准备解压",
+        ArchiveTreePhase.Committing => "正在写入输出目录",
+        ArchiveTreePhase.Completed => string.Empty,
+        _ => string.IsNullOrWhiteSpace(Message) || Message == StatusText || Message == "等待解压"
+            ? string.Empty : Message
+    };
 
     public string RetryActionText => Phase == ArchiveTreePhase.Blocked
         ? "重新扫描并解压"
@@ -172,6 +213,7 @@ public sealed class JobItemViewModel : ObservableObject
     {
         OnPropertyChanged(nameof(IsRunning));
         OnPropertyChanged(nameof(IsCompleted));
+        OnPropertyChanged(nameof(ShowProgress));
         OnPropertyChanged(nameof(NeedsAttention));
         OnPropertyChanged(nameof(CanRetry));
         OnPropertyChanged(nameof(RetryRequiresPassword));
@@ -183,13 +225,19 @@ public sealed class JobItemViewModel : ObservableObject
     public int PasswordAttempt
     {
         get => _passwordAttempt;
-        private set => SetProperty(ref _passwordAttempt, value);
+        private set
+        {
+            if (SetProperty(ref _passwordAttempt, value)) OnPropertyChanged(nameof(StatusDetail));
+        }
     }
 
     public int PasswordAttemptCount
     {
         get => _passwordAttemptCount;
-        private set => SetProperty(ref _passwordAttemptCount, value);
+        private set
+        {
+            if (SetProperty(ref _passwordAttemptCount, value)) OnPropertyChanged(nameof(StatusDetail));
+        }
     }
 
     public void ApplyTreeProgress(ArchiveTreeProgress progress)

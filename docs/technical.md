@@ -76,3 +76,15 @@ Progress is display-only: the progress bar must use `Mode=OneWay` because
 `ProgressPercent` has no public setter and WPF's default range-value binding is
 two-way. Omitting the mode causes an unhandled binding exception when a task row
 is created.
+
+To render the current WPF UI with synthetic demonstration tasks and check status
+hierarchy, selection stability, filtering, pause feedback, and panel switching:
+
+```powershell
+dotnet run --project .\tools\ExtractUtil.UiSmoke\ExtractUtil.UiSmoke.csproj -c Release -- --preview .\.build-check\ui-preview
+```
+
+Preview images are generated directly from the WPF visual tree at two window
+widths; no user archives are extracted. Ordinary progress updates no longer reset
+the collection view; it is refreshed only when a task enters or leaves a status
+filter, or when the user changes the filter, search, or workflow.
