@@ -55,3 +55,24 @@
 
 ## Configuration
 - Runtime options are set in the UI (output base, conflict policy, password, parallelism).
+
+## UI Regression Check
+
+The Windows-only smoke check loads the application's actual task-row XAML and
+checks progress binding during queued, running, and completed file/folder tasks:
+
+```powershell
+dotnet run --project .\tools\ExtractUtil.UiSmoke\ExtractUtil.UiSmoke.csproj -c Release
+```
+
+An optional directory argument also scans that directory and lays out its tasks
+in the real DataGrid. This check does not extract archives or open a window:
+
+```powershell
+dotnet run --project .\tools\ExtractUtil.UiSmoke\ExtractUtil.UiSmoke.csproj -c Release -- "D:\archive-root"
+```
+
+Progress is display-only: the progress bar must use `Mode=OneWay` because
+`ProgressPercent` has no public setter and WPF's default range-value binding is
+two-way. Omitting the mode causes an unhandled binding exception when a task row
+is created.
