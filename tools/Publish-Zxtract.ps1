@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string]$Version = "1.0.1",
+    [string]$Version = "1.0.2",
     [string]$Runtime = "win-x64"
 )
 
@@ -22,6 +22,10 @@ if (Test-Path -LiteralPath $zipPath) {
 dotnet publish $project -c Release -r $Runtime --self-contained true `
     -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true `
     -o $publishDir
+
+if ($LASTEXITCODE -ne 0) {
+    throw "dotnet publish 失败，停止打包（退出码：$LASTEXITCODE）。"
+}
 
 $requiredFiles = @(
     "Zxtract.exe",

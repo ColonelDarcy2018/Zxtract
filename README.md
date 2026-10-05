@@ -134,7 +134,7 @@ dotnet build .\src\ExtractUtil.App\ExtractUtil.App.csproj -c Release
 Build the self-contained Windows x64 package:
 
 ```powershell
-pwsh .\tools\Publish-Zxtract.ps1 -Version 1.0.1
+pwsh .\tools\Publish-Zxtract.ps1 -Version 1.0.2
 ```
 
 The publish script verifies that the application, 7-Zip binaries, and required license files are present before creating the ZIP.
@@ -172,7 +172,7 @@ No for the official portable package: it includes `7z.exe` and `7z.dll`. A sourc
 - [Module map](docs/modules.md)
 - [UI redesign notes](docs/ui-redesign-proposal.md)
 - [Prototype status](docs/figma-prototype-status.md)
-- [Release notes: 1.0.1](docs/release-notes/v1.0.1.md)
+- [Release notes: 1.0.2](docs/release-notes/v1.0.2.md)
 
 ## Contributing and support
 

@@ -134,7 +134,7 @@ dotnet build .\src\ExtractUtil.App\ExtractUtil.App.csproj -c Release
 生成 Windows x64 自包含发布包：
 
 ```powershell
-pwsh .\tools\Publish-Zxtract.ps1 -Version 1.0.1
+pwsh .\tools\Publish-Zxtract.ps1 -Version 1.0.2
 ```
 
 发布脚本会先检查应用程序、7-Zip 二进制文件和必要的许可文件，再生成 ZIP。
@@ -172,7 +172,7 @@ dotnet run --project .\tools\ExtractUtil.Smoke\ExtractUtil.Smoke.csproj -c Relea
 - [模块说明](docs/modules.md)
 - [界面重设计说明](docs/ui-redesign-proposal.md)
 - [原型状态](docs/figma-prototype-status.md)
-- [1.0.1 发布说明](docs/release-notes/v1.0.1.md)
+- [1.0.2 发布说明](docs/release-notes/v1.0.2.md)
 
 ## 参与贡献与问题反馈
 
