@@ -1,11 +1,50 @@
 <Window x:Class="ExtractUtil.App.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:ExtractUtil.App.Controls"
+        xmlns:themes="clr-namespace:ExtractUtil.App.Themes"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         xmlns:enums="clr-namespace:ExtractUtil.Core.Enums;assembly=ExtractUtil.Core"
-        Title="Zxtract" Icon="Resources/Zxtract.ico" Width="1200" Height="760" MinWidth="1024" MinHeight="640"
-        Background="#F7F8FA" FontFamily="Microsoft YaHei UI" FontSize="13"
+        Title="Zxtract" Icon="Resources/Zxtract.ico" Width="1200" Height="860" MinWidth="1024" MinHeight="720" WindowStyle="None"
+        Background="{DynamicResource WindowBrush}" Foreground="{DynamicResource TextPrimaryBrush}" FontFamily="Microsoft YaHei UI" FontSize="13"
         AllowDrop="True" PreviewDragOver="OnPreviewDragOver" Drop="OnDrop"
         WindowStartupLocation="CenterScreen">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="36" ResizeBorderThickness="6" GlassFrameThickness="0" CornerRadius="0" UseAeroCaptionButtons="False" />
+    </shell:WindowChrome.WindowChrome>
+    <Window.Resources>
+        <Style x:Key="LunarOnly" TargetType="FrameworkElement">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers>
+        </Style>
+        <Style x:Key="LegacyOnly" TargetType="FrameworkElement">
+            <Setter Property="Visibility" Value="Visible" />
+            <Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers>
+        </Style>
+        <Style x:Key="CaptionButton" TargetType="Button" BasedOn="{StaticResource TextButtonStyle}">
+            <Setter Property="Width" Value="44" /><Setter Property="Height" Value="32" /><Setter Property="MinHeight" Value="32" /><Setter Property="Padding" Value="0" /><Setter Property="FontFamily" Value="Segoe MDL2 Assets" /><Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+        </Style>
+        <Style x:Key="LunarCopyLayout" TargetType="StackPanel">
+            <Setter Property="Margin" Value="{DynamicResource LunarHeroCopyMargin}" />
+            <Setter Property="Width" Value="570" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding SelectedTheme.Id, Source={x:Static themes:ThemeManager.Current}}" Value="lunar-aurora">
+                    <Setter Property="Margin" Value="0,142,0,0" /><Setter Property="Width" Value="520" /><Setter Property="HorizontalAlignment" Value="Center" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="LunarActionsLayout" TargetType="Grid">
+            <Setter Property="Margin" Value="{DynamicResource LunarHeroActionsMargin}" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding SelectedTheme.Id, Source={x:Static themes:ThemeManager.Current}}" Value="lunar-aurora">
+                    <Setter Property="Margin" Value="0,280,0,0" /><Setter Property="HorizontalAlignment" Value="Center" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="O" Modifiers="Control" Command="{Binding AddFilesCommand}" />
         <KeyBinding Key="F5" Command="{Binding StartCommand}" />
@@ -13,264 +52,60 @@
         <KeyBinding Key="E" Modifiers="Control+Shift" Command="{Binding ExportLogCommand}" />
     </Window.InputBindings>
 
-    <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
-        <SolidColorBrush x:Key="PrimaryBrush" Color="#315EA8" />
-        <SolidColorBrush x:Key="PrimarySoftBrush" Color="#EDF3FC" />
-        <SolidColorBrush x:Key="TextPrimaryBrush" Color="#202735" />
-        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#677180" />
-        <SolidColorBrush x:Key="TextMutedBrush" Color="#8B94A2" />
-        <SolidColorBrush x:Key="BorderBrush" Color="#E3E7EC" />
-        <SolidColorBrush x:Key="SuccessBrush" Color="#327154" />
-        <SolidColorBrush x:Key="DangerBrush" Color="#B23D35" />
-
-        <Style x:Key="BaseButtonStyle" TargetType="Button">
-            <Setter Property="MinHeight" Value="34" />
-            <Setter Property="Padding" Value="12,5" />
-            <Setter Property="Background" Value="#FFFFFF" />
-            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-            <Setter Property="BorderBrush" Value="#CFD5DD" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <Border x:Name="ButtonBorder" Padding="{TemplateBinding Padding}"
-                                    Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Border>
-                            <Border x:Name="FocusRing" Margin="-3" CornerRadius="7" BorderBrush="{StaticResource PrimaryBrush}" BorderThickness="1" Visibility="Collapsed" IsHitTestVisible="False" />
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="FocusRing" Property="Visibility" Value="Visible" /></Trigger>
-                            <Trigger Property="IsEnabled" Value="False"><Setter TargetName="ButtonBorder" Property="Opacity" Value="0.42" /></Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="#EEF3FA" /><Setter Property="BorderBrush" Value="#A5BAD7" /></Trigger>
-                <Trigger Property="IsPressed" Value="True"><Setter Property="Background" Value="#DCE7F6" /><Setter Property="BorderBrush" Value="#315EA8" /></Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
-            <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
-            <Setter Property="Foreground" Value="#FFFFFF" />
-            <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="#274F91" /><Setter Property="BorderBrush" Value="#274F91" /></Trigger>
-                <Trigger Property="IsPressed" Value="True"><Setter Property="Background" Value="#1D3F78" /><Setter Property="BorderBrush" Value="#1D3F78" /></Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="TextButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderBrush" Value="Transparent" />
-            <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" />
-            <Setter Property="Padding" Value="7,4" />
-            <Setter Property="MinHeight" Value="32" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="#E7EFFB" /><Setter Property="BorderBrush" Value="#CADAF0" /></Trigger>
-                <Trigger Property="IsPressed" Value="True"><Setter Property="Background" Value="#D3E2F7" /><Setter Property="BorderBrush" Value="#A5BAD7" /></Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="ToggleButtonStyle" TargetType="ToggleButton">
-            <Setter Property="MinHeight" Value="34" />
-            <Setter Property="Padding" Value="10,5" />
-            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderBrush" Value="Transparent" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Border x:Name="ToggleBorder" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ToggleBorder" Property="Background" Value="#F4F6F8" /></Trigger>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="ToggleBorder" Property="Background" Value="{StaticResource PrimarySoftBrush}" />
-                                <Setter TargetName="ToggleBorder" Property="BorderBrush" Value="#C7D7EE" />
-                                <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="ToggleBorder" Property="Background" Value="#DCE7F6" /></Trigger>
-                            <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="ToggleBorder" Property="BorderBrush" Value="{StaticResource PrimaryBrush}" /></Trigger>
-                            <Trigger Property="IsEnabled" Value="False"><Setter TargetName="ToggleBorder" Property="Opacity" Value="0.4" /></Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="TopTabItemStyle" TargetType="TabItem">
-            <Setter Property="MinWidth" Value="116" /><Setter Property="Height" Value="48" /><Setter Property="Padding" Value="14,0" />
-            <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" /><Setter Property="Cursor" Value="Hand" />
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TabItem">
-                        <Border x:Name="TabBorder" Padding="{TemplateBinding Padding}" Background="Transparent"
-                                BorderBrush="Transparent" BorderThickness="0,0,0,2">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" ContentSource="Header" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="TabBorder" Property="Background" Value="#F0F4FA" /></Trigger>
-                            <Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter TargetName="TabBorder" Property="Background" Value="#E7EFFB" /></Trigger>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" /><Setter Property="FontWeight" Value="SemiBold" />
-                                <Setter TargetName="TabBorder" Property="BorderBrush" Value="{StaticResource PrimaryBrush}" />
-                                <Setter TargetName="TabBorder" Property="Background" Value="#EDF3FC" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="TopTabControlStyle" TargetType="TabControl">
-            <Setter Property="Background" Value="Transparent" /><Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TabControl"><TabPanel IsItemsHost="True" /></ControlTemplate></Setter.Value></Setter>
-        </Style>
-        <Style x:Key="FilterItemStyle" TargetType="ListBoxItem">
-            <Setter Property="Padding" Value="12,6" /><Setter Property="Margin" Value="0,0,4,0" />
-            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" /><Setter Property="Cursor" Value="Hand" />
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="Chip" Padding="{TemplateBinding Padding}" CornerRadius="5" Background="Transparent"><ContentPresenter /></Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Chip" Property="Background" Value="#F0F4FA" /></Trigger>
-                            <Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter TargetName="Chip" Property="Background" Value="#DCE7F6" /></Trigger>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Chip" Property="Background" Value="{StaticResource PrimarySoftBrush}" />
-                                <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" /><Setter Property="FontWeight" Value="SemiBold" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="SegmentRadioStyle" TargetType="RadioButton">
-            <Setter Property="MinHeight" Value="34" /><Setter Property="Padding" Value="11,5" />
-            <Setter Property="Margin" Value="0,0,6,0" /><Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-            <Setter Property="Cursor" Value="Hand" /><Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="RadioButton">
-                <Border x:Name="Segment" Padding="{TemplateBinding Padding}" Background="#FFFFFF" BorderBrush="#CFD5DD" BorderThickness="1" CornerRadius="5"><ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" /></Border>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Segment" Property="Background" Value="#F0F4FA" /></Trigger>
-                    <Trigger Property="IsChecked" Value="True"><Setter TargetName="Segment" Property="Background" Value="{StaticResource PrimarySoftBrush}" /><Setter TargetName="Segment" Property="BorderBrush" Value="{StaticResource PrimaryBrush}" /><Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" /><Setter Property="FontWeight" Value="SemiBold" /></Trigger>
-                    <Trigger Property="IsPressed" Value="True"><Setter TargetName="Segment" Property="Background" Value="#DCE7F6" /></Trigger>
-                    <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Segment" Property="BorderBrush" Value="{StaticResource PrimaryBrush}" /></Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate></Setter.Value></Setter>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="MinHeight" Value="34" /><Setter Property="Padding" Value="10,6" />
-            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" /><Setter Property="Background" Value="#FFFFFF" />
-            <Setter Property="BorderBrush" Value="#D7DCE3" /><Setter Property="BorderThickness" Value="1" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True"><Setter Property="BorderBrush" Value="#A5BAD7" /></Trigger>
-                <Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}" /></Trigger>
-                <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.5" /></Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="ComboBox"><Setter Property="MinHeight" Value="34" /><Setter Property="Padding" Value="8,4" /></Style>
-        <Style x:Key="TaskGridStyle" TargetType="DataGrid">
-            <Setter Property="Background" Value="#FFFFFF" /><Setter Property="BorderThickness" Value="0" />
-            <Setter Property="GridLinesVisibility" Value="None" />
-            <Setter Property="RowBackground" Value="#FFFFFF" /><Setter Property="AlternatingRowBackground" Value="#FFFFFF" />
-            <Setter Property="RowHeight" Value="80" /><Setter Property="ColumnHeaderHeight" Value="38" />
-            <Setter Property="HeadersVisibility" Value="Column" /><Setter Property="SelectionMode" Value="Single" />
-            <Setter Property="SelectionUnit" Value="FullRow" /><Setter Property="CanUserAddRows" Value="False" />
-            <Setter Property="CanUserDeleteRows" Value="False" /><Setter Property="CanUserResizeRows" Value="False" />
-            <Setter Property="IsReadOnly" Value="True" /><Setter Property="AutoGenerateColumns" Value="False" />
-            <Setter Property="EnableRowVirtualization" Value="True" />
-            <Setter Property="CanUserReorderColumns" Value="False" />
-            <Setter Property="CanUserResizeColumns" Value="False" />
-            <Setter Property="CanUserSortColumns" Value="False" />
-            <Setter Property="RowHeaderWidth" Value="0" />
-            <Setter Property="CellStyle" Value="{DynamicResource TaskCellStyle}" />
-            <Setter Property="ColumnHeaderStyle" Value="{DynamicResource TaskHeaderStyle}" />
-        </Style>
-        <Style x:Key="TaskHeaderStyle" TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#F7F8FA" /><Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
-            <Setter Property="BorderThickness" Value="0,0,0,1" /><Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
-            <Setter Property="Padding" Value="24,0" /><Setter Property="FontWeight" Value="Normal" /><Setter Property="HorizontalContentAlignment" Value="Left" />
-        </Style>
-        <Style x:Key="StatusHeaderStyle" TargetType="DataGridColumnHeader" BasedOn="{StaticResource TaskHeaderStyle}"><Setter Property="Padding" Value="16,0" /></Style>
-        <Style x:Key="ActionHeaderStyle" TargetType="DataGridColumnHeader" BasedOn="{StaticResource TaskHeaderStyle}"><Setter Property="Padding" Value="12,0" /></Style>
-        <Style x:Key="TaskCellStyle" TargetType="DataGridCell">
-            <Setter Property="BorderThickness" Value="0" /><Setter Property="Padding" Value="24,0" />
-            <Setter Property="VerticalContentAlignment" Value="Center" /><Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-            <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="DataGridCell">
-                <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
-                    <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                </Border>
-            </ControlTemplate></Setter.Value></Setter>
-        </Style>
-        <Style x:Key="StatusCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource TaskCellStyle}"><Setter Property="Padding" Value="16,0" /></Style>
-        <Style x:Key="ActionCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource TaskCellStyle}"><Setter Property="Padding" Value="12,0" /></Style>
-        <Style x:Key="TaskRowStyle" TargetType="DataGridRow">
-            <Setter Property="Background" Value="#FFFFFF" />
-            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="DataGridRow">
-                <Border Background="{TemplateBinding Background}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
-                    <Grid>
-                        <DataGridCellsPresenter />
-                        <Border x:Name="SelectionMarker" Width="3" HorizontalAlignment="Left" Background="Transparent" IsHitTestVisible="False" />
-                    </Grid>
-                </Border>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="IsSelected" Value="True"><Setter TargetName="SelectionMarker" Property="Background" Value="{StaticResource PrimaryBrush}" /></Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate></Setter.Value></Setter>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding NeedsAttention}" Value="True"><Setter Property="Background" Value="#FFFAF7" /></DataTrigger>
-                <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="#F3F7FD" /></Trigger>
-                <Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="#E7EFFB" /></Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="StatusBadgeStyle" TargetType="Border">
-            <Setter Property="Background" Value="#F0F2F5" />
-            <Setter Property="CornerRadius" Value="4" /><Setter Property="Padding" Value="8,3" />
-            <Setter Property="TextElement.Foreground" Value="#596577" />
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsRunning}" Value="True"><Setter Property="Background" Value="#EDF3FC" /><Setter Property="TextElement.Foreground" Value="#315EA8" /></DataTrigger>
-                <DataTrigger Binding="{Binding IsCompleted}" Value="True"><Setter Property="Background" Value="#EAF5EE" /><Setter Property="TextElement.Foreground" Value="#327154" /></DataTrigger>
-                <DataTrigger Binding="{Binding NeedsAttention}" Value="True"><Setter Property="Background" Value="#FBECE7" /><Setter Property="TextElement.Foreground" Value="#A84431" /></DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="PanelBorderStyle" TargetType="Border">
-            <Setter Property="Background" Value="#FFFFFF" /><Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
-            <Setter Property="BorderThickness" Value="1" /><Setter Property="CornerRadius" Value="6" />
-        </Style>
-    </Window.Resources>
-
-    <Grid Background="#F7F8FA">
+    <Grid Background="{DynamicResource WindowBrush}">
+        <Grid.RowDefinitions><RowDefinition><RowDefinition.Style><Style TargetType="RowDefinition"><Setter Property="Height" Value="36" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Height" Value="42" /></DataTrigger></Style.Triggers></Style></RowDefinition.Style></RowDefinition><RowDefinition Height="*" /></Grid.RowDefinitions>
+        <Grid x:Name="CaptionBar" Background="{DynamicResource WindowBrush}">
+            <StackPanel Orientation="Horizontal" Margin="15,0" VerticalAlignment="Center" IsHitTestVisible="False">
+                <Image Source="Resources/Zxtract.png" Width="15" Height="15" Margin="0,0,9,0" />
+                <TextBlock Text="Zxtract" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                <ToggleButton x:Name="SettingsToggle" Width="36" MinHeight="32" Padding="0" FontFamily="Segoe MDL2 Assets" FontSize="14" Content="&#xE713;" Style="{StaticResource ToggleButtonStyle}" Checked="OnSettingsOpened" ToolTip="设置与关于" AutomationProperties.Name="设置与关于" />
+                <Button x:Name="MinimizeButton" Content="&#xE921;" Style="{StaticResource CaptionButton}" Click="OnMinimize" ToolTip="最小化" AutomationProperties.Name="最小化" />
+                <Button x:Name="MaximizeButton" Content="&#xE922;" Style="{StaticResource CaptionButton}" Click="OnMaximize" ToolTip="最大化或还原" AutomationProperties.Name="最大化或还原" />
+                <Button Content="&#xE8BB;" Style="{StaticResource CaptionButton}" Click="OnCloseWindow" ToolTip="关闭" AutomationProperties.Name="关闭" />
+            </StackPanel>
+        </Grid>
+        <Popup x:Name="SettingsPopup" PlacementTarget="{Binding ElementName=SettingsToggle}" Placement="Bottom" HorizontalOffset="-240" VerticalOffset="8" IsOpen="{Binding IsChecked, ElementName=SettingsToggle, Mode=TwoWay}" StaysOpen="False" AllowsTransparency="True" Opened="OnFlyoutOpened">
+            <Border Width="310" Padding="20" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="8" PreviewKeyDown="OnFlyoutKeyDown" KeyboardNavigation.TabNavigation="Cycle">
+                <StackPanel>
+                    <TextBlock Text="外观" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12" Foreground="{DynamicResource TextPrimaryBrush}" />
+                    <ComboBox x:Name="ThemePicker" ItemsSource="{Binding AvailableThemes, Source={x:Static themes:ThemeManager.Current}}" SelectedItem="{Binding SelectedTheme, Mode=TwoWay, Source={x:Static themes:ThemeManager.Current}}" DisplayMemberPath="Name" ToolTip="{Binding StatusText, Source={x:Static themes:ThemeManager.Current}}" AutomationProperties.Name="切换皮肤" />
+                    <TextBlock Text="{Binding StatusText, Source={x:Static themes:ThemeManager.Current}}" TextWrapping="Wrap" Margin="0,10,0,18" FontSize="12" Foreground="{DynamicResource TextMutedBrush}" />
+                    <Border Height="1" Background="{DynamicResource BorderBrush}" Margin="0,0,0,16" />
+                    <TextBlock Text="关于 Zxtract" Foreground="{DynamicResource TextPrimaryBrush}" />
+                    <TextBlock x:Name="VersionText" Margin="0,6,0,12" Foreground="{DynamicResource TextMutedBrush}" FontSize="12" />
+                    <TextBlock Text="Ctrl+O 添加文件   ·   F5 开始解压" Foreground="{DynamicResource TextMutedBrush}" FontSize="11" />
+                </StackPanel>
+            </Border>
+        </Popup>
+    <Grid x:Name="WorkspaceRoot" Grid.Row="1" Background="{DynamicResource WindowBrush}">
+        <Grid.ColumnDefinitions><ColumnDefinition x:Name="ScenicColumn" Width="0" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="64" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" />
-            <RowDefinition Height="64" /><RowDefinition Height="*" /><RowDefinition Height="Auto" /><RowDefinition Height="40" />
+            <RowDefinition><RowDefinition.Style><Style TargetType="RowDefinition"><Setter Property="Height" Value="120" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Height" Value="{DynamicResource LunarHeroHeight}" /></DataTrigger></Style.Triggers></Style></RowDefinition.Style></RowDefinition><RowDefinition Height="Auto" /><RowDefinition Height="Auto" />
+            <RowDefinition Height="56" /><RowDefinition Height="*" /><RowDefinition Height="Auto" /><RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Background="#FFFFFF" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
-            <Grid Margin="24,0">
+        <Border Grid.Row="0" Style="{StaticResource LegacyOnly}" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1">
+            <Grid>
+                <Border Width="540" HorizontalAlignment="Right" Background="{DynamicResource HeroArtBrush}" Opacity="{DynamicResource HeroArtOpacity}" IsHitTestVisible="False">
+                    <Border.OpacityMask><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="Transparent" Offset="0" /><GradientStop Color="Black" Offset="0.75" /></LinearGradientBrush></Border.OpacityMask>
+                </Border>
+                <Grid Margin="24,0">
+                <Grid.RowDefinitions><RowDefinition Height="72" /><RowDefinition Height="48" /></Grid.RowDefinitions>
                 <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
-                <TabControl Grid.Column="0" SelectedIndex="{Binding SelectedWorkflowIndex}" Style="{StaticResource TopTabControlStyle}">
+                <StackPanel Grid.ColumnSpan="2" VerticalAlignment="Center">
+                    <TextBlock Text="{DynamicResource ThemeSignature}" FontFamily="Consolas" FontSize="10" Foreground="{DynamicResource PrimaryBrush}" />
+                    <TextBlock Margin="0,2,0,0" FontSize="24" FontWeight="SemiBold">
+                        <TextBlock.Style><Style TargetType="TextBlock"><Setter Property="Text" Value="文件解压" /><Style.Triggers><DataTrigger Binding="{Binding SelectedWorkflowIndex}" Value="1"><Setter Property="Text" Value="文件夹解压" /></DataTrigger></Style.Triggers></Style></TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+                <TabControl Grid.Row="1" Grid.Column="0" SelectedIndex="{Binding SelectedWorkflowIndex}" Style="{StaticResource TopTabControlStyle}">
                     <TabItem Header="文件解压" Style="{StaticResource TopTabItemStyle}" />
                     <TabItem Header="文件夹解压" Style="{StaticResource TopTabItemStyle}" />
                 </TabControl>
-                <Border Grid.Column="1" Margin="20,0" Padding="10,5" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Left" Background="#F0F2F5">
-                    <TextBlock Foreground="{StaticResource TextSecondaryBrush}" FontSize="12" Text="{Binding SessionStatusText}" />
+        <Border Grid.Row="1" Grid.Column="1" Margin="20,0" Padding="10,5" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Left" Background="{DynamicResource RaisedBrush}">
+                    <TextBlock Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" Text="{Binding SessionStatusText}" />
                 </Border>
                 <Grid Grid.Column="2" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
@@ -283,57 +118,96 @@
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.Style><Style TargetType="StackPanel"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding SelectedWorkflowIndex}" Value="1"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></StackPanel.Style>
                             <Button Margin="0,0,8,0" Command="{Binding BrowseScanRootCommand}" Content="选择文件夹" Style="{StaticResource BaseButtonStyle}" />
-                            <Button MinWidth="122" Command="{Binding ScanAndExtractCommand}" Content="扫描并解压" Style="{StaticResource PrimaryButtonStyle}" />
+                            <Button MinWidth="122" Command="{Binding ScanAndExtractCommand}" Content="扫描并解压" Style="{StaticResource PrimaryButtonStyle}" /><Button Margin="8,0,0,0" Command="{Binding ScanOnlyCommand}" Content="仅扫描" Style="{StaticResource TextButtonStyle}" />
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel.Style><Style TargetType="StackPanel"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding IsBusy}" Value="True"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></StackPanel.Style>
-                        <Button MinWidth="72" Margin="0,0,8,0" Command="{Binding PauseResumeCommand}" Content="{Binding PauseButtonText}" IsEnabled="{Binding CanPause}" Style="{StaticResource BaseButtonStyle}" />
+                        <Button MinWidth="72" Margin="0,0,8,0" Command="{Binding PauseResumeCommand}" Content="{Binding PauseButtonText}" ToolTip="暂停后不再启动新任务；已经运行的解压继续完成。" IsEnabled="{Binding CanPause}" Style="{StaticResource BaseButtonStyle}" />
                         <Button MinWidth="72" Command="{Binding CancelCommand}" Content="取消" Style="{StaticResource BaseButtonStyle}" />
                     </StackPanel>
                 </Grid>
             </Grid>
+            </Grid>
         </Border>
 
-        <Border Grid.Row="1" Background="#FFFFFF" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
-            <Border.Style><Style TargetType="Border"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding SelectedWorkflowIndex}" Value="1"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></Border.Style>
+        <Grid Grid.Row="0" x:Name="NightHero" Style="{StaticResource LunarOnly}">
+            <controls:LunarScene x:Name="NightScene" Progress="{Binding LunarStatus.Progress, RelativeSource={RelativeSource AncestorType=Window}}" IsIndeterminate="{Binding LunarStatus.IsIndeterminate, RelativeSource={RelativeSource AncestorType=Window}}" StatusText="{Binding LunarStatus.Title, RelativeSource={RelativeSource AncestorType=Window}}" DetailsText="{Binding LunarStatus.TooltipDetails, RelativeSource={RelativeSource AncestorType=Window}}" />
+            <TabControl x:Name="NightTabs" Margin="{DynamicResource LunarHeroTabsMargin}" HorizontalAlignment="Left" VerticalAlignment="Top" SelectedIndex="{Binding SelectedWorkflowIndex}" Style="{StaticResource TopTabControlStyle}">
+                <TabItem Style="{StaticResource NightTab}"><TabItem.Header><StackPanel Orientation="Horizontal"><Path Width="12" Height="14" Stretch="Uniform" Stroke="{DynamicResource TextSecondaryBrush}" StrokeThickness="1" Data="M1,0 L8,0 12,4 12,14 1,14 Z M8,0 L8,4 12,4 M5,2 L5,11" Margin="0,0,8,0" VerticalAlignment="Center" /><TextBlock Text="文件解压" /></StackPanel></TabItem.Header></TabItem>
+                <TabItem Style="{StaticResource NightTab}"><TabItem.Header><StackPanel Orientation="Horizontal"><Path Width="14" Height="12" Stretch="Uniform" Stroke="{DynamicResource TextSecondaryBrush}" StrokeThickness="1" Data="M0,12 L0,1 5,1 7,3 14,3 14,12 Z" Margin="0,0,8,0" VerticalAlignment="Center" /><TextBlock Text="文件夹解压" /></StackPanel></TabItem.Header></TabItem>
+            </TabControl>
+            <StackPanel x:Name="LunarCopy" Style="{StaticResource LunarCopyLayout}" VerticalAlignment="Top" IsHitTestVisible="False">
+                <DockPanel><Path Width="14" Height="12" Stretch="Uniform" Stroke="{DynamicResource TextSecondaryBrush}" StrokeThickness="1" Data="M0,12 L0,1 5,1 7,3 14,3 14,12 Z" Margin="0,0,9,0" /><TextBlock x:Name="NightPath" Text="{Binding LunarStatus.SourceLabel, RelativeSource={RelativeSource AncestorType=Window}}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" TextTrimming="CharacterEllipsis" /></DockPanel>
+                <TextBlock x:Name="NightStatusTitle" Text="{Binding LunarStatus.Title, RelativeSource={RelativeSource AncestorType=Window}}" Margin="0,10,0,0" FontSize="30" Foreground="{DynamicResource TextPrimaryBrush}" />
+                <TextBlock Text="{Binding LunarStatus.Detail, RelativeSource={RelativeSource AncestorType=Window}}" Margin="0,8,0,0" FontSize="12" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource TextSecondaryBrush}"><TextBlock.Style><Style TargetType="TextBlock"><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.Id, Source={x:Static themes:ThemeManager.Current}}" Value="lunar-stone"><Setter Property="TextWrapping" Value="Wrap" /></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock>
+            </StackPanel>
+            <Grid x:Name="NightActions" Style="{StaticResource LunarActionsLayout}" VerticalAlignment="Top" Height="36">
+                <Grid VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Style><Style TargetType="StackPanel"><Setter Property="Visibility" Value="Visible" /><Style.Triggers><DataTrigger Binding="{Binding IsBusy}" Value="True"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers></Style></StackPanel.Style>
+                        <StackPanel Orientation="Horizontal"><StackPanel.Style><Style TargetType="StackPanel"><Setter Property="Visibility" Value="Visible" /><Style.Triggers><DataTrigger Binding="{Binding SelectedWorkflowIndex}" Value="1"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers></Style></StackPanel.Style>
+                            <Button Margin="0,0,8,0" Command="{Binding AddFilesCommand}" Content="添加文件" Style="{StaticResource BaseButtonStyle}" /><Button MinWidth="104" Command="{Binding StartCommand}" Content="开始解压" Style="{StaticResource PrimaryButtonStyle}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"><StackPanel.Style><Style TargetType="StackPanel"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding SelectedWorkflowIndex}" Value="1"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></StackPanel.Style>
+                            <Button Margin="0,0,8,0" Command="{Binding BrowseScanRootCommand}" Content="选择文件夹" Style="{StaticResource BaseButtonStyle}" /><Button MinWidth="122" Command="{Binding ScanAndExtractCommand}" Content="扫描并解压" Style="{StaticResource PrimaryButtonStyle}" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"><StackPanel.Style><Style TargetType="StackPanel"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding IsBusy}" Value="True"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></StackPanel.Style>
+                        <Button Margin="0,0,8,0" Command="{Binding PauseResumeCommand}" Content="{Binding PauseButtonText}" ToolTip="暂停后不再启动新任务；已经运行的解压继续完成。" IsEnabled="{Binding CanPause}"><Button.Style><Style TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}"><Setter Property="MinWidth" Value="88" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.Id, Source={x:Static themes:ThemeManager.Current}}" Value="lunar-stone"><Setter Property="MinWidth" Value="164" /></DataTrigger></Style.Triggers></Style></Button.Style></Button><Button MinWidth="72" Command="{Binding CancelCommand}" Content="取消" Style="{StaticResource TextButtonStyle}" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <Grid x:Name="LunarSummary" Margin="{DynamicResource LunarHeroBottomMargin}" VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                <Border Height="1" VerticalAlignment="Top" Background="{DynamicResource BorderBrush}" IsHitTestVisible="False"><Border.Style><Style TargetType="Border"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.Id, Source={x:Static themes:ThemeManager.Current}}" Value="lunar-stone"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></Border.Style></Border>
+                <StackPanel x:Name="SummaryCopy">
+                    <TextBlock x:Name="SummaryMain" Text="{Binding LunarStatus.SummaryMain, RelativeSource={RelativeSource AncestorType=Window}}" FontSize="12" TextTrimming="CharacterEllipsis" />
+                    <TextBlock x:Name="SummarySecondary" Margin="0,5,0,0" Text="{Binding LunarStatus.SummarySecondary, RelativeSource={RelativeSource AncestorType=Window}}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11" TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+                <Button x:Name="NightOptionsButton" Grid.Column="1" Click="OnNightOptions" Content="☷  查看设置" Style="{StaticResource TextButtonStyle}" FontSize="12" Padding="8,4,0,4" />
+            </Grid>
+        </Grid>
+
+                <Border Grid.Row="1" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1">
+            <Border.Style><Style TargetType="Border"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding SelectedWorkflowIndex}" Value="1"><Setter Property="Visibility" Value="Visible" /></DataTrigger><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers></Style></Border.Style>
             <Grid Height="48" Margin="24,0">
                 <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
-                <TextBlock VerticalAlignment="Center" Foreground="{StaticResource TextMutedBrush}" Text="当前目录" />
-                <TextBlock Grid.Column="1" Margin="16,0" VerticalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}"
+                <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource TextMutedBrush}" Text="当前目录" />
+                <TextBlock Grid.Column="1" Margin="16,0" VerticalAlignment="Center" Foreground="{DynamicResource TextPrimaryBrush}"
                            Text="{Binding ScanRootDisplay}" TextTrimming="CharacterEllipsis" ToolTip="{Binding ScanRootDirectory}" />
                 <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Margin="0,0,14,0" VerticalAlignment="Center" Foreground="{StaticResource TextMutedBrush}" Text="包含子文件夹" />
+                    <TextBlock Margin="0,0,14,0" VerticalAlignment="Center" Foreground="{DynamicResource TextMutedBrush}" Text="包含子文件夹" />
                     <Button Command="{Binding ScanOnlyCommand}" Content="仅扫描" Style="{StaticResource TextButtonStyle}" />
                 </StackPanel>
             </Grid>
         </Border>
 
-        <StackPanel Grid.Row="2" Background="#F7F8FA">
-            <Grid Height="52" Margin="24,0">
+        <StackPanel Grid.Row="2" Background="{DynamicResource WindowBrush}">
+            <Grid Height="52" Margin="24,0" Style="{StaticResource LegacyOnly}">
                 <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
-                <TextBlock VerticalAlignment="Center" Foreground="{StaticResource TextMutedBrush}" Text="密码" />
-                <ToggleButton x:Name="PasswordToggle" Grid.Column="1" Margin="6,0,18,0" Checked="OnPasswordOpened" IsChecked="{Binding IsPasswordPanelOpen, Mode=TwoWay}" Content="{Binding PasswordSummary}" Style="{StaticResource ToggleButtonStyle}" />
-                <Border Grid.Column="2" Width="1" Height="20" Margin="0,0,18,0" Background="{StaticResource BorderBrush}" />
-                <TextBlock Grid.Column="3" VerticalAlignment="Center" Foreground="{StaticResource TextMutedBrush}" Text="输出" />
-                <TextBlock Grid.Column="4" Margin="12,0" VerticalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" Text="{Binding OutputModeDisplay}" />
-                <ToggleButton x:Name="OptionsToggle" Grid.Column="5" Checked="OnOptionsOpened" Content="更多选项" Style="{StaticResource ToggleButtonStyle}" />
+                <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource TextMutedBrush}" Text="密码" />
+                <ToggleButton x:Name="PasswordToggle" Grid.Column="1" VerticalAlignment="Center" Margin="6,0,18,0" Checked="OnPasswordOpened" IsChecked="{Binding IsPasswordPanelOpen, Mode=TwoWay}" Content="{Binding PasswordSummary}" Style="{StaticResource ToggleButtonStyle}" />
+                <Border Grid.Column="2" Width="1" Height="20" Margin="0,0,18,0" Background="{DynamicResource BorderBrush}" />
+                <TextBlock Grid.Column="3" VerticalAlignment="Center" Foreground="{DynamicResource TextMutedBrush}" Text="选项" />
+                <TextBlock Grid.Column="4" Margin="12,0" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryBrush}" Text="{Binding LunarStatus.OptionsSummary, RelativeSource={RelativeSource AncestorType=Window}}" TextTrimming="CharacterEllipsis" ToolTip="{Binding LunarStatus.OptionsSummary, RelativeSource={RelativeSource AncestorType=Window}}" />
+                <ToggleButton x:Name="OptionsToggle" Grid.Column="5" VerticalAlignment="Center" Checked="OnOptionsOpened" Content="解压选项" Style="{StaticResource ToggleButtonStyle}" />
             </Grid>
-            <Border Margin="24,0,24,12" Padding="18">
-                <Border.Style><Style TargetType="Border" BasedOn="{StaticResource PanelBorderStyle}"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding IsChecked, ElementName=PasswordToggle}" Value="True"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></Border.Style>
+            <Popup x:Name="PasswordPopup" PlacementTarget="{Binding ElementName=PasswordToggle}" Placement="Bottom" VerticalOffset="8" IsOpen="{Binding IsChecked, ElementName=PasswordToggle, Mode=TwoWay}" StaysOpen="False" AllowsTransparency="True" Opened="OnFlyoutOpened">
+            <Border Width="840" Padding="20" Style="{StaticResource PanelBorderStyle}" PreviewKeyDown="OnFlyoutKeyDown" KeyboardNavigation.TabNavigation="Cycle">
                 <Grid>
                     <Grid.ColumnDefinitions><ColumnDefinition Width="2*" /><ColumnDefinition Width="24" /><ColumnDefinition Width="3*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Text="{Binding PasswordPanelTitle}" />
-                        <TextBlock Margin="0,4,0,8" FontSize="11" Foreground="{StaticResource TextMutedBrush}" Text="每行一个，按顺序尝试" />
+                        <TextBlock FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Text="{Binding PasswordPanelTitle}" />
+                        <TextBlock Margin="0,4,0,8" FontSize="11" Foreground="{DynamicResource TextMutedBrush}" Text="每行一个，按顺序尝试" />
                         <TextBox Height="76" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding PasswordCandidatesText, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel Grid.Column="2">
-                        <TextBlock FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Text="快速复用" />
+                        <TextBlock FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Text="快速复用" />
                         <CheckBox Margin="0,7,0,9" IsChecked="{Binding InferPasswordsFromPath}" Content="从文件名和路径推断密码" />
                         <ItemsControl ItemsSource="{Binding SavedPasswords}">
                             <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate><DataTemplate><Button Margin="0,0,7,7" Padding="9,4" Command="{Binding DataContext.UseSavedPasswordCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" Content="{Binding MaskedValue}" Style="{StaticResource BaseButtonStyle}" /></DataTemplate></ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemTemplate><DataTemplate><Button Margin="0,0,7,7" Padding="9,4" Command="{Binding DataContext.UseSavedPasswordCommand, Source={x:Reference PasswordToggle}}" CommandParameter="{Binding}" Content="{Binding MaskedValue}" Style="{StaticResource BaseButtonStyle}" /></DataTemplate></ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </StackPanel>
                     <StackPanel Grid.Column="3" Margin="18,0,0,0" VerticalAlignment="Bottom">
@@ -344,8 +218,9 @@
                     </StackPanel>
                 </Grid>
             </Border>
-            <Border Margin="24,0,24,12" Padding="18">
-                <Border.Style><Style TargetType="Border" BasedOn="{StaticResource PanelBorderStyle}"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding IsChecked, ElementName=OptionsToggle}" Value="True"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></Border.Style>
+            </Popup>
+            <Popup x:Name="OptionsPopup" PlacementTarget="{Binding ElementName=OptionsToggle}" Placement="Bottom" HorizontalOffset="-720" VerticalOffset="8" IsOpen="{Binding IsChecked, ElementName=OptionsToggle, Mode=TwoWay}" StaysOpen="False" AllowsTransparency="True" Opened="OnFlyoutOpened">
+            <Border Width="840" Padding="20" Style="{StaticResource PanelBorderStyle}" PreviewKeyDown="OnFlyoutKeyDown" KeyboardNavigation.TabNavigation="Cycle">
                 <Grid>
                     <Grid.ColumnDefinitions><ColumnDefinition Width="2*" /><ColumnDefinition Width="24" /><ColumnDefinition Width="*" /><ColumnDefinition Width="24" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
@@ -375,25 +250,28 @@
                         <TextBlock Margin="0,0,0,8" FontWeight="SemiBold" Text="文件夹模式" />
                         <CheckBox IsChecked="{Binding RecursiveExtractionEnabled}" Content="递归解压嵌套压缩包" />
                         <CheckBox Margin="0,6,0,0" IsChecked="{Binding GroupDistributedVolumes}" Content="跨目录归并分卷" />
-                        <CheckBox Margin="0,6,0,0" IsChecked="{Binding DeleteSourceAfterSuccess}" Foreground="{StaticResource DangerBrush}" Content="成功后删除源压缩文件" />
+                        <CheckBox Margin="0,6,0,0" IsChecked="{Binding DeleteSourceAfterSuccess}" Foreground="{DynamicResource DangerBrush}" Content="成功后删除源压缩文件" />
                     </StackPanel>
                 </Grid>
             </Border>
+            </Popup>
         </StackPanel>
 
-        <Border Grid.Row="3" Background="#FFFFFF" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0">
-            <Grid Margin="24,0">
+        <Border x:Name="TaskToolbar" Grid.Row="3">
+            <Border.Style><Style TargetType="Border"><Setter Property="Background" Value="{DynamicResource SurfaceBrush}" /><Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" /><Setter Property="BorderThickness" Value="0,1,0,0" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Background" Value="Transparent" /><Setter Property="BorderThickness" Value="0" /></DataTrigger></Style.Triggers></Style></Border.Style>
+            <Grid x:Name="TaskToolbarLayout"><Grid.Style><Style TargetType="Grid"><Setter Property="Margin" Value="24,0" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Margin" Value="36,0" /></DataTrigger></Style.Triggers></Style></Grid.Style>
+                <Grid.RowDefinitions><RowDefinition Height="*" /><RowDefinition Height="0" /></Grid.RowDefinitions>
                 <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="220" /></Grid.ColumnDefinitions>
-                <ListBox SelectedIndex="{Binding SelectedTaskFilterIndex}" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" ItemContainerStyle="{StaticResource FilterItemStyle}">
+                <ListBox SelectedIndex="{Binding SelectedTaskFilterIndex}" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" ItemContainerStyle="{StaticResource AdaptiveFilter}">
                     <ListBox.ItemsPanel><ItemsPanelTemplate><StackPanel Orientation="Horizontal" /></ItemsPanelTemplate></ListBox.ItemsPanel>
                     <ListBoxItem Content="{Binding DataContext.AllFilterText, RelativeSource={RelativeSource AncestorType=ListBox}}" />
                     <ListBoxItem Content="{Binding DataContext.RunningFilterText, RelativeSource={RelativeSource AncestorType=ListBox}}" />
                     <ListBoxItem Content="{Binding DataContext.AttentionFilterText, RelativeSource={RelativeSource AncestorType=ListBox}}" />
                     <ListBoxItem Content="{Binding DataContext.CompletedFilterText, RelativeSource={RelativeSource AncestorType=ListBox}}" />
                 </ListBox>
-                <Grid Grid.Column="1" VerticalAlignment="Center">
-                    <TextBox x:Name="JobSearchBox" Padding="10,6,32,6" Text="{Binding JobSearchText, UpdateSourceTrigger=PropertyChanged}" ToolTip="按文件名或路径搜索" />
-                    <TextBlock Margin="11,0,32,0" VerticalAlignment="Center" Foreground="{StaticResource TextMutedBrush}" Text="搜索文件名或路径" IsHitTestVisible="False">
+                <Grid x:Name="TaskSearch" Grid.Column="1" VerticalAlignment="Center">
+                    <TextBox x:Name="JobSearchBox" Padding="10,6,32,6" Text="{Binding JobSearchText, UpdateSourceTrigger=PropertyChanged}" ToolTip="按文件名或路径搜索"><TextBox.Style><Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}"><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Background" Value="Transparent" /><Setter Property="BorderThickness" Value="0,0,0,1" /><Setter Property="BorderBrush" Value="Transparent" /></DataTrigger><Trigger Property="IsKeyboardFocused" Value="True"><Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" /></Trigger></Style.Triggers></Style></TextBox.Style></TextBox>
+                    <TextBlock Margin="11,0,32,0" VerticalAlignment="Center" Foreground="{DynamicResource TextMutedBrush}" Text="搜索文件名或路径" IsHitTestVisible="False">
                         <TextBlock.Style><Style TargetType="TextBlock"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding JobSearchText}" Value=""><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></TextBlock.Style>
                     </TextBlock>
                     <Button Content="×" FontSize="16" Width="28" MinHeight="28" Padding="0" Margin="0,0,3,0" HorizontalAlignment="Right" Click="OnClearSearch" ToolTip="清除搜索">
@@ -403,74 +281,147 @@
             </Grid>
         </Border>
 
-        <Grid Grid.Row="4" Background="#FFFFFF">
-            <DataGrid x:Name="TaskGrid" Style="{StaticResource TaskGridStyle}" RowStyle="{StaticResource TaskRowStyle}" ItemsSource="{Binding FilteredJobs}" SelectedItem="{Binding SelectedJob}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <Grid x:Name="TaskArea" Grid.Row="4" Background="{DynamicResource WindowBrush}"><Grid.Style><Style TargetType="Grid"><Setter Property="Margin" Value="24,0,24,12" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Margin" Value="36,0,36,12" /></DataTrigger></Style.Triggers></Style></Grid.Style>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition><ColumnDefinition.Style><Style TargetType="ColumnDefinition"><Setter Property="Width" Value="16" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Width" Value="0" /></DataTrigger></Style.Triggers></Style></ColumnDefinition.Style></ColumnDefinition>
+                <ColumnDefinition><ColumnDefinition.Style><Style TargetType="ColumnDefinition"><Setter Property="Width" Value="242" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Width" Value="0" /></DataTrigger></Style.Triggers></Style></ColumnDefinition.Style></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Style="{StaticResource LegacyOnly}" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="8" />
+
+            <DataGrid x:Name="TaskGrid" Style="{StaticResource AdaptiveGrid}" RowStyle="{StaticResource AdaptiveRow}" CellStyle="{StaticResource AdaptiveCell}" ColumnHeaderStyle="{StaticResource AdaptiveHeader}" ItemsSource="{Binding FilteredJobs}" SelectedItem="{Binding SelectedJob}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="文件" Width="*" MinWidth="260">
+                    <DataGridTemplateColumn Header="文件" Width="*" MinWidth="240">
                         <DataGridTemplateColumn.CellTemplate><DataTemplate>
-                            <StackPanel VerticalAlignment="Center">
-                                <TextBlock FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" ToolTip="{Binding DisplayName}" />
-                                <TextBlock Margin="0,6,0,0" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Text="{Binding SourceSummary}" TextTrimming="CharacterEllipsis" ToolTip="{Binding SourceSummary}" />
-                            </StackPanel>
+                            <Grid VerticalAlignment="Center"><Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                            <TextBlock Style="{StaticResource LunarOnly}" FontFamily="Segoe MDL2 Assets" Text="&#xE7C3;" Foreground="{DynamicResource TextSecondaryBrush}" Width="26" Margin="0,2,0,0" />
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Foreground="{DynamicResource TextPrimaryBrush}" Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" ToolTip="{Binding DisplayName}"><TextBlock.Style><Style TargetType="TextBlock"><Setter Property="FontSize" Value="14" /><Setter Property="FontWeight" Value="SemiBold" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="FontSize" Value="13" /><Setter Property="FontWeight" Value="Normal" /></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock>
+                                <TextBlock Margin="0,6,0,0" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" TextTrimming="CharacterEllipsis" ToolTip="{Binding SourceSummary}"><TextBlock.Style><Style TargetType="TextBlock"><Setter Property="Text" Value="{Binding SourceSummary}" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Text" Value="{Binding VolumeSummary, StringFormat=分卷压缩包 · {0}}" /></DataTrigger><MultiDataTrigger><MultiDataTrigger.Conditions><Condition Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True" /><Condition Binding="{Binding VolumeCount}" Value="1" /></MultiDataTrigger.Conditions><Setter Property="Text" Value="单文件压缩包" /></MultiDataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock>
+                            </StackPanel></Grid>
                         </DataTemplate></DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="状态 / 进度" Width="260" HeaderStyle="{StaticResource StatusHeaderStyle}" CellStyle="{StaticResource StatusCellStyle}">
+                    <DataGridTemplateColumn Header="状态" Width="210" HeaderStyle="{StaticResource AdaptiveStatusHeader}" CellStyle="{StaticResource AdaptiveStatusCell}">
                         <DataGridTemplateColumn.CellTemplate><DataTemplate>
-                            <StackPanel VerticalAlignment="Center">
+                            <Grid VerticalAlignment="Center"><StackPanel Style="{StaticResource LegacyOnly}">
                                 <Grid>
                                     <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
                                     <Border HorizontalAlignment="Left" Style="{StaticResource StatusBadgeStyle}"><TextBlock Text="{Binding StatusText}" FontSize="12" FontWeight="SemiBold" /></Border>
-                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" FontWeight="SemiBold" FontSize="12" Text="{Binding ProgressText}" Visibility="{Binding ShowProgress, Converter={StaticResource BoolToVisibility}}" />
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryBrush}" FontWeight="SemiBold" FontSize="12" Text="{Binding ProgressText}" Visibility="{Binding ShowProgress, Converter={StaticResource BoolToVisibility}}" />
                                 </Grid>
-                                <TextBlock Margin="0,5,0,0" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Text="{Binding StatusDetail}" TextTrimming="CharacterEllipsis" ToolTip="{Binding StatusDetail}">
+                                <TextBlock Margin="0,5,0,0" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" Text="{Binding StatusDetail}" TextTrimming="CharacterEllipsis" ToolTip="{Binding StatusDetail}">
                                     <TextBlock.Style><Style TargetType="TextBlock"><Style.Triggers><DataTrigger Binding="{Binding StatusDetail}" Value=""><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers></Style></TextBlock.Style>
                                 </TextBlock>
-                                <ProgressBar Height="4" Margin="0,6,0,0" Minimum="0" Maximum="100" BorderThickness="0" Background="#E1E8F3" Foreground="{StaticResource PrimaryBrush}" Value="{Binding ProgressPercent, Mode=OneWay}" Visibility="{Binding ShowProgress, Converter={StaticResource BoolToVisibility}}" />
+                                <ProgressBar Height="4" Margin="0,6,0,0" Minimum="0" Maximum="100" BorderThickness="0" Background="{DynamicResource ProgressTrackBrush}" Foreground="{DynamicResource ProgressBrush}" Value="{Binding ProgressPercent, Mode=OneWay}" Visibility="{Binding ShowProgress, Converter={StaticResource BoolToVisibility}}" />
                             </StackPanel>
+                            <StackPanel Style="{StaticResource LunarOnly}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="23" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                    <Path Margin="0,0,9,0" VerticalAlignment="Center"><Path.Style><Style TargetType="Path" BasedOn="{StaticResource NightStatusIcon}"><Style.Triggers><DataTrigger Binding="{Binding IsRunning}" Value="True"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers></Style></Path.Style></Path>
+                                    <controls:TaskActivityIndicator Margin="0,0,9,0" VerticalAlignment="Center" IsActive="{Binding IsRunning}" Stroke="{DynamicResource PrimaryBrush}" Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibility}}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding StatusText}" FontSize="12" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock x:Name="NightRowPercent" Grid.Column="2" Margin="8,0,0,0" Text="{Binding ProgressText}" FontFamily="Consolas" FontSize="12" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryBrush}" Visibility="{Binding ShowProgress, Converter={StaticResource BoolToVisibility}}" />
+                                </Grid>
+                                <TextBlock Margin="0,4,0,0" Text="{Binding StatusDetail}" TextTrimming="CharacterEllipsis" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" ToolTip="{Binding StatusDetail}" />
+                                <ProgressBar x:Name="NightRowProgress" Height="3" Margin="0,6,0,0" Minimum="0" Maximum="100" Value="{Binding ProgressPercent, Mode=OneWay}" Foreground="{DynamicResource ProgressBrush}" Background="{DynamicResource ProgressTrackBrush}" Visibility="{Binding ShowProgress, Converter={StaticResource BoolToVisibility}}" AutomationProperties.Name="当前压缩包解压进度" ToolTip="当前压缩包的解压进度；完成后还可能需要写入输出目录。" />
+                            </StackPanel></Grid>
                         </DataTemplate></DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="操作" Width="224" HeaderStyle="{StaticResource ActionHeaderStyle}" CellStyle="{StaticResource ActionCellStyle}">
+                    <DataGridTemplateColumn Header="操作" Width="176" HeaderStyle="{StaticResource AdaptiveActionHeader}" CellStyle="{StaticResource AdaptiveActionCell}">
                         <DataGridTemplateColumn.CellTemplate><DataTemplate>
-                            <WrapPanel VerticalAlignment="Center">
-                                <Button Margin="0,0,4,0" Command="{Binding DataContext.RetryJobCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" Content="{Binding RetryActionText}"><Button.Style><Style TargetType="Button" BasedOn="{StaticResource TextButtonStyle}"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding CanRetry}" Value="True"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></Button.Style></Button>
+                            <WrapPanel VerticalAlignment="Center"><WrapPanel.Style><Style TargetType="WrapPanel"><Setter Property="HorizontalAlignment" Value="Left" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="HorizontalAlignment" Value="Right" /></DataTrigger></Style.Triggers></Style></WrapPanel.Style>
+                                <Button Margin="0,0,4,0" Command="{Binding DataContext.RetryJobCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" ToolTip="{Binding RetryActionText}"><Button.Style><Style TargetType="Button" BasedOn="{StaticResource TextButtonStyle}"><Setter Property="Content" Value="{Binding RetryActionText}" /><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Content" Value="重试" /></DataTrigger><DataTrigger Binding="{Binding CanRetry}" Value="True"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></Button.Style></Button>
                                 <Button Margin="0,0,4,0" Command="{Binding DataContext.OpenJobLocationCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" Content="打开位置"><Button.Style><Style TargetType="Button" BasedOn="{StaticResource TextButtonStyle}"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding IsCompleted}" Value="True"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></Button.Style></Button>
                                 <Button Command="{Binding DataContext.CopyJobPathCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}" Content="{Binding CopyActionText}" ToolTip="复制来源路径；分卷任务会复制全部分卷路径">
-                                    <Button.Style><Style TargetType="Button" BasedOn="{StaticResource TextButtonStyle}"><Style.Triggers><DataTrigger Binding="{Binding IsPathCopied}" Value="True"><Setter Property="Foreground" Value="{StaticResource SuccessBrush}" /><Setter Property="Background" Value="#EAF5EE" /></DataTrigger></Style.Triggers></Style></Button.Style>
+                                    <Button.Style><Style TargetType="Button" BasedOn="{StaticResource TextButtonStyle}"><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger><DataTrigger Binding="{Binding IsPathCopied}" Value="True"><Setter Property="Foreground" Value="{DynamicResource SuccessBrush}" /><Setter Property="Background" Value="{DynamicResource SuccessSurfaceBrush}" /></DataTrigger></Style.Triggers></Style></Button.Style>
+                                </Button>
+                                <Button Width="28" Padding="0" Click="OnJobMenu" AutomationProperties.Name="更多任务操作" Tag="{Binding DataContext, RelativeSource={RelativeSource AncestorType=Window}}">
+                                    <Button.Style><Style TargetType="Button" BasedOn="{StaticResource TextButtonStyle}"><Setter Property="Content" Value="⋯" /><Setter Property="ToolTip" Value="更多任务操作" /><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Visibility" Value="Visible" /></DataTrigger><DataTrigger Binding="{Binding IsPathCopied}" Value="True"><Setter Property="Content" Value="✓" /><Setter Property="ToolTip" Value="来源路径已复制" /></DataTrigger></Style.Triggers></Style></Button.Style>
+                                    <Button.ContextMenu><ContextMenu Style="{StaticResource NightJobMenu}" ItemContainerStyle="{StaticResource NightJobMenuItem}" DataContext="{Binding PlacementTarget, RelativeSource={RelativeSource Self}}"><MenuItem Header="复制来源路径" Command="{Binding Tag.CopyJobPathCommand}" CommandParameter="{Binding DataContext}" /><MenuItem Header="打开所在位置" Command="{Binding Tag.OpenJobLocationCommand}" CommandParameter="{Binding DataContext}" /></ContextMenu></Button.ContextMenu>
                                 </Button>
                             </WrapPanel>
                         </DataTemplate></DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False">
+            <StackPanel Grid.Column="0" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False">
                 <StackPanel.Style><Style TargetType="StackPanel"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding FilteredJobCount}" Value="0"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></StackPanel.Style>
-                <TextBlock HorizontalAlignment="Center" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Text="{Binding EmptyListTitle}" />
-                <TextBlock Margin="0,7,0,0" HorizontalAlignment="Center" Foreground="{StaticResource TextMutedBrush}" Text="{Binding EmptyListHint}" />
+                <TextBlock HorizontalAlignment="Center" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Text="{Binding EmptyListTitle}" />
+                <TextBlock Margin="0,7,0,0" HorizontalAlignment="Center" Foreground="{DynamicResource TextMutedBrush}" Text="{Binding EmptyListHint}" TextWrapping="Wrap" TextAlignment="Center" />
             </StackPanel>
+
+            <Border x:Name="FocusPanel" Grid.Column="2" Style="{StaticResource LegacyOnly}" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="8">
+                <Grid>
+                <Grid.RowDefinitions><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+                <StackPanel Grid.Row="1" Margin="12,8,12,12">
+                    <StackPanel.Style><Style TargetType="StackPanel"><Setter Property="Visibility" Value="Visible" /><Style.Triggers><DataTrigger Binding="{Binding SelectedJob}" Value="{x:Null}"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers></Style></StackPanel.Style>
+                    <Button x:Name="FocusCopyButton" Command="{Binding CopyJobPathCommand}" CommandParameter="{Binding SelectedJob}" Content="{Binding SelectedJob.CopyActionText}" Style="{StaticResource BaseButtonStyle}" />
+                    <Button Margin="0,4,0,0" Command="{Binding OpenJobLocationCommand}" CommandParameter="{Binding SelectedJob}" Content="打开所在位置" Style="{StaticResource TextButtonStyle}" />
+                    <Button Margin="0,4,0,0" Command="{Binding RetryJobCommand}" CommandParameter="{Binding SelectedJob}" Content="{Binding SelectedJob.RetryActionText}" Style="{StaticResource PrimaryButtonStyle}" Visibility="{Binding SelectedJob.CanRetry, Converter={StaticResource BoolToVisibility}}" />
+                </StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <Grid Margin="12">
+                        <StackPanel>
+                            <StackPanel.Style><Style TargetType="StackPanel"><Setter Property="Visibility" Value="Visible" /><Style.Triggers><DataTrigger Binding="{Binding SelectedJob}" Value="{x:Null}"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers></Style></StackPanel.Style>
+                            <TextBlock Margin="0,0,0,6" FontWeight="SemiBold" FontSize="14" Text="{Binding SelectedJob.DisplayName}" TextTrimming="CharacterEllipsis" ToolTip="{Binding SelectedJob.DisplayName}" />
+                            <Border HorizontalAlignment="Left" Padding="7,2" DataContext="{Binding SelectedJob}" Style="{StaticResource StatusBadgeStyle}"><TextBlock Text="{Binding StatusText}" /></Border>
+                            <StackPanel Margin="0,8,0,0" Visibility="{Binding SelectedJob.ShowProgress, Converter={StaticResource BoolToVisibility}}">
+                                <TextBlock Text="{Binding SelectedJob.ProgressText}" FontFamily="Consolas" FontSize="32" Foreground="{DynamicResource PrimaryBrush}" />
+                                <ProgressBar x:Name="FocusProgressBar" Margin="0,4,0,0" Height="8" Minimum="0" Maximum="100" Value="{Binding SelectedJob.ProgressPercent, Mode=OneWay}" />
+                                <TextBlock Margin="0,4,0,0" FontSize="11" Foreground="{DynamicResource TextMutedBrush}" Text="当前压缩包进度 · 非批次完成率" />
+                            </StackPanel>
+                            <TextBlock Margin="0,14,0,0" Text="{Binding SelectedJob.StatusDetail}" Foreground="{DynamicResource TextSecondaryBrush}" TextWrapping="Wrap" />
+                            <Border Height="1" Margin="0,16,0,14" Background="{DynamicResource BorderBrush}" />
+                            <TextBlock FontSize="11" Foreground="{DynamicResource TextMutedBrush}" Text="来源" />
+                            <TextBlock Margin="0,5,0,14" Text="{Binding SelectedJob.ArchivePath}" TextTrimming="CharacterEllipsis" ToolTip="{Binding SelectedJob.ArchivePath}" />
+                            <TextBlock FontSize="11" Foreground="{DynamicResource TextMutedBrush}" Text="输出目录" />
+                            <TextBlock Margin="0,5,0,14" Text="{Binding SelectedJob.OutputDirectory}" TextTrimming="CharacterEllipsis" ToolTip="{Binding SelectedJob.OutputDirectory}" />
+                        </StackPanel>
+                        <StackPanel Margin="0,28,0,0">
+                            <StackPanel.Style><Style TargetType="StackPanel"><Setter Property="Visibility" Value="Collapsed" /><Style.Triggers><DataTrigger Binding="{Binding SelectedJob}" Value="{x:Null}"><Setter Property="Visibility" Value="Visible" /></DataTrigger></Style.Triggers></Style></StackPanel.Style>
+                            <TextBlock FontFamily="Consolas" FontSize="10" Foreground="{DynamicResource TextMutedBrush}" Text="TASK / FOCUS" />
+                            <TextBlock Margin="0,12,0,8" FontSize="17" FontWeight="SemiBold" Text="聚焦一个任务" />
+                            <TextBlock Foreground="{DynamicResource TextSecondaryBrush}" TextWrapping="Wrap" Text="选择左侧文件，查看它的当前进度、来源与输出位置。" />
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+                </Grid>
+            </Border>
         </Grid>
 
-        <Expander Grid.Row="5" Margin="24,8" Background="#FFFFFF" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Header="任务详情" IsExpanded="False">
-            <Expander.Style><Style TargetType="Expander"><Setter Property="Visibility" Value="Visible" /><Style.Triggers><DataTrigger Binding="{Binding SelectedJob}" Value="{x:Null}"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers></Style></Expander.Style>
-            <Grid Margin="16,10,16,14">
-                <Grid.ColumnDefinitions><ColumnDefinition Width="2*" /><ColumnDefinition Width="24" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
-                <StackPanel><TextBlock FontWeight="SemiBold" Text="{Binding SelectedJob.DisplayName}" /><TextBlock Margin="0,5,0,0" Foreground="{StaticResource TextMutedBrush}" Text="{Binding SelectedJob.ArchivePath}" TextTrimming="CharacterEllipsis" ToolTip="{Binding SelectedJob.ArchivePath}" /></StackPanel>
-                <StackPanel Grid.Column="2"><TextBlock Foreground="{StaticResource TextMutedBrush}" Text="输出目录" /><TextBlock Margin="0,5,0,0" Text="{Binding SelectedJob.OutputDirectory}" TextTrimming="CharacterEllipsis" ToolTip="{Binding SelectedJob.OutputDirectory}" /></StackPanel>
-                <StackPanel Grid.Column="3" Margin="16,0,0,0" Orientation="Horizontal" VerticalAlignment="Center"><Button Margin="0,0,8,0" Command="{Binding CopySelectedPathCommand}" Content="复制来源路径" Style="{StaticResource BaseButtonStyle}" /><Button Command="{Binding OpenJobLocationCommand}" CommandParameter="{Binding SelectedJob}" Content="打开所在位置" Style="{StaticResource BaseButtonStyle}" /></StackPanel>
-            </Grid>
-        </Expander>
 
-        <Border Grid.Row="6" Background="#F7F8FA" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0">
-            <Grid Margin="24,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions><TextBlock VerticalAlignment="Center" Foreground="{StaticResource TextSecondaryBrush}" Text="{Binding SessionDetailText}" TextTrimming="CharacterEllipsis" ToolTip="{Binding SessionDetailText}" /><ToggleButton x:Name="LogToggle" Grid.Column="1" Content="查看日志" Style="{StaticResource ToggleButtonStyle}" /><Button Grid.Column="2" Margin="6,0,0,0" Command="{Binding ExportLogCommand}" Content="导出" Style="{StaticResource TextButtonStyle}" /></Grid>
+
+
+        <Grid x:Name="BatchPanel" Grid.Row="5" Margin="24,0,24,12" Height="20" Style="{StaticResource LegacyOnly}">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Center" FontSize="11" Foreground="{DynamicResource TextMutedBrush}" Text="批次状态" />
+            <controls:TaskStateStrip x:Name="BatchStrip" Grid.Column="1" Margin="12,0" Height="6" VerticalAlignment="Center"
+                ItemsSource="{Binding Jobs}" WorkflowIndex="{Binding SelectedWorkflowIndex}" PendingBrush="{DynamicResource ProgressTrackBrush}"
+                RunningBrush="{DynamicResource ProgressBrush}" CompletedBrush="{DynamicResource SuccessBrush}" AttentionBrush="{DynamicResource DangerBrush}"
+                ToolTip="小批次一项一格；大批次按宽度汇总。青绿为完成，渐变为运行中，橙色为需处理，灰色为等待；不表示字节进度。"
+                AutomationProperties.Name="批次任务状态概览" />
+            <TextBlock Grid.Column="2" VerticalAlignment="Center" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" Text="{Binding CompletedFilterText}" />
+        </Grid>
+
+        <Border x:Name="WorkspaceFooter" Grid.Row="6" Background="{DynamicResource WindowBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,1,0,0">
+            <Grid Margin="24,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions><TextBlock Style="{StaticResource LegacyOnly}" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryBrush}" Text="{Binding SessionDetailText}" TextTrimming="CharacterEllipsis" ToolTip="{Binding SessionDetailText}" /><ToggleButton x:Name="LogToggle" Content="运行日志"><ToggleButton.Style><Style TargetType="ToggleButton" BasedOn="{StaticResource ToggleButtonStyle}"><Setter Property="Grid.Column" Value="1" /><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Grid.Column" Value="0" /><Setter Property="HorizontalAlignment" Value="Left" /></DataTrigger></Style.Triggers></Style></ToggleButton.Style></ToggleButton><Button Grid.Column="2" Margin="6,0,0,0" Command="{Binding ExportLogCommand}" Content="导出" Style="{StaticResource TextButtonStyle}" /></Grid>
         </Border>
 
-        <Popup Grid.RowSpan="7" PlacementTarget="{Binding ElementName=LogToggle}" Placement="Top" HorizontalOffset="-720" VerticalOffset="-8"
+        <Popup x:Name="LogPopup" Grid.RowSpan="7" PlacementTarget="{Binding ElementName=LogToggle}" Placement="Top" HorizontalOffset="-720" VerticalOffset="-8"
                IsOpen="{Binding IsChecked, ElementName=LogToggle}" StaysOpen="False" AllowsTransparency="True">
-            <Border Width="820" Height="260" Padding="14" Background="#FFFFFF" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="6">
+            <Border Width="820" Height="260" Padding="14" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="6">
                 <Grid><Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
-                    <TextBlock Margin="2,0,0,10" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Text="运行日志" />
-                    <ListBox Grid.Row="1" ItemsSource="{Binding LogLines}" Background="#171C24" Foreground="#D7DCE3" BorderThickness="0" FontFamily="Consolas, Microsoft YaHei UI" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                    <TextBlock Margin="2,0,0,10" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Text="运行日志" />
+                    <ListBox Grid.Row="1" ItemsSource="{Binding LogLines}" Background="{DynamicResource LogBackgroundBrush}" Foreground="{DynamicResource LogForegroundBrush}" BorderThickness="0" FontFamily="Consolas, Microsoft YaHei UI" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
                 </Grid>
             </Border>
         </Popup>
+
+    </Grid>
+        <Grid x:Name="NightOptionsOverlay" Grid.Row="1" Visibility="Collapsed" Background="#A6000A0E" PreviewKeyDown="OnNightOptionsKeyDown" KeyboardNavigation.TabNavigation="Cycle">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,46,0,28">
+                <controls:NightOptionsPanel x:Name="NightOptions" HorizontalAlignment="Center" VerticalAlignment="Top" />
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>

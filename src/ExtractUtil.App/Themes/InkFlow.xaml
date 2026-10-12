@@ -1,0 +1,39 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+    <SolidColorBrush x:Key="WindowBrush" Color="#0D111B" />
+    <SolidColorBrush x:Key="SurfaceBrush" Color="#151B28" />
+    <SolidColorBrush x:Key="RaisedBrush" Color="#1B2332" />
+    <SolidColorBrush x:Key="PrimaryBrush" Color="#91ECDA" />
+    <SolidColorBrush x:Key="PrimarySoftBrush" Color="#202F40" />
+    <SolidColorBrush x:Key="PrimaryHoverBrush" Color="#B0F6E8" />
+    <SolidColorBrush x:Key="PrimaryPressedBrush" Color="#63CBBB" />
+    <SolidColorBrush x:Key="OnPrimaryBrush" Color="#10221F" />
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="#F0F3FA" />
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="#A3AFC2" />
+    <SolidColorBrush x:Key="TextMutedBrush" Color="#98A5B9" />
+    <SolidColorBrush x:Key="BorderBrush" Color="#303A4D" />
+    <SolidColorBrush x:Key="HoverBorderBrush" Color="#64788D" />
+    <SolidColorBrush x:Key="SelectedBorderBrush" Color="#91ECDA" />
+    <SolidColorBrush x:Key="HoverBrush" Color="#233044" />
+    <SolidColorBrush x:Key="PressedBrush" Color="#30445A" />
+    <SolidColorBrush x:Key="SelectedBrush" Color="#202F40" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="#9BDCBA" />
+    <SolidColorBrush x:Key="SuccessSurfaceBrush" Color="#1D302B" />
+    <SolidColorBrush x:Key="DangerBrush" Color="#FFB69E" />
+    <SolidColorBrush x:Key="DangerSurfaceBrush" Color="#32251F" />
+    <SolidColorBrush x:Key="ProgressTrackBrush" Color="#2B3549" />
+    <SolidColorBrush x:Key="LogBackgroundBrush" Color="#0D111B" />
+    <SolidColorBrush x:Key="LogForegroundBrush" Color="#C8D4E5" />
+    <LinearGradientBrush x:Key="ProgressBrush" StartPoint="0,0.5" EndPoint="1,0.5">
+        <GradientStop Color="#91ECDA" Offset="0" />
+        <GradientStop Color="#7DB7FF" Offset="0.6" />
+        <GradientStop Color="#C9A5FF" Offset="1" />
+    </LinearGradientBrush>
+    <sys:String x:Key="ThemeSignature">INK / FLOW</sys:String>
+    <sys:Double x:Key="HeroArtOpacity">0.36</sys:Double>
+    <GridLength x:Key="LunarHeroHeight">350</GridLength>
+    <Thickness x:Key="LunarHeroTabsMargin">36,10,0,0</Thickness>
+    <Thickness x:Key="LunarHeroCopyMargin">36,90,0,0</Thickness>
+    <Thickness x:Key="LunarHeroActionsMargin">36,204,0,0</Thickness>
+    <Thickness x:Key="LunarHeroBottomMargin">36,0,36,22</Thickness>
+    <ImageBrush x:Key="HeroArtBrush" ImageSource="/Zxtract;component/Resources/ink-wash.png" Stretch="UniformToFill" AlignmentX="Right" />
+</ResourceDictionary>

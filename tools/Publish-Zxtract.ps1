@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string]$Version = "1.0.2",
+    [string]$Version = "1.1.0",
     [string]$Runtime = "win-x64"
 )
 
@@ -20,6 +20,8 @@ if (Test-Path -LiteralPath $zipPath) {
 }
 
 dotnet publish $project -c Release -r $Runtime --self-contained true `
+    -p:OutputPath="$(Join-Path $repoRoot ".build-check\publish-$Version")\" `
+    -p:Version=$Version -p:AssemblyVersion="$Version.0" -p:FileVersion="$Version.0" `
     -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true `
     -o $publishDir
 

@@ -502,7 +502,7 @@ public sealed class MainViewModel : ObservableObject
         }
     }
 
-    public string PauseButtonText => IsPaused ? "继续" : "暂停";
+    public string PauseButtonText => IsPaused ? "继续调度" : "暂停调度";
 
     public bool CanPause => IsBusy && _pauseController is not null;
 

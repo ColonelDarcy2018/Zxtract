@@ -25,36 +25,43 @@ Add individual files or select a root folder. Zxtract groups related volumes, tr
 - Ordered password candidates, path-based password inference, custom rules, and a local password vault.
 - Pause, cancel, filter, search, retry, open-location, and log export controls.
 - Safe defaults: keep source files and rename output on conflicts.
+- Six built-in skins with instant switching and a remembered appearance preference.
 
 ## Interface and workflow
 
-The images below come from the editable UI prototype and document the workflow implemented by the current WPF application. The complete design source is available at [`design/openpencil/Zxtract.fig`](design/openpencil/Zxtract.fig).
+The screenshots below are rendered from the actual 1.1.0 WPF controls with sample tasks, paths, and passwords. The application interface is currently in Simplified Chinese; this README explains the controls in English.
 
 ### 1. Add archives directly
 
 Use **File extraction** for a small, known set of archives. Add several files, review the output mode and password candidates, then start the queue. Each row keeps its source path, state, progress, and available action together.
 
-![File extraction queue with three archives ready to start](docs/screenshots/main-window.png)
+![File extraction: completed, extracting at 63%, and queued archives in the Night Voyage skin](docs/screenshots/v1.1.0/file-workflow.png)
 
 ### 2. Scan a directory tree
 
 Use **Folder extraction** when archives are spread across subdirectories. **Scan only** builds the task list without extracting anything; **Scan and extract** continues with the detected work items. Folder mode can group volumes stored in sibling directories and repeat the scan for nested archives.
 
-![Folder workflow processing grouped volumes and nested archives](docs/screenshots/folder-workflow.png)
+![Folder extraction with a three-volume archive and per-file progress in the Stone skin](docs/screenshots/v1.1.0/folder-workflow.png)
 
 ### 3. Fix only the jobs that need attention
 
 Missing volumes, password failures, and extraction errors remain in the task list. The affected row explains the problem and exposes the relevant recovery action, so a failed batch does not need to be rebuilt from scratch.
 
-![Attention list showing password, missing-volume, and extraction errors](docs/screenshots/attention-state.png)
+![Needs attention filter showing a password failure and its retry action in the Paper skin](docs/screenshots/v1.1.0/attention-state.png)
 
 ### 4. Reuse passwords without putting them in logs
 
 Password candidates are tried in order. Zxtract can infer candidates from file and folder names, reuse entries from the local vault, and apply a corrected password to a failed task.
 
-![Password panel with ordered candidates, path inference, and saved entries](docs/previews/zxtract-openpencil-password.png)
+![Password assistant and masked sample entries in the local vault](docs/screenshots/v1.1.0/password-assistant.png)
 
 Saved passwords are protected with Windows DPAPI for the current user. Zxtract stores the encrypted values and rule text in `%LOCALAPPDATA%\Zxtract\password-settings.json`; plaintext passwords are not written to the run log.
+
+### 5. Review extraction options before starting
+
+The moon-scene skins show a two-line summary of output, password source, conflict policy, and parallelism directly on the workbench. Choose **View settings** to edit options in a centered dialog, including nested extraction and cross-directory volume grouping in folder mode. The dialog is read-only while a run is active or paused.
+
+![Extraction options dialog in the Aurora skin](docs/screenshots/v1.1.0/extraction-options.png)
 
 ## Download and requirements
 
@@ -73,15 +80,15 @@ The current release is not code-signed, so Windows SmartScreen may identify it a
 ### Extract selected files
 
 1. Open **File extraction** and choose **Add files** (`Ctrl+O`), or drag archives into the window.
-2. Open the password panel if the archives are encrypted; enter one candidate per line.
-3. Under **More options**, choose the output location, conflict policy, and parallel job count.
+2. If the archives are encrypted, open **View settings → Password candidates and vault** in a moon-scene skin; enter one candidate per line. Ink Flow and Clear Light have a separate password entry.
+3. Under **View settings** (moon-scene skins) or **More options** (Ink Flow/Clear Light), choose the output location, conflict policy, and parallel job count.
 4. Select **Start extraction** (`F5`).
 
 ### Process a folder
 
 1. Open **Folder extraction** and choose the root directory.
-2. Use **Scan only** (`Ctrl+S`) to review the detected tasks, or choose **Scan and extract** to run them.
-3. Under **More options**, enable or disable recursive extraction, cross-directory volume grouping, and source deletion.
+2. Use **Scan only** (`Ctrl+S`) to review detected tasks, or **Scan and extract** to run them. In moon-scene skins, scan-only is available through the shortcut.
+3. Under **View settings** or **More options**, enable or disable recursive extraction, cross-directory volume grouping, and source deletion.
 4. Review **Needs attention** after the run, then retry only the affected tasks.
 
 ### Keyboard shortcuts
@@ -134,7 +141,7 @@ dotnet build .\src\ExtractUtil.App\ExtractUtil.App.csproj -c Release
 Build the self-contained Windows x64 package:
 
 ```powershell
-pwsh .\tools\Publish-Zxtract.ps1 -Version 1.0.2
+pwsh .\tools\Publish-Zxtract.ps1 -Version 1.1.0
 ```
 
 The publish script verifies that the application, 7-Zip binaries, and required license files are present before creating the ZIP.
@@ -172,7 +179,8 @@ No for the official portable package: it includes `7z.exe` and `7z.dll`. A sourc
 - [Module map](docs/modules.md)
 - [UI redesign notes](docs/ui-redesign-proposal.md)
 - [Prototype status](docs/figma-prototype-status.md)
-- [Release notes: 1.0.2](docs/release-notes/v1.0.2.md)
+- [Release notes: 1.1.0](docs/release-notes/v1.1.0.md)
+- [Skin architecture and extension guide](docs/theme-system.md)
 
 ## Contributing and support
 
@@ -181,3 +189,21 @@ Bug reports and focused pull requests are welcome. For a bug, include the Zxtrac
 ## License
 
 Zxtract's original code and assets are released under the [MIT License](LICENSE). Distributed packages include unmodified official 7-Zip binaries under their own LGPL, BSD, and unRAR restriction terms. See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) and the [upstream 7-Zip license](licenses/7-Zip-License.txt).
+
+## New in 1.1.0: painted scenes, living moon phases
+
+Keep the queue in view while choosing a different atmosphere. Four moon-scene skins join [Ink Flow](docs/screenshots/v1.1.0/ink-flow.png) and [Clear Light](docs/screenshots/v1.1.0/clear-light.png):
+
+| Night Voyage · mountain lake | Paper · ink on warm paper |
+| --- | --- |
+| ![Night Voyage](docs/screenshots/v1.1.0/night-voyage.png) | ![Paper](docs/screenshots/v1.1.0/lunar-paper.png) |
+| Aurora · violet light around the moon | Stone · scenic rail beside the queue |
+| ![Aurora](docs/screenshots/v1.1.0/lunar-aurora.png) | ![Stone](docs/screenshots/v1.1.0/lunar-stone.png) |
+
+The moon changes smoothly as measured work advances and settles into a full moon when every task completes. Its disk keeps a fixed size through the final frames, with no added animated halo. Each file still has its own percentage, progress bar, and activity indicator. Hover or keyboard focus reveals the moon's details without altering the painting.
+
+![Moon-phase replay from the production WPF renderer](docs/screenshots/v1.1.0/moon-phase.gif)
+
+This GIF replays a controlled progress transition using the application's renderer; it is a visual demonstration, not an extraction speed estimate. The moon summarizes currently discovered tasks with equal weighting, not processed bytes. Scanning and password validation do not invent percentages; an empty idle queue uses a decorative full moon. Motion stops when hidden or minimized and respects Windows animation and high-contrast settings.
+
+Open the small gear beside the minimize button to switch skins; the menu closes after selection. Your queue, selected task, and ongoing work stay in place. Appearance is saved separately in `%LOCALAPPDATA%\Zxtract\appearance.json`.

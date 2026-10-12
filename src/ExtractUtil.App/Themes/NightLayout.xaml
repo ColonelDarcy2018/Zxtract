@@ -1,0 +1,47 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:themes="clr-namespace:ExtractUtil.App.Themes">
+    <!-- Composition-specific styles: the two classic skins retain their templates. -->
+    <Style x:Key="NightTab" TargetType="TabItem">
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" /><Setter Property="Cursor" Value="Hand" /><Setter Property="Width" Value="102" />
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TabItem">
+            <Grid Height="42" Background="Transparent"><ContentPresenter ContentSource="Header" VerticalAlignment="Center" Margin="0,0,0,8" /><Border x:Name="Underline" Width="21" Height="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="Transparent" /></Grid>
+            <ControlTemplate.Triggers><Trigger Property="IsSelected" Value="True"><Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" /><Setter TargetName="Underline" Property="Background" Value="{DynamicResource PrimaryBrush}" /></Trigger><Trigger Property="IsMouseOver" Value="True"><Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" /></Trigger><Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Underline" Property="Background" Value="{DynamicResource PrimaryBrush}" /></Trigger></ControlTemplate.Triggers>
+        </ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style x:Key="AdaptiveFilter" TargetType="ListBoxItem" BasedOn="{StaticResource FilterItemStyle}">
+        <Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True">
+            <Setter Property="FontSize" Value="12" /><Setter Property="Padding" Value="0,8" /><Setter Property="Margin" Value="0,0,24,0" /><Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem"><Border Background="Transparent" Padding="{TemplateBinding Padding}"><ContentPresenter /></Border><ControlTemplate.Triggers><Trigger Property="IsSelected" Value="True"><Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" /></Trigger><Trigger Property="IsMouseOver" Value="True"><Setter Property="Foreground" Value="{DynamicResource PrimaryHoverBrush}" /></Trigger><Trigger Property="IsKeyboardFocused" Value="True"><Setter Property="Foreground" Value="{DynamicResource PrimaryHoverBrush}" /></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter>
+        </DataTrigger></Style.Triggers>
+    </Style>
+    <Style x:Key="AdaptiveGrid" TargetType="DataGrid" BasedOn="{StaticResource TaskGridStyle}">
+        <Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Background" Value="Transparent" /><Setter Property="RowBackground" Value="Transparent" /><Setter Property="AlternatingRowBackground" Value="Transparent" /><Setter Property="RowHeight" Value="60" /><Setter Property="ColumnHeaderHeight" Value="36" /></DataTrigger></Style.Triggers>
+    </Style>
+    <Style x:Key="AdaptiveRow" TargetType="DataGridRow" BasedOn="{StaticResource TaskRowStyle}">
+        <Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="DataGridRow">
+                <Border x:Name="Row" Background="Transparent" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1"><DataGridCellsPresenter /></Border>
+                <ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Row" Property="Background" Value="{DynamicResource HoverBrush}" /></Trigger><Trigger Property="IsSelected" Value="True"><Setter TargetName="Row" Property="Background" Value="{DynamicResource SelectedBrush}" /></Trigger><Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter TargetName="Row" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" /></Trigger></ControlTemplate.Triggers>
+            </ControlTemplate></Setter.Value></Setter>
+        </DataTrigger></Style.Triggers>
+    </Style>
+    <Style x:Key="AdaptiveCell" TargetType="DataGridCell" BasedOn="{StaticResource TaskCellStyle}"><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Padding" Value="10,0" /></DataTrigger></Style.Triggers></Style>
+    <Style x:Key="AdaptiveStatusCell" TargetType="DataGridCell" BasedOn="{StaticResource StatusCellStyle}"><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Padding" Value="10,0" /></DataTrigger></Style.Triggers></Style>
+    <Style x:Key="AdaptiveActionCell" TargetType="DataGridCell" BasedOn="{StaticResource ActionCellStyle}"><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Padding" Value="0,0,8,0" /></DataTrigger></Style.Triggers></Style>
+    <Style x:Key="AdaptiveHeader" TargetType="DataGridColumnHeader" BasedOn="{StaticResource TaskHeaderStyle}"><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Background" Value="Transparent" /><Setter Property="Padding" Value="36,0" /><Setter Property="FontSize" Value="11" /><Setter Property="FontWeight" Value="Normal" /></DataTrigger></Style.Triggers></Style>
+    <Style x:Key="AdaptiveStatusHeader" TargetType="DataGridColumnHeader" BasedOn="{StaticResource StatusHeaderStyle}"><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Background" Value="Transparent" /><Setter Property="Padding" Value="10,0" /><Setter Property="FontSize" Value="11" /></DataTrigger></Style.Triggers></Style>
+    <Style x:Key="AdaptiveActionHeader" TargetType="DataGridColumnHeader" BasedOn="{StaticResource ActionHeaderStyle}"><Style.Triggers><DataTrigger Binding="{Binding SelectedTheme.HasLunarScene, Source={x:Static themes:ThemeManager.Current}}" Value="True"><Setter Property="Background" Value="Transparent" /><Setter Property="HorizontalContentAlignment" Value="Right" /><Setter Property="Padding" Value="0,0,10,0" /><Setter Property="FontSize" Value="11" /></DataTrigger></Style.Triggers></Style>
+    <Style x:Key="NightStatusIcon" TargetType="Path">
+        <Setter Property="Width" Value="14" /><Setter Property="Height" Value="14" /><Setter Property="Stretch" Value="Uniform" /><Setter Property="StrokeThickness" Value="1" /><Setter Property="Stroke" Value="{DynamicResource TextSecondaryBrush}" />
+        <Setter Property="Data" Value="M7,0 A7,7 0 1 1 6.99,0 M7,3 L7,7 10,9" />
+        <Style.Triggers><DataTrigger Binding="{Binding IsRunning}" Value="True"><Setter Property="Data" Value="M13,4 A6,6 0 1 0 13,10 M13,0 L13,4 9,4" /></DataTrigger><DataTrigger Binding="{Binding IsCompleted}" Value="True"><Setter Property="Data" Value="M1,7 L5,11 13,2" /><Setter Property="Stroke" Value="{DynamicResource SuccessBrush}" /></DataTrigger><DataTrigger Binding="{Binding NeedsAttention}" Value="True"><Setter Property="Data" Value="M7,0 L14,13 0,13 Z M7,4 L7,8 M7,10 L7,11" /><Setter Property="Stroke" Value="{DynamicResource DangerBrush}" /></DataTrigger></Style.Triggers>
+    </Style>
+    <Style x:Key="NightJobMenu" TargetType="ContextMenu">
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ContextMenu"><Border Background="{DynamicResource RaisedBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Padding="5" CornerRadius="6"><StackPanel IsItemsHost="True" /></Border></ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style x:Key="NightJobMenuItem" TargetType="MenuItem">
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="MenuItem"><Border x:Name="Item" Padding="14,9" Background="Transparent" CornerRadius="3"><ContentPresenter ContentSource="Header" /></Border><ControlTemplate.Triggers><Trigger Property="IsHighlighted" Value="True"><Setter TargetName="Item" Property="Background" Value="{DynamicResource HoverBrush}" /></Trigger><Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.5" /></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter>
+    </Style>
+</ResourceDictionary>

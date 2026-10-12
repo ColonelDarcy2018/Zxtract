@@ -6,9 +6,9 @@
     <Product>Zxtract</Product>
     <Title>Zxtract</Title>
     <Description>A focused Windows archive extraction workbench.</Description>
-    <Version>1.0.2</Version>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
     <ApplicationIcon>Resources\Zxtract.ico</ApplicationIcon>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
@@ -24,6 +24,15 @@
   <ItemGroup>
     <Resource Include="Resources\Zxtract.ico" />
     <Resource Include="Resources\Zxtract.png" />
+    <Resource Include="Resources\ink-wash.png" />
+    <Resource Include="Resources\night-clear-plate.png" />
+    <Resource Include="Resources\night-moon-source.png" />
+    <Resource Include="Resources\paper-sky.jpg" />
+    <Resource Include="Resources\paper-full.jpg" />
+    <Resource Include="Resources\aurora-sky.jpg" />
+    <Resource Include="Resources\aurora-full.jpg" />
+    <Resource Include="Resources\stone-sky.jpg" />
+    <Resource Include="Resources\stone-full.jpg" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,35 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+    <SolidColorBrush x:Key="WindowBrush" Color="#F4F0E6" />
+    <SolidColorBrush x:Key="SurfaceBrush" Color="#FAF7EF" />
+    <SolidColorBrush x:Key="RaisedBrush" Color="#E9E9DE" />
+    <SolidColorBrush x:Key="PrimaryBrush" Color="#496654" />
+    <SolidColorBrush x:Key="PrimarySoftBrush" Color="#E0E8DD" />
+    <SolidColorBrush x:Key="PrimaryHoverBrush" Color="#385442" />
+    <SolidColorBrush x:Key="PrimaryPressedBrush" Color="#2D4536" />
+    <SolidColorBrush x:Key="OnPrimaryBrush" Color="#FFFDF7" />
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="#283B32" />
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="#627166" />
+    <SolidColorBrush x:Key="TextMutedBrush" Color="#718075" />
+    <SolidColorBrush x:Key="BorderBrush" Color="#D4D8CB" />
+    <SolidColorBrush x:Key="HoverBorderBrush" Color="#9AAA9B" />
+    <SolidColorBrush x:Key="SelectedBorderBrush" Color="#496654" />
+    <SolidColorBrush x:Key="HoverBrush" Color="#EEF1E8" />
+    <SolidColorBrush x:Key="PressedBrush" Color="#DDE6D8" />
+    <SolidColorBrush x:Key="SelectedBrush" Color="#E5ECE0" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="#4D7156" />
+    <SolidColorBrush x:Key="SuccessSurfaceBrush" Color="#E3EFE4" />
+    <SolidColorBrush x:Key="DangerBrush" Color="#A05B3D" />
+    <SolidColorBrush x:Key="DangerSurfaceBrush" Color="#F6E8DE" />
+    <SolidColorBrush x:Key="ProgressTrackBrush" Color="#DDE3D7" />
+    <SolidColorBrush x:Key="LogBackgroundBrush" Color="#18241D" />
+    <SolidColorBrush x:Key="LogForegroundBrush" Color="#D9E2D8" />
+    <LinearGradientBrush x:Key="ProgressBrush" StartPoint="0,0.5" EndPoint="1,0.5"><GradientStop Color="#849D86" Offset="0" /><GradientStop Color="#3F604B" Offset="1" /></LinearGradientBrush>
+    <sys:String x:Key="ThemeSignature">月白 / 纸上月痕</sys:String>
+    <sys:Double x:Key="HeroArtOpacity">1</sys:Double>
+    <GridLength x:Key="LunarHeroHeight">362</GridLength>
+    <Thickness x:Key="LunarHeroTabsMargin">46,14,0,0</Thickness>
+    <Thickness x:Key="LunarHeroCopyMargin">46,92,0,0</Thickness>
+    <Thickness x:Key="LunarHeroActionsMargin">46,210,0,0</Thickness>
+    <Thickness x:Key="LunarHeroBottomMargin">46,0,46,22</Thickness>
+    <ImageBrush x:Key="HeroArtBrush" ImageSource="/Zxtract;component/Resources/paper-sky.jpg" Stretch="UniformToFill" AlignmentX="Right" />
+</ResourceDictionary>

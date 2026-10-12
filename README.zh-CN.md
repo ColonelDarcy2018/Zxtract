@@ -25,36 +25,43 @@ Zxtract 是一个 Windows 桌面解压工具，主要用来处理成批压缩包
 - 支持多组候选密码、路径推断、自定义规则和本地密码库。
 - 支持暂停、取消、筛选、搜索、重试、打开位置和导出日志。
 - 默认保留源文件；遇到同名输出时默认改名，不直接覆盖。
+- 内置六套皮肤，可即时切换并记住上次的选择。
 
 ## 界面与使用流程
 
-下面的图片来自项目内可编辑的界面原型，展示的流程与当前 WPF 应用相对应。完整设计源文件见 [`design/openpencil/Zxtract.fig`](design/openpencil/Zxtract.fig)。
+下面的截图由 1.1.0 实际 WPF 控件渲染，任务、路径与密码均为演示数据。应用界面目前使用简体中文。
 
 ### 1. 直接加入压缩文件
 
 少量、位置明确的压缩包可使用 **文件解压**。一次加入多个文件，确认输出方式和候选密码后启动队列。每一行集中显示来源、状态、进度和当前可用操作。
 
-![文件解压队列中有三个等待开始的任务](docs/screenshots/main-window.png)
+![夜航皮肤的文件队列：已完成、解压至 63% 与等待中的任务](docs/screenshots/v1.1.0/file-workflow.png)
 
 ### 2. 扫描整个目录
 
 压缩包散落在多层文件夹时使用 **文件夹解压**。**仅扫描** 只生成任务列表，不会开始解压；**扫描并解压** 会继续处理发现的任务。文件夹模式还能归并位于相邻目录的分卷，并按轮次发现嵌套压缩包。
 
-![文件夹模式正在处理分卷和嵌套压缩包](docs/screenshots/folder-workflow.png)
+![玄石皮肤的文件夹队列，显示三卷分卷与每个文件的进度](docs/screenshots/v1.1.0/folder-workflow.png)
 
 ### 3. 只处理需要关注的任务
 
 缺少分卷、密码不匹配或解压失败的任务会保留在列表中。对应行会说明原因，并给出修改密码、检查分卷或重试等操作，不必重新建立整批任务。
 
-![任务列表显示密码错误、缺少分卷和解压失败](docs/screenshots/attention-state.png)
+![月白皮肤的需处理筛选，显示密码错误原因和重试入口](docs/screenshots/v1.1.0/attention-state.png)
 
 ### 4. 复用密码，但不写进日志
 
 候选密码按行、按顺序尝试。Zxtract 可以从文件名和目录名推断密码，也可以复用本地密码库中的条目；密码修正后可直接应用到失败任务。
 
-![密码面板包含候选密码、路径推断和本地密码条目](docs/previews/zxtract-openpencil-password.png)
+![密码助手与本地密码库中的遮罩演示条目](docs/screenshots/v1.1.0/password-assistant.png)
 
 保存的密码使用当前 Windows 用户的 DPAPI 保护。程序只在 `%LOCALAPPDATA%\Zxtract\password-settings.json` 中保存加密数据和规则文本，不会把明文密码写进运行日志。
+
+### 5. 开始前确认解压设置
+
+月相皮肤在主界面用两行摘要显示输出位置、密码来源、同名处理和并行数量。点击 **查看设置**，即可在居中弹窗里修改；文件夹模式还可调整嵌套解压与跨目录分卷归并。任务运行或暂停期间，设置暂为只读。
+
+![流萤皮肤的解压设置弹窗](docs/screenshots/v1.1.0/extraction-options.png)
 
 ## 下载与运行要求
 
@@ -73,15 +80,15 @@ Zxtract 是一个 Windows 桌面解压工具，主要用来处理成批压缩包
 ### 解压指定文件
 
 1. 打开 **文件解压**，点击 **添加文件**（`Ctrl+O`），也可以直接把压缩包拖进窗口。
-2. 如果文件带密码，展开密码面板；每行填写一个候选密码。
-3. 在 **更多选项** 中确认输出位置、冲突策略和并行任务数。
+2. 如果文件带密码，在月相皮肤中打开 **查看设置 → 候选密码与密码库**，每行填写一个候选密码；墨流和清简有独立的密码入口。
+3. 在 **查看设置**（月相皮肤）或 **更多选项**（墨流、清简）中确认输出位置、冲突策略和并行任务数。
 4. 点击 **开始解压**（`F5`）。
 
 ### 处理整个文件夹
 
 1. 打开 **文件夹解压**，选择根目录。
-2. 用 **仅扫描**（`Ctrl+S`）先检查任务列表，或直接点击 **扫描并解压**。
-3. 在 **更多选项** 中按需调整递归解压、跨目录归并分卷和源文件删除。
+2. 用 **仅扫描**（`Ctrl+S`）先检查任务列表，或直接点击 **扫描并解压**。月相皮肤的仅扫描操作通过快捷键使用。
+3. 在 **查看设置** 或 **更多选项** 中按需调整递归解压、跨目录归并分卷和源文件删除。
 4. 运行结束后查看 **需处理**，只重试受影响的任务。
 
 ### 快捷键
@@ -134,7 +141,7 @@ dotnet build .\src\ExtractUtil.App\ExtractUtil.App.csproj -c Release
 生成 Windows x64 自包含发布包：
 
 ```powershell
-pwsh .\tools\Publish-Zxtract.ps1 -Version 1.0.2
+pwsh .\tools\Publish-Zxtract.ps1 -Version 1.1.0
 ```
 
 发布脚本会先检查应用程序、7-Zip 二进制文件和必要的许可文件，再生成 ZIP。
@@ -172,7 +179,8 @@ dotnet run --project .\tools\ExtractUtil.Smoke\ExtractUtil.Smoke.csproj -c Relea
 - [模块说明](docs/modules.md)
 - [界面重设计说明](docs/ui-redesign-proposal.md)
 - [原型状态](docs/figma-prototype-status.md)
-- [1.0.2 发布说明](docs/release-notes/v1.0.2.md)
+- [1.1.0 发布说明](docs/release-notes/v1.1.0.md)
+- [皮肤架构与扩展说明](docs/theme-system.md)
 
 ## 参与贡献与问题反馈
 
@@ -181,3 +189,21 @@ dotnet run --project .\tools\ExtractUtil.Smoke\ExtractUtil.Smoke.csproj -c Relea
 ## 开源协议
 
 Zxtract 自有代码和资源采用 [MIT License](LICENSE)。发布包包含未修改的官方 7-Zip 二进制文件，它们继续遵循各自的 LGPL、BSD 和 unRAR 限制条款。详见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) 和 [7-Zip 官方许可](licenses/7-Zip-License.txt)。
+
+## 1.1.0 新外观：让月相融入画面
+
+任务列表仍是工作中心，背景则可以换一种气氛。除[墨流深色](docs/screenshots/v1.1.0/ink-flow.png)和[清简浅色](docs/screenshots/v1.1.0/clear-light.png)，现在还有四套月相皮肤：
+
+| 夜航 · 山水月相 | 月白 · 纸上月痕 |
+| --- | --- |
+| ![夜航山水月相](docs/screenshots/v1.1.0/night-voyage.png) | ![月白纸上月痕](docs/screenshots/v1.1.0/lunar-paper.png) |
+| 流萤 · 极光抱月 | 玄石 · 月下岩境 |
+| ![流萤极光抱月](docs/screenshots/v1.1.0/lunar-aurora.png) | ![玄石月下岩境](docs/screenshots/v1.1.0/lunar-stone.png) |
+
+山水、纸墨与极光各有自己的月面和配色；玄石使用独立的左侧月景、右侧队列布局。月亮随已计量的工作进度平滑盈缺，所有任务完成后停在满月，收尾时保持相同大小，不额外叠加动态光圈。每个文件仍有真实百分比、进度条和运行指示；鼠标悬停或键盘聚焦月亮即可查看说明，画面不被数字遮挡。
+
+![使用实际 WPF 渲染器回放的月相动画](docs/screenshots/v1.1.0/moon-phase.gif)
+
+动图使用应用渲染器回放受控的进度变化，用于展示效果，不代表解压速度。月相按当前已发现任务等权汇总，不是字节进度；扫描、验证密码等无法计量的阶段不会制造百分比。空队列就绪时的满月仅作装饰。隐藏、最小化或 Windows 关闭动画时停止或跳过动效，并遵守高对比度设置。
+
+点击最小化按钮左边的小齿轮即可换肤，选好后菜单自动收起。队列、选中项和正在进行的解压保持原样；外观偏好单独保存在 `%LOCALAPPDATA%\Zxtract\appearance.json`。
